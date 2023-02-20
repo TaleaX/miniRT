@@ -1,5 +1,6 @@
 #ifndef MINIRT_H
 # define MINIRT_H
+# include <math.h>
 
 typedef struct v2 {
 	double x;
@@ -13,9 +14,9 @@ typedef struct v3 {
 } Vec3;
 
 typedef struct v4 {
-	double x;
-	double y;
-	double z;
+	double r;
+	double g;
+	double b;
 	double a;
 } Vec4;
 

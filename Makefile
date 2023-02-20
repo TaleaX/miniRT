@@ -18,8 +18,8 @@ OBJ_DIR		=	obj/
 SRC_DIR		=	src/
 INC_DIR		=	include/
 
-SRC_NAME	=	main
-INC_NAME	=	miniRT
+SRC_NAME	=	main vectorMath
+INC_NAME	=	miniRT vectorMath
 
 SRC_FILES	=	$(addsuffix .c, $(addprefix $(SRC_DIR), $(SRC_NAME)))
 OBJ_FILES	=	$(addsuffix .o, $(addprefix $(OBJ_DIR), $(SRC_NAME)))
