@@ -20,8 +20,8 @@ static void ft_error(void)
 
 static uint32_t	get_rgba(Vec4 colors)
 {	uint8_t r = (uint8_t)(255.0 * colors.r);
-	uint8_t g = (uint8_t)(255.0 * colors.b);
-	uint8_t b = (uint8_t)(255.0 * colors.g);
+	uint8_t g = (uint8_t)(255.0 * colors.g);
+	uint8_t b = (uint8_t)(255.0 * colors.b);
 	uint8_t a = (uint8_t)(255.0 * colors.a);
 	
 	// return (a << 24) | (b << 16) | (g << 8) | r;
@@ -51,7 +51,7 @@ static uint32_t color (Vec2 coord, double radius, Vec3 center) {
 		return (get_rgba(colors));
 	}
 	Vec4 colors = {0, 0, 0, 1};
-	double t1 = (-b + sqrt(discriminant)) / (2.0 * a);
+	// double t1 = (-b + sqrt(discriminant)) / (2.0 * a);
 	double t2 = (-b - sqrt(discriminant)) / (2.0 * a);
 	// Vec3 hitPos1;
 	// hitPos1.x = rayOrigin.x + rayDirection.x * t1;
@@ -69,8 +69,8 @@ static uint32_t color (Vec2 coord, double radius, Vec3 center) {
 	vec3_normalize(&lightDir);
 
 	double d = fmax(dot_produkt(hitPos2, lightDir), 0.0);
-	// Vec4 color = {hitPos2.x * 0.5 + 0.5, hitPos2.y * 0.5 + 0.5, hitPos2.z * 0.5 + 0.5, 1.0};	
-	Vec4 sphereColor = {0.0, 1.0, 0.0 , 1.0};
+	Vec4 sphereColor = {hitPos2.x * 0.5 + 0.5, hitPos2.y * 0.5 + 0.5, hitPos2.z * 0.5 + 0.5, 1.0};	
+	//Vec4 sphereColor = {0.9, 0.3, 0.85 , 1.0};
 	sphereColor.r *= d;
 	sphereColor.g *= d;
 	sphereColor.b *= d;
@@ -90,14 +90,14 @@ int32_t	main(void)
 		ft_error();
 
 	// Vec3 rayOrigin = {0, 0, 2};
-	double radius = 0.5;
+	double radius = 0.3;
 	Vec2 coord;
 	Vec3 center = {0.0, 0.0, 0.0};
 	for (double y = 0; y < HEIGHT; ++y){
 		for (double x = 0; x < WIDTH; ++x){
 			coord.y = (y / HEIGHT) * 2.0 - 1.0;
 			coord.x = (x / WIDTH) * 2.0 - 1.0;
-			mlx_put_pixel(img,x, y, color(coord, radius, center));
+			mlx_put_pixel(img, x, y, color(coord, radius, center));
 		}
 	}
 	mlx_loop(mlx);
