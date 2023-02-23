@@ -1,23 +1,19 @@
 #ifndef MINIRT_H
 # define MINIRT_H
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <memory.h>
 # include <math.h>
+# include "vector.h"
+#include "MLX42/MLX42.h"
 
-typedef struct v2 {
-	double x;
-	double y;
-} Vec2;
+typedef struct window { 
+	mlx_image_t*	img;
+	int				x;
+	int				y;
+	Vec2			coord;
+} Window;
 
-typedef struct v3 {
-	double x;
-	double y;
-	double z;
-} Vec3;
-
-typedef struct v4 {
-	double r;
-	double g;
-	double b;
-	double a;
-} Vec4;
 
 #endif

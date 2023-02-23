@@ -1,18 +1,34 @@
-#include "miniRT.h"
+#include "vector.h"
 
 double dot_produkt(Vec3 v1, Vec3 v2) {
 	return(v1.x * v2.x + v1.y * v2.y + v1.z * v2.z);
 }
 
-double vec3_length(Vec3  vec) {
-	return (sqrt(vec.x * vec.x + vec.y * vec.y + vec.z * vec.z));
+double length(void* self) {
+	Vec3*	this;
+
+	this = self;
+	return (sqrt(this->x * this->x + this->y * this->y + this->z * this->z));
 }
 
-void	vec3_normalize(Vec3* vec) {
-	double length = vec3_length(*vec);
-	(*vec).x /= length; 
-	(*vec).y /= length; 
-	(*vec).z /= length; 
+void	normalize(void* self) {
+	Vec3*	this;
+	double length;
+
+	this = self;
+	length = this->length(this);
+	this->x /= length; 
+	this->y /= length; 
+	this->z /= length; 
+}
+
+void	hitPos(void* self, Vec3 rayOrigin, Vec3 rayDirection, double t) {
+	Vec3*	this;
+
+	this = self;
+	this->x = rayOrigin.x + rayDirection.x * t;
+	this->y = rayOrigin.y + rayDirection.y * t;
+	this->z = rayOrigin.z + rayDirection.z * t;
 }
 
 Vec3 vec3_subtraction(Vec3  vec1, Vec3 vec2) {
