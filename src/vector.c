@@ -40,3 +40,12 @@ Vec3 vec3_subtraction(Vec3  vec1, Vec3 vec2) {
 
 	return (v);
 }
+
+void	changeCoords(void* self, double x, double y, double z) {
+	Vec3*	this;
+
+	this = self;
+	this->x = x;
+	this->y = y;
+	this->z = z;
+}

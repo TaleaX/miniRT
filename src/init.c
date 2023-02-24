@@ -27,6 +27,7 @@ void	initVec3(void* self, double x, double y, double z) {
 	this->length = length;
 	this->normalize = normalize;
 	this->hitPos = hitPos;
+	this->changeCoords = changeCoords;
 }
 
 void	initRoom(void* self) {
@@ -47,4 +48,13 @@ void	initRoom(void* self) {
 		this->sphere[i].changeCenter(&this->sphere[i], 0, i, 0);
 		++i;
 	}
+}
+
+
+void	initWindow(Window* window, mlx_image_t* img) {
+	Vec3 viewport;
+
+	initVec3(&viewport, 0, 0, 1);
+	window->img = img;
+	window->viewport = viewport;
 }

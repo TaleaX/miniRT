@@ -41,17 +41,21 @@ static void	colorSphere (Vec3 hitPos, Window window) {
 	hitPos.normalize(&hitPos);
 	lightDir.normalize(&lightDir);
 	d = fmax(dot_produkt(hitPos, lightDir), 0.0);
-	sphereColor.r = (hitPos.x * 0.5 + 0.5);// * d;
-	sphereColor.g = (hitPos.y * 0.5 + 0.5);// * d;
-	sphereColor.b = (hitPos.z * 0.5 + 0.5);// * d;
+	hitPos.x = (hitPos.x < 0) ? 0 : ((hitPos.x > 255 ? 255 : hitPos.x));
+	hitPos.y = (hitPos.y < 0) ? 0 : ((hitPos.y > 255 ? 255 : hitPos.y));
+	hitPos.z = (hitPos.z < 0) ? 0 : ((hitPos.z > 255 ? 255 : hitPos.z));
+
+	sphereColor.r = (hitPos.x);// * 0.5 + 0.5);// * d;
+	sphereColor.g = (hitPos.y);// * 0.5 + 0.5);// * d;
+	sphereColor.b = (hitPos.z);// * 0.5 + 0.5);// * d;
 	sphereColor.a = 1.0;
 	mlx_put_pixel(window.img, window.x, window.y, get_rgba(sphereColor));
 }
 
 void	color(void* self, Window window) {
 	Sphere*	this;
-	Vec3	rayOrigin = {0.0, 0.0, 3.0};
-	Vec3	rayDirection = {window.coord.x, window.coord.y, -1.0};
+	Vec3	rayOrigin = {0.0, 0.0, 1.0};
+	Vec3	rayDirection = window.viewport;
 	double	discriminant;
 	Vec3*	hitPos;
 
@@ -59,9 +63,8 @@ void	color(void* self, Window window) {
 	this = self;
 	hitPos = getHitPoint(*this, rayOrigin, rayDirection);
 	if (hitPos == NULL) {
-		return;
 		// Vec4 colors = {0, 0, 0, 1};
-		// mlx_put_pixel(window.img, window.x, window.y, 0x000000ff);
+		mlx_put_pixel(window.img, window.x, window.y, 0x000000ff);
 	} else
 		colorSphere(*hitPos, window);
 	free(hitPos);

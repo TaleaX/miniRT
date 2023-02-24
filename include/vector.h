@@ -11,6 +11,8 @@ void	initVec3(void* self, double x, double y, double z);
 double	length(void* self);
 void	normalize(void* self);
 void	hitPos(void* self, Vec3 rayorigin, Vec3 rayDirection, double t);
+void	changeCoords(void* self, double x, double y, double z);
+
 
 struct v2 {
 	double	x;
@@ -24,6 +26,7 @@ struct v3 {
 	double	(*length)(void* self);
 	void	(*normalize)(void* self);
 	void	(*hitPos)(void* self, Vec3 rayorigin, Vec3 rayDirection, double t);
+	void	(*changeCoords)(void* self, double x, double y, double z);
 };
 
 struct v4 {

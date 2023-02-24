@@ -1,8 +1,7 @@
 #include "miniRT.h"
 #include "vector.h"
 #include "room.h"
-#define WIDTH 800
-#define HEIGHT 800
+
 
 static mlx_image_t* img;
 
@@ -74,12 +73,13 @@ void colorRoom(Room room, Window window) {
 	int	i;
 
 	i = 0;
-	while (i < 4) {
-		// printf("sphere %d x %f y %f z %f\n", i, room.sphere[i].center.x, room.sphere[i].center.y, room.sphere[i].center.z);
-		room.sphere[i].color(&room.sphere[i], window);
-		//room.plane[i].color(&room.plane[0], window);
-		++i;
-	}
+	room.sphere[0].color(&room.sphere[0], window);
+	// while (i < 4) {
+	// 	// printf("sphere %d x %f y %f z %f\n", i, room.sphere[i].center.x, room.sphere[i].center.y, room.sphere[i].center.z);
+	// 	room.sphere[i].color(&room.sphere[i], window);
+	// 	//room.plane[i].color(&room.plane[0], window);
+	// 	++i;
+	// }
 }
 
 int32_t	main(void)
@@ -96,14 +96,15 @@ int32_t	main(void)
 	if (!img || (mlx_image_to_window(mlx, img, 0, 0) < 0))
 		ft_error();
 	initRoom(&room);
-	window.img = img;
+	initWindow(&window, img);
 	for (double y = 0; y < HEIGHT; ++y){
 		for (double x = 0; x < WIDTH; ++x){
-			coord.y = (y / HEIGHT) * 2.0 - 1.0;
-			coord.x = (x / WIDTH) * 2.0 - 1.0;
-			window.coord = coord;
-			window.x = x;
-			window.y = y;
+			// window.viewport.changeCoords(&window.viewport, x * VH / WIDTH, y * VW / HEIGHT, 1);
+			// window.viewport.y = y * VW / HEIGHT;//((y / HEIGHT));// * 2.0 - 1.0) * -1;
+			// window.viewport.x = x * VH / WIDTH;//((x / WIDTH)); //* 2.0 - 1.0) * -1;
+			// window.x = x;
+			// window.y = y;
+			windowSetVars(&window, x, y);
 			colorRoom(room, window);
 		}
 	}

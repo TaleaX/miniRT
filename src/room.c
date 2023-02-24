@@ -15,3 +15,4 @@ void	changeCenter(void* self, double x, double y, double z){
 	this->center.y = y;
 	this->center.z = z;
 }
+
