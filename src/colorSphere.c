@@ -32,7 +32,7 @@ static Vec3*	getHitPoint(Sphere sphere, Vec3 rayOrigin, Vec3 rayDirection){
 
 	// we use the second hitpoint cause its the closer one
 
-static void	colorSphere (Vec3 hitPos, Window window) {
+static void	color(Vec3 hitPos, Window window) {
 	Vec4	sphereColor;
 	Vec3	lightDir;
 	double	d;
@@ -52,7 +52,7 @@ static void	colorSphere (Vec3 hitPos, Window window) {
 	mlx_put_pixel(window.img, window.x, window.y, get_rgba(sphereColor));
 }
 
-void	color(void* self, Window window) {
+void	colorSphere(void* self, Window window) {
 	Sphere*	this;
 	Vec3	rayOrigin = {0.0, 0.0, 1.0};
 	Vec3	rayDirection = window.viewport;
@@ -64,8 +64,8 @@ void	color(void* self, Window window) {
 	hitPos = getHitPoint(*this, rayOrigin, rayDirection);
 	if (hitPos == NULL) {
 		// Vec4 colors = {0, 0, 0, 1};
-		mlx_put_pixel(window.img, window.x, window.y, 0x000000ff);
+		// mlx_put_pixel(window.img, window.x, window.y, 0x000000ff);
 	} else
-		colorSphere(*hitPos, window);
+		color(*hitPos, window);
 	free(hitPos);
 }

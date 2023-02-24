@@ -73,7 +73,7 @@ void colorRoom(Room room, Window window) {
 	int	i;
 
 	i = 0;
-	room.sphere[0].color(&room.sphere[0], window);
+	room.sphere[0].colorSphere(&room.sphere[0], window);
 	// while (i < 4) {
 	// 	// printf("sphere %d x %f y %f z %f\n", i, room.sphere[i].center.x, room.sphere[i].center.y, room.sphere[i].center.z);
 	// 	room.sphere[i].color(&room.sphere[i], window);

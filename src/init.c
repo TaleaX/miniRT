@@ -7,7 +7,7 @@ void	initSphere(void* self, Vec3 center, double radius) {
 	this->center = center;
 	this->radius = radius;
 	this->changeRadius = changeRadius;
-	this->color = color;
+	this->colorSphere = colorSphere;
 	this->changeCenter = changeCenter;
 	
 }
@@ -35,26 +35,42 @@ void	initRoom(void* self) {
 	Vec3	rayOrigin;
 	Vec3	rayDirection;
 	Vec3	sphereOrigin;
+	Vec3	planeOrigin;
+	Vec3	planePoint;
+	Vec3	planeNormal;
 	int		i;
 
 	i = 0;
 	this = self;
-	initVec3(&rayOrigin, 0.0, 0.0, 5.0);
-	initVec3(&rayDirection, 0.0, 0.0, -1.0);
+	initVec3(&rayOrigin, 0.0, 0.0, 1.0);
+	initVec3(&rayDirection, 0.0, 0.0, 1.0);
 	initVec3(&sphereOrigin, 0.0, 0.0, 0.0);
+	initVec3(&planeOrigin, 0.0, 0.0, 3);
+	initVec3(&planeNormal, 0.0, 0.0, 0.1);
+	initVec3(&planePoint, 0.0, 0.0, 0.0);
 	initCamera(&(this->camera), rayOrigin, rayDirection);
+	initPlane(&this->plane[0], planePoint, planeOrigin, planeNormal);
 	while (i < 4) {
 		initSphere(&this->sphere[i], sphereOrigin, 0.5);
-		this->sphere[i].changeCenter(&this->sphere[i], 0, i, 0);
+		// sphereOrigin.changeCoords(&sphereOrigin, 0, 0, i + 1);
+		// this->sphere[i].changeCenter(&this->sphere[i], 0, i, 0);
 		++i;
 	}
 }
 
+void initPlane(void* self, Vec3 point, Vec3 origin, Vec3 normal) {
+	Plane*	this;
+
+	this = self;
+	this->point = point;
+	this->normal = normal;
+	this->origin = origin;
+}
 
 void	initWindow(Window* window, mlx_image_t* img) {
 	Vec3 viewport;
 
-	initVec3(&viewport, 0, 0, 1);
+	initVec3(&viewport, 0, 0, -1);
 	window->img = img;
 	window->viewport = viewport;
 }
