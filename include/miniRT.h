@@ -20,7 +20,7 @@
 # include "vector.h"
 # include "room.h"
 # include "utils.h"
-# include "MLX42/MLX42.h"
+# include "../MLX42/include/MLX42/MLX42.h"
 # define WIDTH 800
 # define HEIGHT 800
 # define VH 2
