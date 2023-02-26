@@ -13,11 +13,11 @@
 #ifndef UTILS_H
 # define UTILS_H
 # include <stdlib.h>
+# include <stdint.h>
 # include "vector.h"
 
 
 
 uint32_t	get_rgba(t_color color);
-
 
 #endif

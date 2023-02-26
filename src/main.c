@@ -26,10 +26,8 @@ static void	ft_error(void)
 int32_t	main(void)
 {
 	mlx_t		*mlx;
-	t_vec2		coord;
 	t_window	window;
-	t_sphere	sphere;
-	t_vec3		center = {0.0, 0.0, 0.0};
+	t_sphere	spheres[4];
 
 	if (!(mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true)))
 		return (EXIT_FAILURE);
@@ -37,18 +35,20 @@ int32_t	main(void)
 	memset(g_img->pixels, 0, g_img->width * g_img->height * sizeof(int));
 	if (!g_img || (mlx_image_to_window(mlx, g_img, 0, 0) < 0))
 		ft_error();
+	//provisorisches window und spheres initialisieren ... soll noch geändert werden
 	window.g_img = g_img;
 	window.y = 0.0;
-	sphere.center = center;
-	sphere.radius = 0.5;
+	init_spheres(spheres);
+
+	//raytracing
 	while (window.y < HEIGHT)
 	{
 		window.x = 0.0;
 		while (window.x < WIDTH)
 		{
-			window.coords.x = (window.x * VW / WIDTH - (VW / 2));
-			window.coords.y = (window.y * VH / HEIGHT - (VH / 2)) * -1;
-			color_sphere(window, sphere);
+			window.coords.x = (window.x * VW / (WIDTH -1) - (VW / 2));
+			window.coords.y = (window.y * VH / (HEIGHT - 1) - (VH / 2)) * -1;
+			color_spheres(window, spheres);
 			++(window.x);
 		}
 		++(window.y);

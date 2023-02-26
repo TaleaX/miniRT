@@ -17,7 +17,9 @@ static double	hit_sphere(t_sphere sphere, t_vec3 ray_origin, t_vec3 ray_directio
 	double	b;
 	double	c;
 	double	discriminant;
-	t_vec3	oc;	
+	t_vec3	oc;
+	double	t1;
+	double	t2;
 
 	oc = t_vec3_subtraction(sphere.center, ray_origin);
 	// printf("%f %f %f\n", oc.x, oc.y, oc.z);
@@ -29,21 +31,52 @@ static double	hit_sphere(t_sphere sphere, t_vec3 ray_origin, t_vec3 ray_directio
 	discriminant = b * b - 4.0 * a * c;
 	if (discriminant < 0.0)
 		return (-1);
-	return ((-b - sqrt(discriminant)) / (2.0 * a));
+	t1 = (-b - sqrt(discriminant)) / (2.0 * a);
+	t2 = (-b + sqrt(discriminant)) / (2.0 * a);
+	if (t2 < t1)
+		t1 = t2;
+	return (t1);
 }
 
-void	color_sphere(t_window window, t_sphere sphere)
+uint32_t get_color(t_vec3 hitpos, t_vec3 center)
 {
-	double		t;
-	t_color		color;
-	t_vec3		ray_origin = {0.0, 0.0, 1.0};
-	t_vec3		ray_direction = {window.coords.x, window.coords.y, -1};
+	t_vec3	normal;
+	t_color color;
 
-	t = hit_sphere(sphere, ray_origin, ray_direction);
-	if (t >= 0.0) {
-		// printf("%f\n",t);
-		mlx_put_pixel(window.g_img, (int)window.x, (int)window.y, 0x00ff00ff);
-	} else {
-		mlx_put_pixel(window.g_img, (int)window.x, (int)window.y, 0x000000ff);
+	normal = t_vec3_subtraction(center, hitpos);
+	normal.normalize(&normal);
+	color.r = normal.x * 0.5 + 0.5;
+	color.g = normal.y * 0.5 + 0.5;
+	color.b = normal.z * 0.5 + 0.5;
+	color.a = 1;
+	return (get_rgba(color));
+}
+
+void	color_spheres(t_window window, t_sphere sphere[4])
+{
+	double		t_min;
+	t_vec3		ray_origin;
+	t_vec3		ray_direction;
+	t_vec3		hitpos;
+	size_t		i;
+	double		t_closest;
+
+	i = 0;
+	t_closest = __DBL_MAX__;
+	init_vec3(&ray_origin, 0.0, 0.0, 3.0);
+	init_vec3(&ray_direction, window.coords.x, window.coords.y, -1);
+	ray_direction.normalize(&ray_direction);
+	while (i < 4)
+	{
+		t_min = hit_sphere(sphere[i], ray_origin, ray_direction);
+		if (t_min > 0 && t_min < t_closest)
+		{
+			hitpos = get_hitpos(ray_origin, ray_direction, t_min);
+			mlx_put_pixel(window.g_img, (int)window.x, (int)window.y, get_color(hitpos, sphere[i].center)); //get_rgba(sphere[i].color));//
+			t_closest = t_min;
+		}
+		++i;
 	}
+	if (t_closest == __DBL_MAX__)
+		mlx_put_pixel(window.g_img, (int)window.x, (int)window.y, 0x000000ff);
 }

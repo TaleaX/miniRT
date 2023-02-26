@@ -20,11 +20,14 @@ typedef struct s_camera	t_camera;
 struct s_sphere {
 	t_vec3	center;
 	double	radius;
+	t_color	color;
 };
 
 struct s_camera {
 	t_vec3	ray_origin;
 	t_vec3	ray_direction;
 };
+
+void	init_spheres(t_sphere spheres[4]);
 
 #endif

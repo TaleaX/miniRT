@@ -28,7 +28,7 @@
 
 typedef struct s_window	t_window;
 
-void		color_sphere(t_window window, t_sphere sphere);
+void		color_spheres(t_window window, t_sphere spheres[4]);
 
 
 struct s_window {

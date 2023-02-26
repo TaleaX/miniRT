@@ -27,9 +27,11 @@ void	normalize(void *self)
 
 	this = self;
 	length = this->length(this);
-	this->x /= length;
-	this->y /= length;
-	this->z /= length;
+	if (length != 0) {
+		this->x /= length;
+		this->y /= length;
+		this->z /= length;
+	}
 }
 
 void	change_coords(void *self, double x, double y, double z)
