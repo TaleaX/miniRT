@@ -1,58 +1,30 @@
-#ifndef classes_H
-# define classes_H
-# include "miniRT.h"
-// # include "vector.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   room.h                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tdehne <tdehne@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/26 16:15:13 by tdehne            #+#    #+#             */
+/*   Updated: 2023/02/26 16:31:30 by tdehne           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-typedef struct sphere Sphere;
-typedef struct camera Camera;
+#ifndef ROOM_H
+# define ROOM_H
+# include "vector.h"
 
-void	initSphere(void* self, Vec3 center, double radius);
-void	initPlane(void* self, Vec3 point, Vec3 origin, Vec3 normal);
-void	initCamera(void* self, Vec3 rayOrigin, Vec3 rayDirection);
-void	initRoom(void* self);
+typedef struct s_sphere	t_sphere;
+typedef struct s_camera	t_camera;
 
-// void	colorSphere (Vec3 hitPos, Window window);
-void	colorSphere(void* self, Window window);
-void	changeRadius(void* self, double radius);
-void	changeCenter(void* self, double x, double y, double z);
-// void		moveCamera(void* self);
-
-//color Plane
-void	colorPlane(void* self, Window window);
-
-struct sphere {
-	Vec3	center;
+struct s_sphere {
+	t_vec3	center;
 	double	radius;
-	void	(*changeRadius)(void* self, double radius);
-	void	(*colorSphere)(void* self, Window window);
-	void	(*changeCenter)(void* self, double x, double y, double z);
 };
 
-typedef struct plane {
-	Vec3	point;
-	Vec3	origin;
-	Vec3	normal;
-	void	(*colorPlane)(void* self, Window window);
-} Plane;
-
-typedef struct cylinder {
-	
-} Cylinder;
-
-struct camera {
-	Vec3 rayOrigin;
-	Vec3 rayDirection;
+struct s_camera {
+	t_vec3	ray_origin;
+	t_vec3	ray_direction;
 };
-
-typedef struct room {
-	Sphere		sphere[4];
-	Plane		plane[4];
-	Cylinder	cylinder[4];
-	Camera		camera;
-	// void (*init)(void* self);
-	// void (*moveCamera)(void* self);
-} Room;
-
-void	testColor(Window window, Sphere spheres[4]);
 
 #endif
