@@ -10,10 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "../include/miniRT.h"
 // #include "vector.h"
-#include "utils.h"
-#include "room.h"
+#include "../include/utils.h"
+#include "../include/room.h"
 
 static mlx_image_t	*g_img;
 
