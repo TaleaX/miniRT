@@ -51,9 +51,9 @@ void	initRoom(void* self) {
 	initCamera(&(this->camera), rayOrigin, rayDirection);
 	initPlane(&this->plane[0], planePoint, planeOrigin, planeNormal);
 	while (i < 4) {
-		initSphere(&this->sphere[i], sphereOrigin, 0.5);
-		// sphereOrigin.changeCoords(&sphereOrigin, 0, 0, i + 1);
-		// this->sphere[i].changeCenter(&this->sphere[i], 0, i, 0);
+		initSphere(&this->sphere[i], sphereOrigin, 1);
+		this->sphere[i].changeCenter(&this->sphere[i], i, 0, 0);
+		// sphereOrigin.changeCoords(&sphereOrigin, i / 2, 0, 0);
 		++i;
 	}
 }
@@ -69,8 +69,10 @@ void initPlane(void* self, Vec3 point, Vec3 origin, Vec3 normal) {
 
 void	initWindow(Window* window, mlx_image_t* img) {
 	Vec3 viewport;
+	Camera	camera;
 
 	initVec3(&viewport, 0, 0, -1);
 	window->img = img;
-	window->viewport = viewport;
+	// window->coords = coords;
+	// window->viewport = viewport;
 }

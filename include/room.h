@@ -53,4 +53,6 @@ typedef struct room {
 	// void (*moveCamera)(void* self);
 } Room;
 
+void	testColor(Window window, Sphere spheres[4]);
+
 #endif

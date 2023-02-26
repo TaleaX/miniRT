@@ -73,7 +73,9 @@ void colorRoom(Room room, Window window) {
 	int	i;
 
 	i = 0;
-	room.sphere[0].colorSphere(&room.sphere[0], window);
+	// printf("okay\n");
+	testColor(window, room.sphere);
+	// room.sphere[0].colorSphere(&room.sphere[0], window);
 	// while (i < 4) {
 	// 	// printf("sphere %d x %f y %f z %f\n", i, room.sphere[i].center.x, room.sphere[i].center.y, room.sphere[i].center.z);
 	// 	room.sphere[i].color(&room.sphere[i], window);
@@ -96,15 +98,18 @@ int32_t	main(void)
 	if (!img || (mlx_image_to_window(mlx, img, 0, 0) < 0))
 		ft_error();
 	initRoom(&room);
-	initWindow(&window, img);
+	// initWindow(&window, img);
+	window.img = img;
 	for (double y = 0; y < HEIGHT; ++y){
 		for (double x = 0; x < WIDTH; ++x){
 			// window.viewport.changeCoords(&window.viewport, x * VH / WIDTH, y * VW / HEIGHT, 1);
 			// window.viewport.y = y * VW / HEIGHT;//((y / HEIGHT));// * 2.0 - 1.0) * -1;
 			// window.viewport.x = x * VH / WIDTH;//((x / WIDTH)); //* 2.0 - 1.0) * -1;
-			// window.x = x;
-			// window.y = y;
-			windowSetVars(&window, x, y);
+			window.x = x;
+			window.y = y;
+			window.coords.x = (2 * x * VW / WIDTH - VW);
+			window.coords.y = (2 * y * VH / HEIGHT - VH) * -1;
+			// windowSetVars(&window, x, y);
 			colorRoom(room, window);
 		}
 	}

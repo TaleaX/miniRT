@@ -23,7 +23,8 @@ struct window {
 	mlx_image_t*	img;
 	int				x;
 	int				y;
-	Vec3			viewport;
+	// Camera			camera;
+	Vec2			coords;
 };
 
 void	initWindow(Window* window, mlx_image_t* img);

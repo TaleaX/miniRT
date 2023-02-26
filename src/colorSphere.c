@@ -54,8 +54,8 @@ static void	color(Vec3 hitPos, Window window) {
 
 void	colorSphere(void* self, Window window) {
 	Sphere*	this;
-	Vec3	rayOrigin = {0.0, 0.0, 1.0};
-	Vec3	rayDirection = window.viewport;
+	Vec3	rayOrigin = {0.0, 0.0, 5.0};
+	Vec3	rayDirection = {window.coords.x, window.coords.y, -1};
 	double	discriminant;
 	Vec3*	hitPos;
 
@@ -68,4 +68,46 @@ void	colorSphere(void* self, Window window) {
 	} else
 		color(*hitPos, window);
 	free(hitPos);
+}
+
+void	testColor(Window window, Sphere spheres[4]){
+	Vec3	rayOrigin = {0.0, 0.0, 3.0};
+	Vec3	rayDirection = {window.coords.x, window.coords.y, -1};
+	double	discriminant;
+	Vec3**	hitPos;
+	// Vec3*	hitPosRet;
+	size_t	i;
+	size_t	counter;
+	hitPos = calloc(4, sizeof(Vec3*));
+
+	i = 0;
+	while (i < 4) {
+		// printf("%f %f\n", spheres[i].radius, spheres[i].center.x);
+		hitPos[i] = getHitPoint(spheres[i], rayOrigin, rayDirection);
+		// if (hitPos[i])
+			// printf("i %ld hitpos x %f y %f z %f", i, hitPos[i]->x, hitPos[i]->y, hitPos[i]->z);
+		++i;
+	}
+	i = 0;
+	counter = 0;
+	while (i < 4) {
+		if (hitPos[i])
+			color(*(hitPos[i]), window);
+		else
+			counter++;
+		++i;
+	}
+	if (counter == 4) {
+		mlx_put_pixel(window.img, window.x, window.y, 0x000000ff);
+	}
+
+	// if (hitPos == NULL)
+	// 	mlx_put_pixel(window.img, window.x, window.y, 0x000000ff);
+	// else {
+	// 	i = 0;
+	// 	while (hitPos[i]) {
+	// 		color(*(hitPos[i++]), window);
+	// 	}
+	// }
+
 }

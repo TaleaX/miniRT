@@ -6,5 +6,5 @@ void	windowSetVars(void* self, double x, double y) {
 	this = self;
 	this->x = x;
 	this->y = y;
-	this->viewport.changeCoords(&this->viewport, x * VH / WIDTH - 1, (y * VW / HEIGHT - 1) * - 1, -1);
+	// this->viewport.changeCoords(&this->viewport, x * VH / WIDTH - 1, (y * VW / HEIGHT - 1) * - 1, -1);
 }
