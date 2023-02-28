@@ -23,11 +23,22 @@ static void	ft_error(void)
 	exit(EXIT_FAILURE);
 }
 
+void hook(void *param) {
+	mlx_t	*mlx;
+
+	mlx = param;
+	if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE)) {
+		mlx_close_window(mlx);
+	}
+
+}
+
 int32_t	main(void)
 {
 	mlx_t		*mlx;
 	t_window	window;
 	t_sphere	spheres[4];
+	t_plane		plane;
 
 	if (!(mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true)))
 		return (EXIT_FAILURE);
@@ -39,7 +50,7 @@ int32_t	main(void)
 	window.g_img = g_img;
 	window.y = 0.0;
 	init_spheres(spheres);
-
+	init_plane(&plane);
 	//raytracing
 	while (window.y < HEIGHT)
 	{
@@ -48,11 +59,12 @@ int32_t	main(void)
 		{
 			window.coords.x = (window.x * VW / (WIDTH -1) - (VW / 2));
 			window.coords.y = (window.y * VH / (HEIGHT - 1) - (VH / 2)) * -1;
-			color_spheres(window, spheres);
+			color_plane(window, plane);
 			++(window.x);
 		}
 		++(window.y);
 	}
+	mlx_loop_hook(mlx, &hook, mlx);
 	mlx_loop(mlx);
 	mlx_terminate(mlx);
 	return (EXIT_SUCCESS);

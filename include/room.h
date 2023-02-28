@@ -15,11 +15,19 @@
 # include "vector.h"
 
 typedef struct s_sphere	t_sphere;
+typedef struct s_plane	t_plane;
 typedef struct s_camera	t_camera;
 
 struct s_sphere {
 	t_vec3	center;
 	double	radius;
+	t_color	color;
+};
+
+struct s_plane {
+	t_vec3	p;
+	t_vec3	normal;
+	t_vec3	c;
 	t_color	color;
 };
 
@@ -29,5 +37,6 @@ struct s_camera {
 };
 
 void	init_spheres(t_sphere spheres[4]);
+void	init_plane(t_plane* plane);
 
 #endif

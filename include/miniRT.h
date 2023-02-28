@@ -23,13 +23,13 @@
 # include "../MLX42/include/MLX42/MLX42.h"
 # define WIDTH 800
 # define HEIGHT 800
-# define VH 2
-# define VW 2
+# define VH 4
+# define VW 4
 
 typedef struct s_window	t_window;
 
 void		color_spheres(t_window window, t_sphere spheres[4]);
-
+void		color_plane(t_window window, t_plane plane);
 
 struct s_window {
 	mlx_image_t	*g_img;

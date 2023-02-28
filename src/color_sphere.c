@@ -21,13 +21,10 @@ static double	hit_sphere(t_sphere sphere, t_vec3 ray_origin, t_vec3 ray_directio
 	double	t1;
 	double	t2;
 
-	oc = t_vec3_subtraction(sphere.center, ray_origin);
-	// printf("%f %f %f\n", oc.x, oc.y, oc.z);
-	a = dot_produkt(ray_direction, ray_direction);
-	// b = 2.0 * (dot_produkt(ray_origin, ray_direction) - dot_produkt(sphere.center, ray_direction));
-	b = 2.0 * dot_produkt(oc, ray_direction);
-	// c = -2 * dot_produkt(ray_origin, sphere.center) + dot_produkt(sphere.center, sphere.center) + dot_produkt(ray_origin, ray_origin) - sphere.radius * sphere.radius;
-	c = dot_produkt(oc, oc) - sphere.radius * sphere.radius;
+	oc = vec3_subtraction(sphere.center, ray_origin);
+	a = vec3_dot(ray_direction, ray_direction);
+	b = 2.0 * vec3_dot(oc, ray_direction);
+	c = vec3_dot(oc, oc) - sphere.radius * sphere.radius;
 	discriminant = b * b - 4.0 * a * c;
 	if (discriminant < 0.0)
 		return (-1);
@@ -43,8 +40,8 @@ uint32_t get_color(t_vec3 hitpos, t_vec3 center)
 	t_vec3	normal;
 	t_color color;
 
-	normal = t_vec3_subtraction(center, hitpos);
-	normal.normalize(&normal);
+	normal = vec3_subtraction(center, hitpos);
+	vec3_normalize(&normal);
 	color.r = normal.x * 0.5 + 0.5;
 	color.g = normal.y * 0.5 + 0.5;
 	color.b = normal.z * 0.5 + 0.5;
@@ -52,7 +49,7 @@ uint32_t get_color(t_vec3 hitpos, t_vec3 center)
 	return (get_rgba(color));
 }
 
-void	color_spheres(t_window window, t_sphere sphere[4])
+void	color_spheres(t_window window, t_sphere spheres[4])
 {
 	double		t_min;
 	t_vec3		ray_origin;
@@ -63,16 +60,16 @@ void	color_spheres(t_window window, t_sphere sphere[4])
 
 	i = 0;
 	t_closest = __DBL_MAX__;
-	init_vec3(&ray_origin, 0.0, 0.0, 3.0);
-	init_vec3(&ray_direction, window.coords.x, window.coords.y, -1);
-	ray_direction.normalize(&ray_direction);
+	init_vec3(&ray_origin, 0.0, 0.0, -3.0);
+	init_vec3(&ray_direction, window.coords.x, window.coords.y, 1);
+	vec3_normalize(&ray_direction);
 	while (i < 4)
 	{
-		t_min = hit_sphere(sphere[i], ray_origin, ray_direction);
-		if (t_min > 0 && t_min < t_closest)
+		t_min = hit_sphere(spheres[i], ray_origin, ray_direction);
+		if (t_min >= 1 && t_min < t_closest)
 		{
 			hitpos = get_hitpos(ray_origin, ray_direction, t_min);
-			mlx_put_pixel(window.g_img, (int)window.x, (int)window.y, get_color(hitpos, sphere[i].center)); //get_rgba(sphere[i].color));//
+			mlx_put_pixel(window.g_img, (int)window.x, (int)window.y, get_color(hitpos, spheres[i].center)); //get_rgba(sphere[i].color));//
 			t_closest = t_min;
 		}
 		++i;

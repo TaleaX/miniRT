@@ -12,39 +12,34 @@
 
 #include "vector.h"
 
-double	length(void	*self)
+double	vec3_length(t_vec3 *v)
 {
-	t_vec3	*this;
-
-	this = self;
-	return (sqrt(this->x * this->x + this->y * this->y + this->z * this->z));
+	return (sqrt(v->x * v->x + v->y * v->y + v->z * v->z));
 }
 
-void	normalize(void *self)
+void	vec3_normalize(t_vec3 *v)
 {
-	t_vec3	*this;
 	double	length;
 
-	this = self;
-	length = this->length(this);
+	length = vec3_length(v);
 	if (length != 0) {
-		this->x /= length;
-		this->y /= length;
-		this->z /= length;
+		v->x /= length;
+		v->y /= length;
+		v->z /= length;
 	}
 }
 
-void	change_coords(void *self, double x, double y, double z)
-{
-	t_vec3	*this;
+// void	change_coords(void *self, double x, double y, double z)
+// {
+// 	t_vec3	*this;
 
-	this = self;
-	this->x = x;
-	this->y = y;
-	this->z = z;
-}
+// 	this = self;
+// 	this->x = x;
+// 	this->y = y;
+// 	this->z = z;
+// }
 
-double	dot_produkt(t_vec3 v1, t_vec3 v2)
+double	vec3_dot(t_vec3 v1, t_vec3 v2)
 {
 	return (v1.x * v2.x + v1.y * v2.y + v1.z * v2.z);
 }
@@ -58,10 +53,12 @@ t_vec3	get_hitpos(t_vec3 ray_origin, t_vec3 ray_direction, double t)
 	return (hitpos);
 }
 
-t_vec3	t_vec3_subtraction(t_vec3 vec1, t_vec3 vec2)
+t_vec3	vec3_subtraction(t_vec3 vec1, t_vec3 vec2)
 {
-	t_vec3	v;
+	return ((t_vec3){vec2.x - vec1.x, vec2.y - vec1.y, vec2.z - vec1.z});
+}
 
-	init_vec3(&v, vec2.x - vec1.x, vec2.y - vec1.y, vec2.z - vec1.z);
-	return (v);
+t_vec3	vec3_add(t_vec3 vec1, t_vec3 vec2)
+{
+	return ((t_vec3){vec2.x + vec1.x, vec2.y + vec1.y, vec2.z + vec1.z});
 }

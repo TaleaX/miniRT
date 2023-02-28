@@ -12,17 +12,11 @@
 
 #include "room.h"
 
-void	init_vec3(void *self, double x, double y, double z)
+void	init_vec3(t_vec3 *v, double x, double y, double z)
 {
-	t_vec3	*this;
-
-	this = self;
-	this->x = x;
-	this->y = y;
-	this->z = z;
-	this->length = length;
-	this->normalize = normalize;
-	this->change_coords = change_coords;
+	v->x = x;
+	v->y = y;
+	v->z = z;
 }
 
 void	init_color(t_color *color, double r, double g, double b)
@@ -35,18 +29,25 @@ void	init_color(t_color *color, double r, double g, double b)
 
 void	init_spheres(t_sphere spheres[4])
 {
-	init_vec3(&spheres[0].center, 2, 0, -1);
-	init_vec3(&spheres[1].center, -1, 0, 2);
-	init_vec3(&spheres[2].center, 0, 0, 1);
-	init_vec3(&spheres[3].center, 1, 0, 0);
+	init_vec3(&spheres[0].center, -4, 0, 5);
+	init_vec3(&spheres[1].center, -2, 0, 5);
+	init_vec3(&spheres[2].center, 1, 0, 3);
+	init_vec3(&spheres[3].center, 6, 0, 12);
 
 	init_color(&spheres[0].color, 1, 0, 0);
 	init_color(&spheres[1].color, 0, 1, 0);
 	init_color(&spheres[2].color, 0, 0, 1);
 	init_color(&spheres[3].color, 0.5, 0.2, 0.5);
 
-	spheres[0].radius = 0.5;
-	spheres[1].radius = 0.5;
-	spheres[2].radius = 0.5;
-	spheres[3].radius = 0.5;
+	spheres[0].radius = 1.0;
+	spheres[1].radius = 1.0;
+	spheres[2].radius = 1.0;
+	spheres[3].radius = 1.0;
+}
+
+void	init_plane(t_plane* plane)
+{
+	init_vec3(&plane->c, 1, 0, 1);
+	init_vec3(&plane->normal, 0, 1, 0);
+	init_color(&plane->color, 1, 0, 0);
 }
