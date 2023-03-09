@@ -6,7 +6,7 @@
 /*   By: tdehne <tdehne@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 16:17:27 by tdehne            #+#    #+#             */
-/*   Updated: 2023/02/26 17:26:40 by tdehne           ###   ########.fr       */
+/*   Updated: 2023/03/09 14:35:50 by tdehne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,7 @@
 
 
 uint32_t	get_rgba(t_color color);
+uint32_t	get_color(t_vec3 hitpos, t_vec3 center);
+uint32_t	get_color_t(double t);
 
 #endif

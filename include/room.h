@@ -6,7 +6,7 @@
 /*   By: tdehne <tdehne@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 16:15:13 by tdehne            #+#    #+#             */
-/*   Updated: 2023/02/26 16:31:30 by tdehne           ###   ########.fr       */
+/*   Updated: 2023/03/09 14:35:18 by tdehne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 typedef struct s_sphere	t_sphere;
 typedef struct s_plane	t_plane;
 typedef struct s_camera	t_camera;
+typedef struct s_room	t_room;
+typedef struct s_light	t_light;
 
 struct s_sphere {
 	t_vec3	center;
@@ -36,7 +38,23 @@ struct s_camera {
 	t_vec3	ray_direction;
 };
 
+struct s_light {
+	t_vec3	ray_origin;
+	t_vec3	ray_direction;
+};
+
+struct s_room {
+	t_camera	camera;
+	t_light		light;
+	t_plane		planes[4];
+	t_sphere	spheres[4];
+};
+
+
 void	init_spheres(t_sphere spheres[4]);
 void	init_plane(t_plane* plane);
+void	init_room(t_room *room);
+double	hit_sphere(t_sphere sphere, t_vec3 ray_origin, t_vec3 ray_direction);
+double	hit_plane(t_plane plane, t_vec3 ray_origin, t_vec3 ray_direction);
 
 #endif

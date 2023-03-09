@@ -12,7 +12,7 @@ SRC_DIR		=	src/
 INC_DIR		=	include/
 LIBA = MLX42/build/libmlx42.a
 
-SRC_NAME	=	main init vector color_sphere color_utils color_plane
+SRC_NAME	=	main init vector color_sphere color_utils color_plane color_room
 INC_NAME	=	miniRT vector utils room
 
 SRC_FILES	=	$(addsuffix .c, $(addprefix $(SRC_DIR), $(SRC_NAME)))

@@ -6,7 +6,7 @@
 /*   By: tdehne <tdehne@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 16:17:01 by tdehne            #+#    #+#             */
-/*   Updated: 2023/02/26 17:52:52 by tdehne           ###   ########.fr       */
+/*   Updated: 2023/03/09 15:09:24 by tdehne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int32_t	main(void)
 	t_window	window;
 	t_sphere	spheres[4];
 	t_plane		plane;
+	t_room		room;
 
 	if (!(mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true)))
 		return (EXIT_FAILURE);
@@ -51,6 +52,7 @@ int32_t	main(void)
 	window.y = 0.0;
 	init_spheres(spheres);
 	init_plane(&plane);
+	init_room(&room);
 	//raytracing
 	while (window.y < HEIGHT)
 	{
@@ -59,7 +61,8 @@ int32_t	main(void)
 		{
 			window.coords.x = (window.x * VW / (WIDTH -1) - (VW / 2));
 			window.coords.y = (window.y * VH / (HEIGHT - 1) - (VH / 2)) * -1;
-			color_plane(window, plane);
+			// color_room(window, room);
+			color_spheres(window, spheres);
 			++(window.x);
 		}
 		++(window.y);

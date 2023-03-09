@@ -6,7 +6,7 @@
 /*   By: tdehne <tdehne@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 16:15:07 by tdehne            #+#    #+#             */
-/*   Updated: 2023/02/26 17:27:45 by tdehne           ###   ########.fr       */
+/*   Updated: 2023/03/09 14:57:26 by tdehne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,11 @@
 
 typedef struct s_window	t_window;
 
-void		color_spheres(t_window window, t_sphere spheres[4]);
-void		color_plane(t_window window, t_plane plane);
+void	color_spheres(t_window window, t_sphere spheres[4]);
+void	color_plane(t_window window, t_room room, double t_min, double *t_closest, int i);
+void	color_room(t_window window, t_room room);
+void	color_sphere(t_window window, t_room room, double t_min, double *t_closest, int i);
+void	color_planeX(t_window window, t_plane plane);
 
 struct s_window {
 	mlx_image_t	*g_img;
