@@ -39,6 +39,9 @@ uint32_t get_color(t_vec3 hitpos, t_vec3 center)
 {
 	t_vec3	normal;
 	t_color color;
+	t_vec3 lightOrigin = {0, 1, 0};
+	t_vec3 lightDir = {1, 1, 1};
+	t_vec3	sphereLightDir = vec3_subtraction(hitpos, lightOrigin):
 
 	normal = vec3_subtraction(center, hitpos);
 	vec3_normalize(&normal);

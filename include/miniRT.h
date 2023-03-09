@@ -21,10 +21,10 @@
 # include "room.h"
 # include "utils.h"
 # include "../MLX42/include/MLX42/MLX42.h"
-# define WIDTH 800
-# define HEIGHT 800
-# define VH 4
-# define VW 4
+# define WIDTH 1200
+# define HEIGHT 1000
+# define VH 12
+# define VW 12
 
 typedef struct s_window	t_window;
 
