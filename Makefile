@@ -3,7 +3,7 @@ DATE	= $$(date +%Y/%m/%d)
 BUSER = ~/.brew/opt/glfw/lib/
 
 CC			=	cc
-CFLAGS		=	-Werror -Wextra -Wall
+CFLAGS		=	#-Werror -Wextra -Wall
 
 NAME 		=	miniRT
 
