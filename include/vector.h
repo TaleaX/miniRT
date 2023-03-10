@@ -20,7 +20,7 @@ typedef struct s_color	t_color;
 
 void	init_vec3(t_vec3 *v, double x, double y, double z);
 
-double	vec3_length(t_vec3 *v);
+double	vec3_length(t_vec3 v);
 void	vec3_normalize(t_vec3 *v);
 t_vec3	get_hitpos(t_vec3 ray_origin, t_vec3 ray_direction, double t);
 // void	change_coords(void *self, double x, double y, double z);

@@ -19,7 +19,6 @@
 
 
 uint32_t	get_rgba(t_color color);
-uint32_t	get_color(t_vec3 hitpos, t_vec3 center);
 uint32_t	get_color_t(double t);
 
 #endif

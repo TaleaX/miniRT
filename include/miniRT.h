@@ -21,16 +21,18 @@
 # include "room.h"
 # include "utils.h"
 # include "../MLX42/include/MLX42/MLX42.h"
-# define WIDTH 1200
-# define HEIGHT 1000
-# define VH 12
-# define VW 12
+# define WIDTH 800
+# define HEIGHT 800
+# define VH 1
+# define VW 1
 
-typedef struct s_window	t_window;
+typedef struct s_window		t_window;
+typedef struct s_viewport	t_viewport;
+
 
 void	color_spheres(t_window window, t_sphere spheres[4]);
 void	color_plane(t_window window, t_room room, double t_min, double *t_closest, int i);
-void	color_room(t_window window, t_room room);
+t_color	color_room(t_vec3 origin, t_vec3 dir, t_room room);
 void	color_sphere(t_window window, t_room room, double t_min, double *t_closest, int i);
 void	color_planeX(t_window window, t_plane plane);
 
@@ -38,7 +40,13 @@ struct s_window {
 	mlx_image_t	*g_img;
 	double		x;
 	double		y;
-	t_vec2		coords;
+	double		WIN_WIDTH;
+	double		WIN_HEIGHT;
 };
+
+
+void	init_window(t_window *window, mlx_image_t *g_img, double height, double width);
+
+
 
 #endif

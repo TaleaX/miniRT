@@ -33,13 +33,17 @@ void hook(void *param) {
 
 }
 
+t_color	test(t_vec3 origin, t_vec3 dir, t_sphere spheres[4]);
+
 int32_t	main(void)
 {
 	mlx_t		*mlx;
 	t_window	window;
+	t_viewport	viewport;
 	t_sphere	spheres[4];
 	t_plane		plane;
 	t_room		room;
+	t_color		color;
 
 	if (!(mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true)))
 		return (EXIT_FAILURE);
@@ -47,22 +51,30 @@ int32_t	main(void)
 	memset(g_img->pixels, 0, g_img->width * g_img->height * sizeof(int));
 	if (!g_img || (mlx_image_to_window(mlx, g_img, 0, 0) < 0))
 		ft_error();
-	//provisorisches window und spheres initialisieren ... soll noch geändert werden
-	window.g_img = g_img;
-	window.y = 0.0;
+
+	// init_vec3(&window.viewport, 0.0, 0.0, 1);
 	init_spheres(spheres);
 	init_plane(&plane);
 	init_room(&room);
+	init_window(&window, g_img, HEIGHT, WIDTH);
+	init_viewport(&viewport, 1, VH, VW);
 	//raytracing
-	while (window.y < HEIGHT)
+	// double width = 800;
+	// double height = 800;
+	// double vw = 1;
+	// double vh = 1;
+	// window.y = 0.0;
+	while (window.y < WIDTH)
 	{
 		window.x = 0.0;
-		while (window.x < WIDTH)
+		while (window.x < HEIGHT)
 		{
-			window.coords.x = (window.x * VW / (WIDTH -1) - (VW / 2));
-			window.coords.y = (window.y * VH / (HEIGHT - 1) - (VH / 2)) * -1;
+			viewport.dir.x = (window.x * viewport.V_WIDTH / (double)(window.WIN_WIDTH -1) - (viewport.V_WIDTH / 2.0));
+			viewport.dir.y = (window.y * viewport.V_HEIGHT / (double)(window.WIN_HEIGHT- 1) - (viewport.V_HEIGHT / 2.0)) * -1;
+			// printf("x %f y %f\n", window.viewport.x, window.viewport.y);
 			// color_room(window, room);
-			color_spheres(window, spheres);
+			color = color_room(room.camera.ray_origin, viewport.dir, room);
+			mlx_put_pixel(window.g_img, (int)window.x, (int)window.y, get_rgba(color));
 			++(window.x);
 		}
 		++(window.y);

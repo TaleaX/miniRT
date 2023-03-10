@@ -77,36 +77,36 @@ uint32_t get_color_t(double t)
 // 		mlx_put_pixel(window.g_img, (int)window.x, (int)window.y, 0x000000ff);
 // }
 
-void	color_planeX(t_window window, t_plane plane)
-{
-	t_vec3		ray_origin;
-	t_vec3		ray_direction;
-	t_vec3		hitpos;
-	double		t;
+// void	color_planeX(t_window window, t_plane plane)
+// {
+// 	t_vec3		ray_origin;
+// 	t_vec3		ray_direction;
+// 	t_vec3		hitpos;
+// 	double		t;
 
-	init_vec3(&ray_origin, 0.0, 5.0, 0.0);
-	init_vec3(&ray_direction, window.coords.x, window.coords.y, 1);
-	vec3_normalize(&ray_direction);
-	t = hit_plane(plane, ray_origin, ray_direction);
-	if (t > 0)
-	{
-		hitpos = get_hitpos(ray_origin, ray_direction, t);
-		mlx_put_pixel(window.g_img, (int)window.x, (int)window.y, get_color_t(t));//get_color2(hitpos, plane.c));
-	}
-	else {
-		t_color color = {0.8, 0.8, 1, 1};
-		mlx_put_pixel(window.g_img, (int)window.x, (int)window.y, get_rgba(color));
-	}
-}
+// 	init_vec3(&ray_origin, 0.0, 5.0, 0.0);
+// 	init_vec3(&ray_direction, window.coords.x, window.coords.y, 1);
+// 	vec3_normalize(&ray_direction);
+// 	t = hit_plane(plane, ray_origin, ray_direction);
+// 	if (t > 0)
+// 	{
+// 		hitpos = get_hitpos(ray_origin, ray_direction, t);
+// 		mlx_put_pixel(window.g_img, (int)window.x, (int)window.y, get_color_t(t));//get_color2(hitpos, plane.c));
+// 	}
+// 	else {
+// 		t_color color = {0.8, 0.8, 1, 1};
+// 		mlx_put_pixel(window.g_img, (int)window.x, (int)window.y, get_rgba(color));
+// 	}
+// }
 
-void	color_plane(t_window window, t_room room, double t_min, double *t_closest, int i)
-{
-	t_vec3		hitpos;
+// void	color_plane(t_window window, t_room room, double t_min, double *t_closest, int i)
+// {
+// 	t_vec3		hitpos;
 
-	if (t_min > 0 && t_min < *t_closest)
-	{
-		hitpos = get_hitpos(room.camera.ray_origin, room.camera.ray_direction, t_min);
-		mlx_put_pixel(window.g_img, (int)window.x, (int)window.y, get_color_t(t_min));
-		(*t_closest) = t_min;
-	}
-}
+// 	if (t_min > 0 && t_min < *t_closest)
+// 	{
+// 		hitpos = get_hitpos(room.camera.ray_origin, room.camera.ray_direction, t_min);
+// 		mlx_put_pixel(window.g_img, (int)window.x, (int)window.y, get_color_t(t_min));
+// 		(*t_closest) = t_min;
+// 	}
+// }
