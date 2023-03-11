@@ -6,13 +6,14 @@
 /*   By: tdehne <tdehne@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 16:17:01 by tdehne            #+#    #+#             */
-/*   Updated: 2023/03/09 15:09:24 by tdehne           ###   ########.fr       */
+/*   Updated: 2023/03/11 16:59:07 by tdehne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/miniRT.h"
 // #include "vector.h"
-#include "../include/utils.h"
+#include "../include/color.h"
+#include "../include/calc.h"
 #include "../include/room.h"
 
 static mlx_image_t	*g_img;
@@ -40,8 +41,6 @@ int32_t	main(void)
 	mlx_t		*mlx;
 	t_window	window;
 	t_viewport	viewport;
-	t_sphere	spheres[4];
-	t_plane		plane;
 	t_room		room;
 	t_color		color;
 
@@ -52,18 +51,10 @@ int32_t	main(void)
 	if (!g_img || (mlx_image_to_window(mlx, g_img, 0, 0) < 0))
 		ft_error();
 
-	// init_vec3(&window.viewport, 0.0, 0.0, 1);
-	init_spheres(spheres);
-	init_plane(&plane);
 	init_room(&room);
 	init_window(&window, g_img, HEIGHT, WIDTH);
 	init_viewport(&viewport, 1, VH, VW);
-	//raytracing
-	// double width = 800;
-	// double height = 800;
-	// double vw = 1;
-	// double vh = 1;
-	// window.y = 0.0;
+
 	while (window.y < WIDTH)
 	{
 		window.x = 0.0;
@@ -71,9 +62,9 @@ int32_t	main(void)
 		{
 			viewport.dir.x = (window.x * viewport.V_WIDTH / (double)(window.WIN_WIDTH -1) - (viewport.V_WIDTH / 2.0));
 			viewport.dir.y = (window.y * viewport.V_HEIGHT / (double)(window.WIN_HEIGHT- 1) - (viewport.V_HEIGHT / 2.0)) * -1;
-			// printf("x %f y %f\n", window.viewport.x, window.viewport.y);
-			// color_room(window, room);
-			color = color_room(room.camera.ray_origin, viewport.dir, room);
+			room.camera.direction = viewport.dir;
+
+			color = color_room(room.camera.origin, room.camera.direction, room);
 			mlx_put_pixel(window.g_img, (int)window.x, (int)window.y, get_rgba(color));
 			++(window.x);
 		}

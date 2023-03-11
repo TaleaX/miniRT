@@ -1,20 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   color_plane.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tdehne <tdehne@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/03/11 17:01:51 by tdehne            #+#    #+#             */
+/*   Updated: 2023/03/11 17:01:53 by tdehne           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "miniRT.h"
-
-double	hit_plane(t_plane plane, t_vec3 ray_origin, t_vec3 ray_direction)
-{
-	t_vec3	oc;
-	double	denominator;
-	double	numerator;
-	double	d_y = ray_direction.y;
-	double	o_y = ray_origin.y;
-
-	oc = vec3_subtraction(ray_origin, plane.c);
-	numerator = vec3_dot(plane.normal, oc);
-	denominator = vec3_dot(ray_direction, plane.normal);
-	if (denominator == 0.0)
-		return (-1);
-	return (numerator / denominator);
-}
 
 uint32_t get_color2(t_vec3 hitpos, t_vec3 center)
 {
@@ -48,35 +44,6 @@ uint32_t get_color_t(double t)
 	return (get_rgba(color));
 }
 
-// void	color_plane(t_window window, t_plane)
-// {
-// 	double		t_min;
-// 	t_vec3		ray_origin;
-// 	t_vec3		ray_direction;
-// 	t_vec3		hitpos;
-// 	size_t		i;
-// 	double		t_closest;
-
-// 	i = 0;
-// 	t_closest = __DBL_MAX__;
-// 	init_vec3(&ray_origin, 0.0, 0.0, -3.0);
-// 	init_vec3(&ray_direction, window.coords.x, window.coords.y, 1);
-// 	vec3_normalize(&ray_direction);
-// 	while (i < 4)
-// 	{
-// 		t_min = hit_sphere(spheres[i], ray_origin, ray_direction);
-// 		if (t_min >= 1 && t_min < t_closest)
-// 		{
-// 			hitpos = get_hitpos(ray_origin, ray_direction, t_min);
-// 			mlx_put_pixel(window.g_img, (int)window.x, (int)window.y, get_color(hitpos, spheres[i].center)); //get_rgba(sphere[i].color));//
-// 			t_closest = t_min;
-// 		}
-// 		++i;
-// 	}
-// 	if (t_closest == __DBL_MAX__)
-// 		mlx_put_pixel(window.g_img, (int)window.x, (int)window.y, 0x000000ff);
-// }
-
 // void	color_planeX(t_window window, t_plane plane)
 // {
 // 	t_vec3		ray_origin;
@@ -96,17 +63,5 @@ uint32_t get_color_t(double t)
 // 	else {
 // 		t_color color = {0.8, 0.8, 1, 1};
 // 		mlx_put_pixel(window.g_img, (int)window.x, (int)window.y, get_rgba(color));
-// 	}
-// }
-
-// void	color_plane(t_window window, t_room room, double t_min, double *t_closest, int i)
-// {
-// 	t_vec3		hitpos;
-
-// 	if (t_min > 0 && t_min < *t_closest)
-// 	{
-// 		hitpos = get_hitpos(room.camera.ray_origin, room.camera.ray_direction, t_min);
-// 		mlx_put_pixel(window.g_img, (int)window.x, (int)window.y, get_color_t(t_min));
-// 		(*t_closest) = t_min;
 // 	}
 // }

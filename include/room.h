@@ -6,7 +6,7 @@
 /*   By: tdehne <tdehne@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 16:15:13 by tdehne            #+#    #+#             */
-/*   Updated: 2023/03/09 14:35:18 by tdehne           ###   ########.fr       */
+/*   Updated: 2023/03/11 16:49:39 by tdehne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,14 @@ typedef struct s_camera		t_camera;
 typedef struct s_room		t_room;
 typedef struct s_light		t_light;
 typedef struct s_viewport	t_viewport;
+typedef enum e_light_type	t_light_type;
+
+enum e_light_type
+{
+	POINT,
+	SUN,
+	AMBIENT
+};
 
 struct s_sphere {
 	t_vec3	center;
@@ -35,13 +43,14 @@ struct s_plane {
 };
 
 struct s_camera {
-	t_vec3	ray_origin;
-	t_vec3	ray_direction;
+	t_vec3	origin;
+	t_vec3	direction;
 };
 
 struct s_light {
-	t_vec3	ray_origin;
-	t_vec3	ray_direction;
+	t_light_type	type;
+	t_vec3			origin;
+	t_vec3			direction;
 };
 
 struct s_room {
@@ -49,6 +58,9 @@ struct s_room {
 	t_light		light;
 	t_plane		planes[4];
 	t_sphere	spheres[4];
+	size_t		num_spheres;
+	size_t		num_lights;
+	size_t		num_planes;
 };
 
 struct s_viewport {
@@ -62,9 +74,5 @@ void	init_plane(t_plane* plane);
 void	init_room(t_room *room);
 void	init_viewport(t_viewport *viewport, double distance, double v_height, double v_width);
 
-
-double	hit_sphere(t_sphere sphere, t_vec3 ray_origin, t_vec3 ray_direction);
-double	hit_plane(t_plane plane, t_vec3 ray_origin, t_vec3 ray_direction);
-t_color		get_color(t_vec3 hitpos, t_vec3 center, t_color colorSphere);
 
 #endif
