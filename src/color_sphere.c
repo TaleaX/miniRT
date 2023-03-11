@@ -43,10 +43,10 @@ t_color get_color(t_vec3 hitpos, t_vec3 center, t_color colorSphere)
 	t_vec3	normal;
 	t_color color;
 	t_vec3 lightOrigin = {0, 1, 0};
-	double intensity = 	0.7;
+	double intensity = 	1.0;
 	double	n_dot_l;
 	double	light = 0;
-	// t_vec3 lightDir = {1, 1, 1};
+	// t_vec3 lightDir = {-1, 1, -1};
 	t_vec3	lightDir = vec3_subtraction(hitpos, lightOrigin);
 
 	normal = vec3_subtraction(center, hitpos);
@@ -57,6 +57,9 @@ t_color get_color(t_vec3 hitpos, t_vec3 center, t_color colorSphere)
 	// color.r = (normal.x * 0.5 + 0.5) * light;
 	// color.g = (normal.y * 0.5 + 0.5) * light;
 	// color.b = (normal.z * 0.5 + 0.5) * light;
+	// color.r = (normal.x) * light;
+	// color.g = (normal.y) * light;
+	// color.b = (normal.z) * light;
 	color.r = (colorSphere.r) * light;
 	color.g = (colorSphere.g) * light;
 	color.b = (colorSphere.b) * light;
