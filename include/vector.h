@@ -46,6 +46,6 @@ struct s_color {
 double	vec3_dot(t_vec3 v1, t_vec3 v2);
 t_vec3	vec3_subtraction(t_vec3 vec1, t_vec3 vec2);
 t_vec3	vec3_add(t_vec3 vec1, t_vec3 vec2);
-
+t_color	color_add(t_color color1, t_color color2);
 
 #endif

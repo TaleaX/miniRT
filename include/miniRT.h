@@ -37,6 +37,13 @@ typedef struct s_viewport	t_viewport;
 // void	color_sphere(t_window window, t_room room, double t_min, double *t_closest, int i);
 // void	color_planeX(t_window window, t_plane plane);
 
+typedef struct s_data
+{
+	mlx_image_t	*g_img;
+}	t_data;
+
+t_data	*data(void);
+
 struct s_window {
 	mlx_image_t	*g_img;
 	double		x;

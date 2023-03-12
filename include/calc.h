@@ -20,5 +20,6 @@ double	hit_plane(t_plane plane, t_vec3 ray_origin, t_vec3 ray_direction);
 double	calc_light(t_vec3 light_ray, t_vec3 normal, double intensity);
 t_color	color_room(t_vec3 origin, t_vec3 dir, t_room room);
 t_vec3	get_lightRay(t_light light, t_vec3 hit_pos);
+double	random_double(void);
 
 #endif
