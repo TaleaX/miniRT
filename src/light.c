@@ -30,3 +30,15 @@ double calc_light(t_vec3 light_ray, t_vec3 normal, double intensity)
 	return (light);
 }
 
+t_vec3	random_in_usphere(void)
+{
+	t_vec3	random_point;
+
+	while (true)
+	{
+		init_vec3(&random_point, random_min_max(-1, 1), random_min_max(-1, 1), random_min_max(-1, 1));
+		if (vec3_length(random_point) >= 1)
+			continue;
+		return (random_point);
+	}
+}

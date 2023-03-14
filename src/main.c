@@ -64,7 +64,7 @@ int32_t	main(void)
 	double	scale = 1.0 / 20.0;
 	while (window.y < WIDTH)
 	{
-		window.x = 0.0;
+		window.x = 0;
 		while (window.x < HEIGHT)
 		{
 			color = (t_color){0, 0, 0, 1};
@@ -74,14 +74,15 @@ int32_t	main(void)
 				viewport.dir.y = ((window.y + random_double()) * viewport.V_HEIGHT / (double)(window.WIN_HEIGHT- 1) - (viewport.V_HEIGHT / 2.0)) * -1;
 				room.camera.direction.x = viewport.dir.x - room.camera.origin.x;//vec3_subtraction(room.camera.origin, viewport.dir);
 				room.camera.direction.y = viewport.dir.y - room.camera.origin.y;
-				room.camera.direction.z = 1;
-				color = color_add(color, color_room(room.camera.origin, room.camera.direction, room));
+				// room.camera.direction.z = 1;
+				color = color_add(color, color_room(room.camera.origin, room.camera.direction, room, 10));
 				// color = color_room(room.camera.origin, room.camera.direction, room);
 			}
 			color.r = sqrt(scale * color.r);
 			color.g = sqrt(scale * color.g);
 			color.b = sqrt(scale * color.b);
-			mlx_put_pixel(data()->g_img, (int)window.x, (int)window.y, get_rgba(color));
+			mlx_put_pixel(data()->g_img, window.x, window.y, get_rgba(color));
+			// printf("%d %d %d %d\n", WIDTH, HEIGHT, window.x, window.y);
 			++(window.x);
 		}
 		++(window.y);

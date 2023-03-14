@@ -62,7 +62,7 @@ void	init_plane(t_plane* plane)
 
 void	init_camera(t_camera *camera)
 {
-	init_vec3(&camera->origin, 0.0, 0.0, -12.0);
+	init_vec3(&camera->origin, 0.0, 0.0, -2.0);
 	init_vec3(&camera->direction, 0, 0, 1);
 }
 

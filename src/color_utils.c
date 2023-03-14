@@ -23,6 +23,10 @@ uint32_t	get_rgba(t_color color)
 	g = (uint8_t)(255.999 * color.g);
 	b = (uint8_t)(255.999 * color.b);
 	a = (uint8_t)(255.999 * color.a);
+	if (r > 255 || g > 255 || b > 255)
+		printf("hmm\n");
+	if (r < 0 || g < 0 || b < 0)
+		printf("well\n");
 	return (r << 24 | g << 16 | b << 8 | a);
 }
 

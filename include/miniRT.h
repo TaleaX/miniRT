@@ -22,10 +22,14 @@
 # include "color.h"
 # include "calc.h"
 # include "../MLX42/include/MLX42/MLX42.h"
-# define WIDTH 800
+# define RATIO 1.5f
 # define HEIGHT 800
-# define VH 1
-# define VW 1
+# define VH 1.0f
+
+# define WIDTH 800
+//(int) (HEIGHT * RATIO)
+# define VW 1.0f
+//(double)(VH * RATIO)
 
 typedef struct s_window		t_window;
 typedef struct s_viewport	t_viewport;
@@ -46,10 +50,10 @@ t_data	*data(void);
 
 struct s_window {
 	mlx_image_t	*g_img;
-	double		x;
-	double		y;
-	double		WIN_WIDTH;
-	double		WIN_HEIGHT;
+	int			x;
+	int			y;
+	int			WIN_WIDTH;
+	int			WIN_HEIGHT;
 };
 
 
