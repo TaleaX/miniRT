@@ -6,7 +6,7 @@
 /*   By: tdehne <tdehne@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 17:01:58 by tdehne            #+#    #+#             */
-/*   Updated: 2023/03/15 05:14:27 by tdehne           ###   ########.fr       */
+/*   Updated: 2023/03/15 06:33:49 by tdehne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_color	color_room(t_ray ray, t_room room, int depth)
 
 	// vec3_normalize(&ray.direction);
 	if (depth <= 0.0)
-		return ((t_color){0, 0, 0, 1});
+		return ((t_color){1, 1, 0, 0});
 	if (hit_obj(&rec, ray, room))
 	{
 		random_p = random_in_usphere();
@@ -36,7 +36,8 @@ t_color	color_room(t_ray ray, t_room room, int depth)
 		target = vec3_add(vec3_add(rec.hitpos, rec.normal), random_p);
 		t_ray r = new_ray(rec.hitpos, vec3_subtraction(rec.hitpos, target));
 		// printf("%f %f\n", r.direction.x, r.direction.y);
-		return (color_scalar(color_room(r, room, depth-1), 0.5, 1));
+		color = color_room(r, room, depth-1);
+		return (color_scalar(color, 0.5, 1));
         // return 0.5 * ray_color(ray(rec.p, target - rec.p), world, depth-1);
 		// return (color_scalar(color_add_vec((t_color){1, 1, 1, 1}, rec.normal), 0.5, 1));
 	}

@@ -6,7 +6,7 @@
 /*   By: tdehne <tdehne@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 16:14:58 by tdehne            #+#    #+#             */
-/*   Updated: 2023/03/15 02:47:40 by tdehne           ###   ########.fr       */
+/*   Updated: 2023/03/15 06:23:01 by tdehne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ uint32_t	get_rgba(t_color color)
 	uint8_t	b;
 	uint8_t	a;
 
-	r = (uint8_t)(255.999 * clamp(color.r, 0, 1));
-	g = (uint8_t)(255.999 * clamp(color.g, 0, 1));
-	b = (uint8_t)(255.999 * clamp(color.b, 0, 1));
-	a = (uint8_t)(255.999 * clamp(color.a, 0, 1));
+	r = (uint8_t)(256.0 * clamp(color.r, 0.0, 0.999));
+	g = (uint8_t)(256.0 * clamp(color.g, 0.0, 0.999));
+	b = (uint8_t)(256.0 * clamp(color.b, 0.0, 0.999));
+	a = (uint8_t)(256.0 * clamp(color.a, 0.0, 0.999));
 	return (r << 24 | g << 16 | b << 8 | a);
 }
 

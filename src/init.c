@@ -6,7 +6,7 @@
 /*   By: tdehne <tdehne@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 16:16:51 by tdehne            #+#    #+#             */
-/*   Updated: 2023/03/15 05:16:02 by tdehne           ###   ########.fr       */
+/*   Updated: 2023/03/15 06:30:24 by tdehne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	init_ray(t_ray *ray, t_vec3 origin, t_vec3 direction)
 
 void	init_camera(t_camera *camera)
 {
-	init_ray(&camera->ray, (t_vec3){0, 0.1, -3}, (t_vec3){0, 0, 1});
+	init_ray(&camera->ray, (t_vec3){0, -0.2, -3}, (t_vec3){0, 0, 1});
 	init_vec3(&camera->lower_left_corner, camera->ray.origin.x -VW / 2, camera->ray.origin.y -VH / 2, camera->ray.origin.z - DIST);
 }
 

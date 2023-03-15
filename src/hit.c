@@ -6,7 +6,7 @@
 /*   By: tdehne <tdehne@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 16:14:53 by tdehne            #+#    #+#             */
-/*   Updated: 2023/03/15 04:15:19 by tdehne           ###   ########.fr       */
+/*   Updated: 2023/03/15 06:32:39 by tdehne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ bool	hit_obj(t_hit_rec *rec, t_ray ray, t_room room)
 	while (i < 4)
 	{
 		t = hit_sphere(room.spheres[i], ray.origin, ray.direction);
-		if (t > 1 && t < t_closest)
+		if (t >= 0.001 && t < t_closest)
 		{
 			rec->hitpos = get_hitpos(ray.origin, ray.direction, t);
 			rec->normal = vec3_subtraction(room.spheres[i].center, rec->hitpos);
