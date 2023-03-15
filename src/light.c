@@ -6,7 +6,7 @@
 /*   By: tdehne <tdehne@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 16:02:00 by tdehne            #+#    #+#             */
-/*   Updated: 2023/03/11 16:57:31 by tdehne           ###   ########.fr       */
+/*   Updated: 2023/03/15 05:06:31 by tdehne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,14 @@
 t_vec3	get_lightRay(t_light light, t_vec3 hit_pos)
 {
 	if (light.type == SUN)
-		return (light.direction);
-	return(vec3_subtraction(hit_pos, light.origin));
+		return (light.ray.direction);
+	return(vec3_subtraction(hit_pos, light.ray.origin));
 }
 
 double calc_light(t_vec3 light_ray, t_vec3 normal, double intensity)
 {
 	double	n_dot_l;
-	double	light = 0;
+	double	light = 0.0;
 
 	n_dot_l = vec3_dot(light_ray, normal);
 	if (n_dot_l > 0)
@@ -36,6 +36,7 @@ t_vec3	random_in_usphere(void)
 
 	while (true)
 	{
+		// printf("random point x %f %f %f\n", random_point.x, random_point.y, random_point.z);
 		init_vec3(&random_point, random_min_max(-1, 1), random_min_max(-1, 1), random_min_max(-1, 1));
 		if (vec3_length(random_point) >= 1)
 			continue;

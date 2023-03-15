@@ -6,7 +6,7 @@
 /*   By: tdehne <tdehne@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 16:16:51 by tdehne            #+#    #+#             */
-/*   Updated: 2023/03/11 16:51:07 by tdehne           ###   ########.fr       */
+/*   Updated: 2023/03/15 05:16:02 by tdehne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,19 +59,24 @@ void	init_plane(t_plane* plane)
 	init_color(&plane->color, 1, 0, 0);
 }
 
+void	init_ray(t_ray *ray, t_vec3 origin, t_vec3 direction)
+{
+	ray->origin = origin;
+	ray->direction = direction;
+}
 
 void	init_camera(t_camera *camera)
 {
-	init_vec3(&camera->origin, 0.0, 0.0, -2.0);
-	init_vec3(&camera->direction, 0, 0, 1);
+	init_ray(&camera->ray, (t_vec3){0, 0.1, -3}, (t_vec3){0, 0, 1});
+	init_vec3(&camera->lower_left_corner, camera->ray.origin.x -VW / 2, camera->ray.origin.y -VH / 2, camera->ray.origin.z - DIST);
 }
 
 void	init_light(t_light *light, t_vec3 origin, t_vec3 direction, t_light_type type)
 {
 	// init_vec3(&light->origin, 0.0, 1.0, 0.0);
 	// init_vec3(&light->direction, 1, 1, 1);
-	light->origin = origin;
-	light->direction = direction;
+	light->ray.origin = origin;
+	light->ray.direction = direction;
 	light->type = type;
 }
 
@@ -92,11 +97,10 @@ void	init_window(t_window *window, mlx_image_t *g_img, double height, double wid
 	window->WIN_WIDTH = width;
 }
 
-void	init_viewport(t_viewport *viewport, double distance, double v_height, double v_width)
-{
-	t_vec3	dir;
 
-	init_vec3(&viewport->dir, 0, 0, distance);
-	viewport->V_HEIGHT = v_height;
-	viewport->V_WIDTH = v_width;
+void	init_hit_rec(t_hit_rec *hit_rec, t_vec3 hitpos, t_vec3 normal, double t)
+{
+	hit_rec->hitpos = hitpos;
+	hit_rec->normal = normal;
+	hit_rec->t = t;
 }

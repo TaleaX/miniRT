@@ -6,7 +6,7 @@
 /*   By: tdehne <tdehne@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 16:17:21 by tdehne            #+#    #+#             */
-/*   Updated: 2023/02/26 16:45:00 by tdehne           ###   ########.fr       */
+/*   Updated: 2023/03/14 23:22:43 by tdehne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,6 @@ double	vec3_dot(t_vec3 v1, t_vec3 v2);
 t_vec3	vec3_subtraction(t_vec3 vec1, t_vec3 vec2);
 t_vec3	vec3_add(t_vec3 vec1, t_vec3 vec2);
 t_color	color_add(t_color color1, t_color color2);
+t_vec3	vec3_scalar(t_vec3 vec, double scalar);
 
 #endif

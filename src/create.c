@@ -1,26 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   color.h                                            :+:      :+:    :+:   */
+/*   create.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tdehne <tdehne@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/11 16:01:37 by tdehne            #+#    #+#             */
-/*   Updated: 2023/03/15 03:56:28 by tdehne           ###   ########.fr       */
+/*   Created: 2023/03/15 04:29:20 by tdehne            #+#    #+#             */
+/*   Updated: 2023/03/15 04:31:29 by tdehne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "miniRT.h"
 
-#ifndef COLOR_H
-# define COLOR_H
-# include <stdlib.h>
-# include <stdint.h>
-# include "vector.h"
+t_ray	new_ray(t_vec3 origin, t_vec3 direction)
+{
+	t_ray	ray;
 
-uint32_t	get_rgba(t_color color);
-uint32_t	get_color_t(double t);
-t_color		get_color(double light, t_color color_obj);
-t_color		color_add_vec(t_color color, t_vec3 vec);
-t_color		color_scalar(t_color color, double scalar, double alpha);
-
-#endif
+	init_ray(&ray, origin, direction);
+	return (ray);
+}

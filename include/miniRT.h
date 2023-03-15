@@ -6,7 +6,7 @@
 /*   By: tdehne <tdehne@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 16:15:07 by tdehne            #+#    #+#             */
-/*   Updated: 2023/03/11 16:07:54 by tdehne           ###   ########.fr       */
+/*   Updated: 2023/03/15 04:09:15 by tdehne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # define RATIO 1.5f
 # define HEIGHT 800
 # define VH 1.0f
+# define DIST 1.0f
 
 # define WIDTH 800
 //(int) (HEIGHT * RATIO)
@@ -33,7 +34,7 @@
 
 typedef struct s_window		t_window;
 typedef struct s_viewport	t_viewport;
-
+typedef struct s_hit_rec	t_hit_rec;
 
 // void	color_spheres(t_window window, t_sphere spheres[4]);
 // void	color_plane(t_window window, t_room room, double t_min, double *t_closest, int i);
@@ -56,9 +57,15 @@ struct s_window {
 	int			WIN_HEIGHT;
 };
 
+struct	s_hit_rec
+{
+	t_vec3	hitpos;
+	t_vec3	normal;
+	double	t;
+};
 
 void	init_window(t_window *window, mlx_image_t *g_img, double height, double width);
-
-
+void	init_hit_rec(t_hit_rec *hit_rec, t_vec3 hitpos, t_vec3 normal, double t);
+bool	hit_obj(t_hit_rec *rec, t_ray ray, t_room room);
 
 #endif

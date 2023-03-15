@@ -6,7 +6,7 @@
 /*   By: tdehne <tdehne@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 16:14:53 by tdehne            #+#    #+#             */
-/*   Updated: 2023/03/11 15:55:30 by tdehne           ###   ########.fr       */
+/*   Updated: 2023/03/15 04:15:19 by tdehne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ double	hit_sphere(t_sphere sphere, t_vec3 ray_origin, t_vec3 ray_direction)
 	if (discriminant < 0.0)
 		return (-1);
 	t1 = (-b - sqrt(discriminant)) / (2.0 * a);
-	// t2 = (-b + sqrt(discriminant)) / (2.0 * a);
-	// if (t2 < t1)
-	// 	t1 = t2;
+	t2 = (-b + sqrt(discriminant)) / (2.0 * a);
+	if (t2 < t1)
+		t1 = t2;
 	return (t1);
 }
 
@@ -53,4 +53,33 @@ double	hit_plane(t_plane plane, t_vec3 ray_origin, t_vec3 ray_direction)
 	if (denominator == 0.0)
 		return (-1);
 	return (numerator / denominator);
+}
+
+
+bool	hit_obj(t_hit_rec *rec, t_ray ray, t_room room)
+{
+	int		i;
+	bool	hit;
+	double	t;
+	double	t_closest;
+
+	i = 0;
+	hit = false;
+	t_closest = __DBL_MAX__;
+	while (i < 4)
+	{
+		t = hit_sphere(room.spheres[i], ray.origin, ray.direction);
+		if (t > 1 && t < t_closest)
+		{
+			rec->hitpos = get_hitpos(ray.origin, ray.direction, t);
+			rec->normal = vec3_subtraction(room.spheres[i].center, rec->hitpos);
+			rec->t = t;
+			// s = i;
+			hit = true;
+			t_closest = t;
+		}
+		++i;
+
+	}
+	return (hit);
 }

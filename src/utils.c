@@ -3,7 +3,7 @@
 
 double	random_double(void)
 {
-	return ((double)rand() / ((double)RAND_MAX + 1.0));
+	return ((double)rand() / (RAND_MAX));
 }
 
 double	random_min_max(double min, double max)
