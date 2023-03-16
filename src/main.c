@@ -59,7 +59,7 @@ int32_t	main(void)
 
 	init_room(&room);
 	init_window(&window, data()->g_img, HEIGHT, WIDTH);
-	double	scale = 1.0 / 50.0;
+	double	scale = 1.0 / 15.0;
 	int	start = clock();
 	int s;
 	while (window.y < WIDTH)
@@ -67,38 +67,25 @@ int32_t	main(void)
 		window.x = 0;
 		while (window.x < HEIGHT)
 		{
-			color = (t_color){0, 0, 0, 1};
-			s = 0;
-			while (s < 50)
-			{
+			// color = (t_color){0, 0, 0, 1};
+			// s = 0;
+			// while (s < 15)
+			// {
 				// room.camera.ray.direction.x = room.camera.lower_left_corner.x + ((window.x + random_double()) / (double)(WIDTH - 1)) * VW;
-				room.camera.ray.direction.x = ((window.x + random_double()) * VW / (double)(WIDTH -1) - (VW / 2.0)) - room.camera.ray.origin.x;
+				// room.camera.ray.direction.x = ((window.x * random_double()) * VW / (double)(WIDTH -1) - (VW / 2.0)) - room.camera.ray.origin.x;
 				// room.camera.ray.direction.y = room.camera.lower_left_corner.y + ((window.y + random_double()) / (double)(HEIGHT - 1)) * VH;
-				room.camera.ray.direction.y = (((window.y + random_double()) * VH / (double)(HEIGHT- 1) - (VH/ 2.0)) * -1) - room.camera.ray.origin.y;
-				color = color_add(color, color_room(room.camera.ray, room, 50));
-				// room.camera.direction.x -=  room.camera.origin.x;//vec3_subtraction(room.camera.origin, viewport.dir);
-				// room.camera.direction.y -=  room.camera.origin.y;
-				++s;
-			}
-			// for (int s = 0; s < 20; ++s) {
-
-			// 	room.camera.direction.x = ((window.x + random_double()) * VW / (double)(WIDTH -1) - (VW / 2.0));
-			// 	room.camera.direction.y = ((window.y + random_double()) * VH / (double)(HEIGHT- 1) - (VH/ 2.0)) * -1;
-			// 	room.camera.direction.x -=  room.camera.origin.x;//vec3_subtraction(room.camera.origin, viewport.dir);
-			// 	room.camera.direction.y -=  room.camera.origin.y;
-			// 	// room.camera.direction.z = 1;
-			// 	color = color_add(color, color_room(room.camera.origin, room.camera.direction, room, 10));
-			// 	// color = color_room(room.camera.origin, room.camera.direction, room);
+				// room.camera.ray.direction.y = (((window.y * random_double()) * VH / (double)(HEIGHT- 1) - (VH/ 2.0)) * -1) - room.camera.ray.origin.y;
+				// color = color_add(color, color_room(room.camera.ray, room, 50));
+				color = sampling(window, room);
+			// 	++s;
 			// }
-			color.r = sqrt(scale * color.r);
-			color.g = sqrt(scale * color.g);
-			color.b = sqrt(scale * color.b);
+			// color.r = sqrt(scale * color.r);
+			// color.g = sqrt(scale * color.g);
+			// color.b = sqrt(scale * color.b);
 			// color.r *= scale;
 			// color.g *= scale;
 			// color.b *= scale;
 			mlx_put_pixel(data()->g_img, window.x, window.y, get_rgba(color));
-			// mlx_put_pixel(data()->g_img, window.x, window.y, get_rgba(color));
-			// printf("%d %d %d %d\n", WIDTH, HEIGHT, window.x, window.y);
 			++(window.x);
 		}
 		++(window.y);

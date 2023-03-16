@@ -74,6 +74,10 @@ bool	hit_obj(t_hit_rec *rec, t_ray ray, t_room room)
 			rec->hitpos = get_hitpos(ray.origin, ray.direction, t);
 			rec->normal = vec3_subtraction(room.spheres[i].center, rec->hitpos);
 			rec->t = t;
+			rec->material = room.spheres[i].material;
+			rec->color = room.spheres[i].color;
+			rec->center = room.spheres[i].center;
+			rec->radius = room.spheres[i].radius;
 			// s = i;
 			hit = true;
 			t_closest = t;

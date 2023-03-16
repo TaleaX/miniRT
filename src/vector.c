@@ -87,3 +87,8 @@ t_color color_add_vec(t_color color, t_vec3 vec)
 {
 	return ((t_color){color.r + vec.x, color.g + vec.y, color.b + vec.z, 1});
 }
+
+t_color	color_mult(t_color color1, t_color color2)
+{
+	return ((t_color){color1.r * color2.r, color1.g * color2.g, color1.b * color2.b, color1.a * color2.a});
+}

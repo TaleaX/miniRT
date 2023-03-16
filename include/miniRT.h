@@ -59,13 +59,17 @@ struct s_window {
 
 struct	s_hit_rec
 {
-	t_vec3	hitpos;
-	t_vec3	normal;
+	t_vec3			hitpos;
+	t_vec3			normal;
+	t_material_type material;
+	t_color			color;
+	double			radius;
+	t_vec3			center;
 	double	t;
 };
 
 void	init_window(t_window *window, mlx_image_t *g_img, double height, double width);
 void	init_hit_rec(t_hit_rec *hit_rec, t_vec3 hitpos, t_vec3 normal, double t);
 bool	hit_obj(t_hit_rec *rec, t_ray ray, t_room room);
-
+t_color	sampling(t_window window, t_room room);
 #endif

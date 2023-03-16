@@ -34,7 +34,7 @@ void	init_spheres(t_sphere spheres[4])
 	init_vec3(&spheres[2].center, -2, 0, 4);
 	init_vec3(&spheres[3].center, 0, -5001, 0);
 
-	init_color(&spheres[0].color, 0.8, 0.8, 0.8);
+	init_color(&spheres[0].color, 0.1, 1, 0.1);
 	init_color(&spheres[1].color, 0.9, 0.65, 1);
 	init_color(&spheres[2].color, 0.6, 1, 0.9);
 	init_color(&spheres[3].color, 0.6, 0.8, 1);
@@ -43,6 +43,11 @@ void	init_spheres(t_sphere spheres[4])
 	spheres[1].radius = 1;
 	spheres[2].radius = 1;
 	spheres[3].radius = 5000;
+
+	spheres[0].material = MIRROR;
+	spheres[1].material = MIRROR;
+	spheres[2].material = MIRROR;
+	spheres[3].material = MATTE;
 }
 
 // void	init_sphere(t_sphere sphere, t_vec3 center, t_color color, double radius)

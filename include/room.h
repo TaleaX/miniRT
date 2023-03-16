@@ -22,6 +22,8 @@ typedef struct s_light		t_light;
 typedef struct s_ray		t_ray;
 typedef struct s_viewport	t_viewport;
 typedef enum e_light_type	t_light_type;
+typedef enum e_material_type	t_material_type;
+
 
 enum e_light_type
 {
@@ -29,6 +31,16 @@ enum e_light_type
 	SUN,
 	AMBIENT
 };
+
+enum e_material_type
+{
+	MATTE,
+	SHINY,
+	MIRROR,
+	GLAS,
+	METAL
+};
+
 
 // enum e_obj_type
 // {
@@ -41,6 +53,8 @@ struct s_sphere {
 	t_vec3	center;
 	double	radius;
 	t_color	color;
+	t_material_type material;
+
 };
 
 struct s_plane {
