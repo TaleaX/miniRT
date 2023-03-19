@@ -58,23 +58,32 @@ int32_t	main(void)
 		ft_error();
 
 	init_room(&room);
-	init_window(&window, data()->g_img, HEIGHT, WIDTH);
+	// init_window(&window, data()->g_img, HEIGHT, WIDTH);
 	double	scale = 1.0 / 10.0;
 	int	start = clock();
 	int s;
-	while (window.y < WIDTH)
+	int	x;
+	int	y = 0;
+	while (y < HEIGHT)
 	{
-		window.x = 0;
-		while (window.x < HEIGHT)
+		x = 0;
+		while (x < WIDTH)
 		{
 			color = (t_color){0, 0, 0, 1};
 			s = 0;
 			while (s < 10)
 			{
-				room.camera.ray.direction.x = room.camera.lower_left_corner.x + ((window.x + random_double()) / (double)(WIDTH - 1)) * VW;
-				// room.camera.ray.direction.x = ((window.x * random_double()) * VW / (double)(WIDTH -1) - (VW / 2.0)) - room.camera.ray.origin.x;
-				room.camera.ray.direction.y = (room.camera.lower_left_corner.y + ((window.y + random_double()) / (double)(HEIGHT - 1)) * VH) * -1;
-				// room.camera.ray.direction.y = (((window.y * random_double()) * VH / (double)(HEIGHT- 1) - (VH/ 2.0)) * -1) - room.camera.ray.origin.y;
+				// room.camera.ray.direction.x = room.camera.lower_left_corner.x + ((window.x + random_double()) / (double)(WIDTH - 1)) * VW;
+				// room.camera.ray.direction.x = ((window.x + random_double()) * VW / (double)(WIDTH -1) - (VW / 2.0)) - room.camera.ray.origin.x;
+				// room.camera.ray.direction.y = (room.camera.lower_left_corner.y + ((window.y + random_double()) / (double)(HEIGHT - 1)) * VH) * -1;
+				// room.camera.ray.direction.y = (((window.y + random_double()) * VH / (double)(HEIGHT- 1) - (VH/ 2.0)) * -1) - room.camera.ray.origin.y;
+				
+				
+				data()->px[x][y].x = x;
+				data()->px[x][y].y = y;
+				room.camera.ray.direction.x = ((window.x + random_double()) * VW / (double)(WIDTH -1) - (VW / 2.0)) - room.camera.ray.origin.x;
+				room.camera.ray.direction.y = (((window.y + random_double()) * VH / (double)(HEIGHT- 1) - (VH/ 2.0)) * -1) - room.camera.ray.origin.y;
+
 				color = color_add(color, color_room(room.camera.ray, room, 50));
 				// color = sampling(window, room);
 				++s;
