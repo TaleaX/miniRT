@@ -12,7 +12,7 @@
 
 #include "miniRT.h"
 
-double	hit_sphere(t_sphere sphere, t_vec3 ray_origin, t_vec3 ray_direction)
+double	hit_sphere(t_obj sphere, t_vec3 ray_origin, t_vec3 ray_direction)
 {
 	double	a;
 	double	b;
@@ -56,7 +56,7 @@ double	hit_plane(t_plane plane, t_vec3 ray_origin, t_vec3 ray_direction)
 }
 
 
-bool	hit_obj(t_hit_rec *rec, t_ray ray, t_room room)
+bool	hit_obj(t_ray ray, t_pixel *px)
 {
 	int		i;
 	bool	hit;
@@ -68,16 +68,18 @@ bool	hit_obj(t_hit_rec *rec, t_ray ray, t_room room)
 	t_closest = __DBL_MAX__;
 	while (i < 4)
 	{
-		t = hit_sphere(room.spheres[i], ray.origin, ray.direction);
+		//if (data()->objects[i].obj_type == SPHERE)
+		t = hit_sphere(data()->objects[i], ray.origin, ray.direction);
 		if (t >= 0.001 && t < t_closest)
 		{
-			rec->hitpos = get_hitpos(ray.origin, ray.direction, t);
-			rec->normal = vec3_subtraction(room.spheres[i].center, rec->hitpos);
-			rec->t = t;
-			rec->material = room.spheres[i].material;
-			rec->color = room.spheres[i].color;
-			rec->center = room.spheres[i].center;
-			rec->radius = room.spheres[i].radius;
+			px->hitpoint = get_hitpos(ray.origin, ray.direction, t);
+			px->normal = vec3_subtraction(data()->objects[i].center, px->hitpoint);
+			px->t = t;
+			px->material = data()->objects[i].material;
+			px->color = data()->objects[i].color;
+			// data()->objects[px->obj_id] = room.spheres[i].center;
+			px->obj_id = i;
+			// rec->radius = room.spheres[i].radius;
 			// s = i;
 			hit = true;
 			t_closest = t;

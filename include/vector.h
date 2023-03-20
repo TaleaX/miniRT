@@ -13,7 +13,7 @@
 #ifndef VECTOR_H
 # define VECTOR_H
 # include <math.h>
-
+# include "structs.h"
 
 
 void	init_vec3(t_vec3 *v, double x, double y, double z);

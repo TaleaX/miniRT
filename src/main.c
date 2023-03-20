@@ -11,10 +11,8 @@
 /* ************************************************************************** */
 
 #include "../include/miniRT.h"
-// #include "vector.h"
 #include "../include/color.h"
 #include "../include/calc.h"
-#include "../include/room.h"
 #include <time.h>
 
 // static mlx_image_t	*g_img;
@@ -46,8 +44,6 @@ t_data	*data(void)
 int32_t	main(void)
 {
 	mlx_t		*mlx;
-	t_window	window;
-	t_room		room;
 	t_color		color;
 
 	if (!(mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true)))
@@ -57,13 +53,20 @@ int32_t	main(void)
 	if (!data()->g_img || (mlx_image_to_window(mlx, data()->g_img, 0, 0) < 0))
 		ft_error();
 
-	init_room(&room);
-	// init_window(&window, data()->g_img, HEIGHT, WIDTH);
+	init_data();
 	double	scale = 1.0 / 10.0;
 	int	start = clock();
 	int s;
 	int	x;
 	int	y = 0;
+	double	test = 0.5;
+	double	verschiebung;
+	double	base_verschiebung = 0.5;
+
+	data()->ray.origin.y = 5;
+	verschiebung = base_verschiebung + data()->ray.origin.y;
+	// test = VH * verschiebung;
+	
 	while (y < HEIGHT)
 	{
 		x = 0;
@@ -72,32 +75,27 @@ int32_t	main(void)
 			color = (t_color){0, 0, 0, 1};
 			s = 0;
 			while (s < 10)
-			{
-				// room.camera.ray.direction.x = room.camera.lower_left_corner.x + ((window.x + random_double()) / (double)(WIDTH - 1)) * VW;
-				// room.camera.ray.direction.x = ((window.x + random_double()) * VW / (double)(WIDTH -1) - (VW / 2.0)) - room.camera.ray.origin.x;
-				// room.camera.ray.direction.y = (room.camera.lower_left_corner.y + ((window.y + random_double()) / (double)(HEIGHT - 1)) * VH) * -1;
-				// room.camera.ray.direction.y = (((window.y + random_double()) * VH / (double)(HEIGHT- 1) - (VH/ 2.0)) * -1) - room.camera.ray.origin.y;
-				
-				
-				data()->px[x][y].x = x;
-				data()->px[x][y].y = y;
-				room.camera.ray.direction.x = ((window.x + random_double()) * VW / (double)(WIDTH -1) - (VW / 2.0)) - room.camera.ray.origin.x;
-				room.camera.ray.direction.y = (((window.y + random_double()) * VH / (double)(HEIGHT- 1) - (VH/ 2.0)) * -1) - room.camera.ray.origin.y;
-
-				color = color_add(color, color_room(room.camera.ray, room, 50));
+			{					
+				data()->coord.x = x;
+				data()->coord.y = y;
+				data()->ray.direction.x = ((x) * VW / (double)(WIDTH -1) - (VW * 0.5)) - data()->ray.origin.x;
+				data()->ray.direction.y = (((y) * VH / (double)(HEIGHT- 1) - (VH * verschiebung)) * -1) - data()->ray.origin.y;
+				// data()->px[x][y].ray.direction.z = 1;
+				color = color_add(color, color_room(data()->ray, data()->coord, 50));
 				// color = sampling(window, room);
 				++s;
 			}
+			// printf("y %f\n", data()->ray.direction.y);
 			color.r = sqrt(scale * color.r);
 			color.g = sqrt(scale * color.g);
 			color.b = sqrt(scale * color.b);
 			// color.r *= scale;
 			// color.g *= scale;
 			// color.b *= scale;
-			mlx_put_pixel(data()->g_img, window.x, window.y, get_rgba(color));
-			++(window.x);
+			mlx_put_pixel(data()->g_img, x, y, get_rgba(color));
+			++x;
 		}
-		++(window.y);
+		++y;
 	};
 	int end = clock();
 	printf("%f\n", (float)(end - start) / CLOCKS_PER_SEC);

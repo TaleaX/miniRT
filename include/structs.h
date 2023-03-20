@@ -65,42 +65,28 @@ enum e_material_type
 	METAL
 };
 
-// typedef struct s_data
-// {
-// 	mlx_image_t	*g_img;
-// }	t_data;
-t_data	*data(void);
-
-struct s_pixel
-{
-	int			x;
-	int			y;
-	// double		v_x;
-	// double		v_y;
-
-	// bool        hit_anything;
-	int         hits_num;
-	t_color		color;
-	double		t;
-	t_v3		hitpoint;
-	int			obj_id;
-	t_ray		ray;
-	t_vec3      normal;
-	// t_obj_type	type;
-	// int			sphere_id;
+//vector + color structs
+struct s_v2 {
+	int		x;
+	int		y;
 };
 
-struct s_data
-{
-  mlx_image_t	*g_img;
-  t_pixel     	px[HEIGHT][WIDTH];
-  t_obj			objects[100];
-  t_vec3        origin;
-  t_vec3        horizontal;
-  t_vec3        vertical;
-  t_vec3        lower_left_corner;
-  int         samples;
-  double      scale;
+struct s_v3 {
+	double	x;
+	double	y;
+	double	z;
+};
+
+struct s_color {
+	double	r;
+	double	g;
+	double	b;
+	double	a;
+};
+
+struct s_ray {
+	t_vec3	origin;
+	t_vec3	direction;
 };
 
 struct	s_obj
@@ -113,6 +99,41 @@ struct	s_obj
 	t_obj_type		obj_type;
 	t_color			color;
 	t_material_type material;
+};
+
+t_data	*data(void);
+
+struct s_pixel
+{
+	// double		v_x;
+	// double		v_y;
+
+	// bool        hit_anything;
+	int         hits_num;
+	t_color		color;
+	double		t;
+	t_v3		hitpoint;
+	int			obj_id;
+	t_vec3      normal;
+	t_obj_type	type;
+	t_material_type material;
+	// int			sphere_id;
+};
+
+struct s_data
+{
+	mlx_image_t	*g_img;
+	t_pixel     px[HEIGHT][WIDTH];
+	t_vec2		coord;
+	double		cam_dist;
+	t_obj		objects[100];
+	t_ray		ray;
+	t_vec3		cam_origin;
+	t_vec3		horizontal;
+	t_vec3      vertical;
+	t_vec3		lower_left_corner;
+	int			samples;
+	double		scale; 
 };
 
 struct s_sphere {
@@ -130,11 +151,6 @@ struct s_plane {
 	t_color	color;
 };
 
-struct s_ray {
-	t_vec3	origin;
-	t_vec3	direction;
-};
-
 struct s_camera {
 	t_ray	ray;
 	t_vec3	lower_left_corner;
@@ -146,15 +162,15 @@ struct s_light {
 };
 
 
-struct s_room {
-	t_camera	camera;
-	t_light		light;
-	t_plane		planes[4];
-	t_sphere	spheres[4];
-	size_t		num_spheres;
-	size_t		num_lights;
-	size_t		num_planes;
-};
+// struct s_room {
+// 	t_camera	camera;
+// 	t_light		light;
+// 	t_plane		planes[4];
+// 	t_sphere	spheres[4];
+// 	size_t		num_spheres;
+// 	size_t		num_lights;
+// 	size_t		num_planes;
+// };
 
 
 
@@ -178,24 +194,5 @@ struct	s_hit_rec
 	double	t;
 };
 
-
-//vector + color structs
-struct s_v2 {
-	double	x;
-	double	y;
-};
-
-struct s_v3 {
-	double	x;
-	double	y;
-	double	z;
-};
-
-struct s_color {
-	double	r;
-	double	g;
-	double	b;
-	double	a;
-};
 
 #endif

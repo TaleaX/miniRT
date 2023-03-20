@@ -12,14 +12,14 @@
 
 #ifndef CALC_H
 # define CALC_H
-# include "room.h"
+# include "structs.h"
 # include "vector.h"
 # include <stdbool.h>
 
-double	hit_sphere(t_sphere sphere, t_vec3 ray_origin, t_vec3 ray_direction);
+double	hit_sphere(t_obj sphere, t_vec3 ray_origin, t_vec3 ray_direction);
 double	hit_plane(t_plane plane, t_vec3 ray_origin, t_vec3 ray_direction);
 double	calc_light(t_vec3 light_ray, t_vec3 normal, double intensity);
-t_color	color_room(t_ray ray, t_room room, int depth);
+t_color	color_room(t_ray ray, t_vec2 coord, int depth);
 t_vec3	get_lightRay(t_light light, t_vec3 hit_pos);
 double	random_double(void);
 double	random_min_max(double min, double max);

@@ -15,7 +15,7 @@
 # define COLOR_H
 # include <stdlib.h>
 # include <stdint.h>
-# include "vector.h"
+# include "structs.h"
 
 uint32_t	get_rgba(t_color color);
 uint32_t	get_color_t(double t);

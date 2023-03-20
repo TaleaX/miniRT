@@ -27,7 +27,7 @@ void	init_color(t_color *color, double r, double g, double b)
 	color->a = 1; 
 }
 
-void	init_spheres(t_sphere spheres[4])
+void	init_spheres(t_obj* spheres)
 {
 	init_vec3(&spheres[0].center, 0, -1, 3);
 	init_vec3(&spheres[1].center, 2, 0, 4);
@@ -85,22 +85,22 @@ void	init_light(t_light *light, t_vec3 origin, t_vec3 direction, t_light_type ty
 	light->type = type;
 }
 
-void	init_room(t_room *room)
-{
-	init_spheres(room->spheres);
-	init_plane(&room->planes[0]);
-	init_camera(&room->camera);
-	init_light(&room->light, (t_vec3){0.0, 1.0, 0.0},  (t_vec3){1.0, 1.0, 1.0}, POINT);
-}
+// void	init_room(t_room *room)
+// {
+// 	init_spheres(room->spheres);
+// 	init_plane(&room->planes[0]);
+// 	init_camera(&room->camera);
+// 	init_light(&room->light, (t_vec3){0.0, 1.0, 0.0},  (t_vec3){1.0, 1.0, 1.0}, POINT);
+// }
 
-void	init_window(t_window *window, mlx_image_t *g_img, double height, double width)
-{
-	window->g_img = g_img;
-	window->x = 0;
-	window->y = 0;
-	window->WIN_HEIGHT = height;
-	window->WIN_WIDTH = width;
-}
+// void	init_window(t_window *window, mlx_image_t *g_img, double height, double width)
+// {
+// 	window->g_img = g_img;
+// 	window->x = 0;
+// 	window->y = 0;
+// 	window->WIN_HEIGHT = height;
+// 	window->WIN_WIDTH = width;
+// }
 
 
 void	init_hit_rec(t_hit_rec *hit_rec, t_vec3 hitpos, t_vec3 normal, double t)
@@ -108,4 +108,21 @@ void	init_hit_rec(t_hit_rec *hit_rec, t_vec3 hitpos, t_vec3 normal, double t)
 	hit_rec->hitpos = hitpos;
 	hit_rec->normal = normal;
 	hit_rec->t = t;
+}
+
+// void	init_sphere(t_obj *sphere, t_vec3 center, double radius, t_material_type material, t_color color)
+// {
+// 	sphere->center = center;
+// 	sphere->radius = radius;
+// 	sphere->color = color;
+// 	sphere->material = material;
+// 	sphere->obj_type = SPHERE;
+// }
+
+void	init_data()
+{
+	data()->cam_dist = 1;
+	init_spheres(data()->objects);
+	data()->cam_origin = (t_vec3){0, 0, -13};
+	init_ray(&(data()->ray), data()->cam_origin, (t_vec3){0, 0, 1});
 }

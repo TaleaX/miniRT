@@ -21,7 +21,6 @@
 # include "structs.h"
 # include "color.h"
 # include "calc.h"
-# include "../MLX42/include/MLX42/MLX42.h"
 # define RATIO 1.5f
 # define VH 1.0f
 # define DIST 1.0f
@@ -38,13 +37,14 @@
 
 // void	init_window(t_window *window, mlx_image_t *g_img, double height, double width);
 void	init_hit_rec(t_hit_rec *hit_rec, t_vec3 hitpos, t_vec3 normal, double t);
-bool	hit_obj(t_hit_rec *rec, t_ray ray, t_room room);
-t_color	sampling(t_window window, t_room room);
+bool	hit_obj(t_ray ray, t_pixel *px);
+// t_color	sampling(t_window window, t_room room);
 
 //init
-void	init_spheres(t_sphere spheres[4]);
+void	init_spheres(t_obj* spheres);
 void	init_plane(t_plane* plane);
 void	init_room(t_room *room);
 void	init_ray(t_ray *ray, t_vec3 origin, t_vec3 direction);
 t_ray	new_ray(t_vec3 origin, t_vec3 direction);
+void	init_data();
 #endif
