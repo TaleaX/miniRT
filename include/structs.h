@@ -128,6 +128,7 @@ struct s_data
 	double		cam_dist;
 	t_obj		objects[100];
 	t_ray		ray;
+	t_vec3		viewport_px;
 	t_vec3		cam_origin;
 	t_vec3		horizontal;
 	t_vec3      vertical;

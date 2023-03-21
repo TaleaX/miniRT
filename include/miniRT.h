@@ -16,6 +16,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <memory.h>
+# define _USE_MATH_DEFINES
 # include <math.h>
 # include "vector.h"
 # include "structs.h"

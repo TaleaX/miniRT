@@ -37,7 +37,7 @@ void	init_spheres(t_obj* spheres)
 	init_color(&spheres[0].color, 0.1, 1, 0.1);
 	init_color(&spheres[1].color, 0.9, 0.65, 1);
 	init_color(&spheres[2].color, 0.6, 1, 0.9);
-	init_color(&spheres[3].color, 0.6, 0.8, 1);
+	init_color(&spheres[3].color, 1, 0, 0);
 
 	spheres[0].radius = 1;
 	spheres[1].radius = 1;
@@ -123,6 +123,6 @@ void	init_data()
 {
 	data()->cam_dist = 1;
 	init_spheres(data()->objects);
-	data()->cam_origin = (t_vec3){0, 0, -13};
+	data()->cam_origin = (t_vec3){0, 0, 0};
 	init_ray(&(data()->ray), data()->cam_origin, (t_vec3){0, 0, 1});
 }
