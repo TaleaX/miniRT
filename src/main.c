@@ -43,18 +43,23 @@ t_data	*data(void)
 	return (&data);
 }
 
-double	map_y(double y_start, double y)
+double	degree_to_radian(double degree)
+{
+	return (degree * 2 * M_PI / 360.0);
+}
+
+double	map_y(double y_start, double y, double radian)
 {
 	double	factor;
-	factor = sinf(0.0 * M_PI / 2.0);
+	factor = sinf(radian);
 	// printf("y %f\n", y);
 	return ((y * factor + y_start));
 }
 
-double	map_z(double z_start, double z)
+double	map_z(double z_start, double z, double radian)
 {
 	double	factor;
-	factor = cosf(0.0 * M_PI / 2.0);
+	factor = cosf(radian);
 	return (z_start +  z * factor);
 }
 
@@ -78,21 +83,28 @@ int32_t	main(void)
 	int	y = 0;
 	double	test = 0.5;
 	double	verschiebung_y;
-	double	base_verschiebung = 0.5;
-	double	verschiebung_x;
+	double	base_verschiebung_y = -0.5;
+	double	base_verschiebung_x = -0.5;
+	double	verschiebung_x = 0.5;
 	double	verschiebung_z;
-	double	rotation_deg = 45;
+	double	rotation_deg = degree_to_radian(70);
 	double	y_start;
+	t_vec3	dist = {0, 0, 1};
 
-	data()->ray.origin.y = 13;
 	// verschiebung_y = base_verschiebung + data()->ray.origin.y;
-	verschiebung_y = 12;// - 2;
-	verschiebung_x = 0;
-	verschiebung_z = 1.0;
+	verschiebung_y = 2;// - 2;
 
-	data()->ray.origin.z = 1;
+	verschiebung_z = 0;
 
-	// test = VH * verschiebung;
+
+
+	data()->ray.origin.y = verschiebung_y + cosf(rotation_deg);
+	data()->ray.origin.z = verschiebung_z + cosf(rotation_deg) * 0.5 - sinf(rotation_deg);
+	data()->ray.origin.x = verschiebung_x;
+	// printf("origin y %f z %f\n", data()->ray.origin.y, data()->ray.origin.z);
+	if (rotation_deg >= M_PI && rotation_deg <= 2*M_PI)
+		base_verschiebung_y *= -1;
+
 	int	y_max = HEIGHT - 1;
 	while (y < HEIGHT)
 	{
@@ -105,41 +117,32 @@ int32_t	main(void)
 			// {					
 				data()->coord.x = x;
 				data()->coord.y = y;
-				data()->viewport_px.x = ((x ) * VW / (double)(WIDTH -1)) - (VW * base_verschiebung + verschiebung_x);
-				data()->viewport_px.y = (((y ) * VH / (double)(HEIGHT- 1)));
-				data()->viewport_px.z = (((y ) * VH / (double)(HEIGHT- 1)));
-				data()->viewport_px.y = map_y((VH * -base_verschiebung + verschiebung_y), data()->viewport_px.y);
-				data()->viewport_px.z = map_z(verschiebung_z, data()->viewport_px.z);
-				printf("%f %f\n",data()->viewport_px.y, data()->viewport_px.z);
-				// exit(0);
+				data()->viewport_px.x = ((x) * VW / (double)(WIDTH -1)) + (VW * base_verschiebung_x + verschiebung_x);
+				data()->viewport_px.y = (((y) * VH / (double)(HEIGHT- 1)));
+				data()->viewport_px.z = (((y) * VH / (double)(HEIGHT- 1)));
+
+				data()->viewport_px.y = map_y((VH * + base_verschiebung_y + verschiebung_y), data()->viewport_px.y, rotation_deg);
+				data()->viewport_px.z = map_z(verschiebung_z, data()->viewport_px.z, rotation_deg);
+				// printf("%f\n", data()->viewport_px.z);
+				
 				data()->ray.direction.x = data()->viewport_px.x -  data()->ray.origin.x;
 				data()->ray.direction.y = data()->viewport_px.y -  data()->ray.origin.y;
 				data()->ray.direction.z = data()->viewport_px.z -  data()->ray.origin.z;
-				// data()->ray.direction.x = ((x ) * VW / (double)(WIDTH -1)) - (VW * base_verschiebung + verschiebung_x) - data()->ray.origin.x;
-				// data()->ray.direction.y = (((y ) * VH / (double)(HEIGHT- 1) - (VH * base_verschiebung + verschiebung_y)) * -1)- data()->ray.origin.y;
 				
-				
-				// double z = y * VH / (double)(HEIGHT - 1);// + verschiebung_z;
-				// data()->ray.direction.y = map_y(verschiebung_y - VH * base_verschiebung, data()->ray.direction.y)  - data()->ray.origin.y;
-				// data()->ray.direction.y = -1;
-				// data()->ray.direction.z = map_z(verschiebung_z, z) - data()->ray.origin.z;
-				// data()->ray.direction.z = verschiebung_z;
 				color = color_add(color, color_room(data()->ray, data()->coord, 50));
 				// color = sampling(window, room);
-				++s;
+			// 	++s;
 			// }
-			// printf("y %f\n", data()->ray.direction.y);
 			// color.r = sqrt(scale * color.r);
 			// color.g = sqrt(scale * color.g);
 			// color.b = sqrt(scale * color.b);
-			// color.r *= scale;
-			// color.g *= scale;
-			// color.b *= scale;
+
 			mlx_put_pixel(data()->g_img, x, y_max, get_rgba(color));
 			++x;
 		}
-		// if (y == 3)
-		// 	exit(0);
+		// printf("%f %f\n",data()->viewport_px.y, data()->viewport_px.z);
+		// printf("y %f z %f\n", data()->ray.direction.y, data()->ray.direction.z);
+
 		++y;
 		y_max--;
 	};
