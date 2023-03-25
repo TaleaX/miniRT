@@ -65,18 +65,22 @@ bool	hit_obj(t_ray ray, t_pixel *px)
 
 	i = 0;
 	hit = false;
+	t = 0;
 	t_closest = __DBL_MAX__;
 	while (i < 4)
 	{
 		//if (data()->objects[i].obj_type == SPHERE)
 		t = hit_sphere(data()->objects[i], ray.origin, ray.direction);
-		if (t >= 0.001 && t < t_closest)
+		if (t > 0.001 && t < t_closest )
 		{
 			px->hitpoint = get_hitpos(ray.origin, ray.direction, t);
 			px->normal = vec3_subtraction(data()->objects[i].center, px->hitpoint);
+			set_face_normal(ray, &px->normal);
 			px->t = t;
 			px->material = data()->objects[i].material;
 			px->color = data()->objects[i].color;
+			px->fuzz = data()->objects[i].fuzz;
+			px->specular = data()->objects[i].specular;
 			// data()->objects[px->obj_id] = room.spheres[i].center;
 			px->obj_id = i;
 			// rec->radius = room.spheres[i].radius;

@@ -89,6 +89,13 @@ struct s_ray {
 	t_vec3	direction;
 };
 
+struct s_light {
+	t_light_type	type;
+	t_ray			ray;
+	double			intensity;
+};
+
+
 struct	s_obj
 {
 	t_vec3			center;
@@ -99,6 +106,8 @@ struct	s_obj
 	t_obj_type		obj_type;
 	t_color			color;
 	t_material_type material;
+	double			fuzz;
+	double			specular;
 };
 
 t_data	*data(void);
@@ -112,11 +121,13 @@ struct s_pixel
 	int         hits_num;
 	t_color		color;
 	double		t;
-	t_v3		hitpoint;
+	t_vec3		hitpoint;
 	int			obj_id;
 	t_vec3      normal;
 	t_obj_type	type;
 	t_material_type material;
+	double			fuzz;
+	double			specular;
 	// int			sphere_id;
 };
 
@@ -128,6 +139,7 @@ struct s_data
 	double		cam_dist;
 	t_obj		objects[100];
 	t_ray		ray;
+	t_light		light;
 	t_vec3		viewport_px;
 	t_vec3		cam_origin;
 	t_vec3		horizontal;
@@ -157,10 +169,6 @@ struct s_camera {
 	t_vec3	lower_left_corner;
 };
 
-struct s_light {
-	t_light_type	type;
-	t_ray			ray;
-};
 
 
 // struct s_room {

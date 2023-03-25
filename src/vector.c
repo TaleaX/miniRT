@@ -12,10 +12,16 @@
 
 #include "vector.h"
 
+double	vec3_length_squared(t_vec3 v)
+{
+	return (v.x * v.x + v.y * v.y + v.z * v.z);
+}
+
 double	vec3_length(t_vec3 v)
 {
-	return (sqrt(v.x * v.x + v.y * v.y + v.z * v.z));
+	return (sqrt(vec3_length_squared(v)));
 }
+
 
 void	vec3_normalize(t_vec3 *v)
 {

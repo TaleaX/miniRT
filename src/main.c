@@ -76,7 +76,8 @@ int32_t	main(void)
 		ft_error();
 
 	init_data();
-	double	scale = 1.0 / 10.0;
+	double samples = 20;
+	double	scale = 1.0 / samples;
 	int	start = clock();
 	int s;
 	int	x;
@@ -85,16 +86,16 @@ int32_t	main(void)
 	double	verschiebung_y;
 	double	base_verschiebung_y = -0.5;
 	double	base_verschiebung_x = -0.5;
-	double	verschiebung_x = 0.5;
+	double	verschiebung_x = 0;
 	double	verschiebung_z;
-	double	rotation_deg = degree_to_radian(70);
+	double	rotation_deg = degree_to_radian(90);
 	double	y_start;
 	t_vec3	dist = {0, 0, 1};
 
 	// verschiebung_y = base_verschiebung + data()->ray.origin.y;
-	verschiebung_y = 2;// - 2;
+	verschiebung_y = 0;// - 2;
 
-	verschiebung_z = 0;
+	verschiebung_z = -1;
 
 
 
@@ -112,14 +113,15 @@ int32_t	main(void)
 		while (x < WIDTH)
 		{
 			color = (t_color){0, 0, 0, 1};
-			// s = 0;
-			// while (s < 10)
-			// {					
-				data()->coord.x = x;
+			s = 0;
+			while (s < samples)
+			{					
+			// 	data()->coord.x = x;
 				data()->coord.y = y;
 				data()->viewport_px.x = ((x) * VW / (double)(WIDTH -1)) + (VW * base_verschiebung_x + verschiebung_x);
 				data()->viewport_px.y = (((y) * VH / (double)(HEIGHT- 1)));
-				data()->viewport_px.z = (((y) * VH / (double)(HEIGHT- 1)));
+				// data()->viewport_px.z = (((y +  random_double()) * VH / (double)(HEIGHT- 1)));
+				data()->viewport_px.z = 1;
 
 				data()->viewport_px.y = map_y((VH * + base_verschiebung_y + verschiebung_y), data()->viewport_px.y, rotation_deg);
 				data()->viewport_px.z = map_z(verschiebung_z, data()->viewport_px.z, rotation_deg);
@@ -131,11 +133,11 @@ int32_t	main(void)
 				
 				color = color_add(color, color_room(data()->ray, data()->coord, 50));
 				// color = sampling(window, room);
-			// 	++s;
-			// }
-			// color.r = sqrt(scale * color.r);
-			// color.g = sqrt(scale * color.g);
-			// color.b = sqrt(scale * color.b);
+				++s;
+			}
+			color.r = sqrt(scale * color.r);
+			color.g = sqrt(scale * color.g);
+			color.b = sqrt(scale * color.b);
 
 			mlx_put_pixel(data()->g_img, x, y_max, get_rgba(color));
 			++x;
