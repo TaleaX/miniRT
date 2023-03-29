@@ -13,9 +13,13 @@
 #ifndef STRUCTS_H
 # define STRUCTS_H
 # include "../MLX42/include/MLX42/MLX42.h"
-# include "vector.h"
-# define WIDTH 800
+# define M_PI 3.14159265358979323846
+# define ASPECT_RATIO (double)(16.0 / 9.0)
 # define HEIGHT 800
+# define WIDTH ((int)(HEIGHT * ASPECT_RATIO))
+# define VH 1.0
+# define VW ((double)(VH * ASPECT_RATIO))
+# define VIEWPORT_DIST 1.0
 
 //enums
 typedef enum e_light_type		t_light_type;
@@ -131,13 +135,24 @@ struct s_pixel
 	// int			sphere_id;
 };
 
+struct s_camera {
+	// t_ray	ray;
+	t_vec3	origin;
+	t_vec3	lookat;
+	double	viewport_height;
+	double	viewport_width;
+	double	vfov;
+	t_vec3	lower_left_corner;
+};
+
 struct s_data
 {
 	mlx_image_t	*g_img;
 	t_pixel     px[HEIGHT][WIDTH];
 	t_vec2		coord;
 	double		cam_dist;
-	t_obj		objects[100];
+	t_camera	camera;
+	t_obj		objects[1000];
 	t_ray		ray;
 	t_light		light;
 	t_vec3		viewport_px;
@@ -146,6 +161,7 @@ struct s_data
 	t_vec3      vertical;
 	t_vec3		lower_left_corner;
 	int			samples;
+	int			obj_len;
 	double		scale; 
 };
 
@@ -164,10 +180,6 @@ struct s_plane {
 	t_color	color;
 };
 
-struct s_camera {
-	t_ray	ray;
-	t_vec3	lower_left_corner;
-};
 
 
 

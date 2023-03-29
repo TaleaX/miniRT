@@ -15,7 +15,6 @@
 # include <math.h>
 # include "structs.h"
 
-
 void	init_vec3(t_vec3 *v, double x, double y, double z);
 
 double	vec3_length_squared(t_vec3 v);

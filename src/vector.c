@@ -35,16 +35,6 @@ void	vec3_normalize(t_vec3 *v)
 	}
 }
 
-// void	change_coords(void *self, double x, double y, double z)
-// {
-// 	t_vec3	*this;
-
-// 	this = self;
-// 	this->x = x;
-// 	this->y = y;
-// 	this->z = z;
-// }
-
 double	vec3_dot(t_vec3 v1, t_vec3 v2)
 {
 	return (v1.x * v2.x + v1.y * v2.y + v1.z * v2.z);
@@ -78,6 +68,14 @@ t_vec3	vec3_get_normal(t_vec3 vec1, t_vec3 vec2)
 {
 	return ((t_vec3){vec1.y * vec2.z - vec1.z * vec2.y, vec1.z * vec2.x - vec1.x - vec2.z, vec1.y * vec2.x - vec1.x - vec2.y});
 }
+
+t_vec3	vec3_scalar_subtraction(t_vec3 vec, double scalar)
+{
+	return ((t_vec3){vec.x - scalar, vec.y - scalar, vec.z - scalar});
+}
+
+
+
 
 t_color	color_add(t_color color1, t_color color2)
 {

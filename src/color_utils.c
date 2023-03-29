@@ -46,9 +46,6 @@ t_color	get_color(double light, t_color color_obj)
 	color.r = (color_obj.r) * light;
 	color.g = (color_obj.g) * light;
 	color.b = (color_obj.b) * light;
-	// color.r = (color.r > 1) ? 1 : (color.r < 0 ? 0 : color.r);
-	// color.g = (color.g > 1) ? 1 : (color.g < 0 ? 0 : color.g);
-	// color.b = (color.b > 1) ? 1 : (color.b < 0 ? 0 : color.b);
 	color.a = 1;
 	return (color);
 }

@@ -23,10 +23,10 @@
 # include "color.h"
 # include "calc.h"
 # define RATIO 1.5f
-# define VH 1.0f
-# define DIST 1.0f
+// # define VH 1.0f
+
 //(int) (HEIGHT * RATIO)
-# define VW 1.0f
+// # define VW 1.0f
 //(double)(VH * RATIO)
 
 

@@ -27,5 +27,7 @@ t_vec3	random_in_usphere(void);
 t_vec3	random_in_hemisphere(t_vec3 normal);
 t_vec3	reflected_direction(t_vec3 lightRay, t_vec3 normal);
 void	set_face_normal(t_ray ray, t_vec3 *outward_normal);
-
+t_vec3	vec3_scalar_subtraction(t_vec3 vec, double scalar);
+bool	near_zero(t_vec3 vec);
+double	degree_to_radian(double degree);
 #endif

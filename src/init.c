@@ -48,26 +48,27 @@ void	init_spheres(t_obj* spheres)
 	// spheres[1].material = MIRROR;
 	// spheres[2].material = MIRROR;
 	// spheres[3].material = MATTE;
-
-	init_vec3(&spheres[0].center, 0, 0, 1);
-	init_vec3(&spheres[1].center, 0, -100.5, 1);
-	init_vec3(&spheres[2].center, -1.0,    0.0, 1.0);
-	init_vec3(&spheres[3].center, 1.0,    0.0, 1.0);
+	double r = cos(M_PI / 4.0);
+	init_vec3(&spheres[0].center, 0.5, 0, 3);
+	init_vec3(&spheres[1].center, 0, -1000.5, 1);
+	init_vec3(&spheres[2].center, -1,    0.0, 2);
+	init_vec3(&spheres[3].center, 0,    0.0, 4);
+	// init_vec3(&spheres[3].center, 0,    0.0, 1);
 
 	init_color(&spheres[0].color, 0.7, 0.3, 0.3);
-	init_color(&spheres[1].color, 0.8, 0.8, 0.0);
-	init_color(&spheres[2].color, 0.8, 0.8, 0.8);
-	init_color(&spheres[3].color, 0.8, 0.6, 0.2);
+	init_color(&spheres[1].color, 0.5, 0.5, 0.5);
+	init_color(&spheres[2].color, 0.8, 0.6, 0.2);
+	init_color(&spheres[3].color, 0.8, 0.8, 0.8);
 
 	spheres[0].radius = 0.5;
-	spheres[1].radius = 100;
+	spheres[1].radius = 1000;
 	spheres[2].radius = 0.5;
 	spheres[3].radius = 0.5;
 
 	spheres[0].material = MATTE;
 	spheres[1].material = MATTE;
-	spheres[2].material = MIRROR;
-	spheres[3].material = MIRROR;
+	spheres[2].material = MATTE;
+	spheres[3].material = MATTE;
 
 	spheres[0].specular = -1;
 	spheres[1].specular = -1;
@@ -78,6 +79,48 @@ void	init_spheres(t_obj* spheres)
 	spheres[1].fuzz = 0.0;
 	spheres[2].fuzz = 0.0;
 	spheres[3].fuzz = 0.3;
+
+	// int i = 4;
+	// for (int a = -11; a < 11; a++)
+	// {
+	// 	for (int b = -11; b < 11; b++)
+	// 	{
+	// 		double	rand_matterial = random_double();
+	// 		t_vec3	center = {a + 0.9*random_double(), -0.4, b + 0.9 * random_double()};
+	// 		// t_vec3	lol = vec3_scalar_subtraction(center, vec3_length((t_vec3){4, -0.4, 0}));
+	// 		if (vec3_length(vec3_subtraction((t_vec3){4, -0.4, 0}, center)) > 0.9)
+	// 		{
+	// 			spheres[i].center = center;
+	// 			spheres[i].radius = 0.1;
+	// 			if (rand_matterial < 0.8) {
+	// 				spheres[i].color = (t_color){random_double(), random_double(), random_double(), 1};
+	// 				spheres[i].material = MATTE;
+	// 				spheres[i].fuzz = 0;
+	// 				spheres[i].specular = -1;
+	// 			}
+	// 			else {
+	// 				spheres[i].color = (t_color){random_min_max(0.5, 1), random_min_max(0.5, 1), random_min_max(0.5, 1), 1};
+	// 				spheres[i].material = MIRROR;
+	// 				spheres[i].fuzz = random_min_max(0, 0.5);
+	// 				spheres[i].specular = -1;
+	// 			}
+	// 			++i;
+	// 		}
+	// 	}
+	// }
+	// data()->obj_len = i;
+	// init_vec3(&spheres[4].center, 0.2,    -0.4, 0);
+	// init_vec3(&spheres[5].center, 0.5,    -0.4, -0.2);
+	// init_color(&spheres[4].color, 0.3, 0.0, 0.7);
+	// init_color(&spheres[5].color, 0.7, 0.0, 0.3);
+	// spheres[4].radius = 0.1;
+	// spheres[5].radius = 0.1;
+	// spheres[4].material = MATTE;
+	// spheres[5].material = MATTE;
+	// spheres[4].specular = -1;
+	// spheres[5].specular = -1;
+	// spheres[4].fuzz = 0.0;
+	// spheres[5].fuzz = 0.0;
 }
 
 // void	init_sphere(t_sphere sphere, t_vec3 center, t_color color, double radius)
@@ -100,10 +143,16 @@ void	init_ray(t_ray *ray, t_vec3 origin, t_vec3 direction)
 	ray->direction = direction;
 }
 
-void	init_camera(t_camera *camera)
+void	init_camera(t_camera *camera, double deg)
 {
-	init_ray(&camera->ray, (t_vec3){0, -0.2, -3}, (t_vec3){0, 0, 1});
-	init_vec3(&camera->lower_left_corner, camera->ray.origin.x -VW / 2, camera->ray.origin.y -VH / 2, camera->ray.origin.z - DIST);
+	double	rad;
+
+	rad = degree_to_radian(deg);
+	init_vec3(&camera->origin, 0, 0, 0);
+	camera->viewport_height = 2 * tanf(rad / 2.0) * VIEWPORT_DIST;
+	camera->viewport_width = ASPECT_RATIO * camera->viewport_height;
+	// init_ray(&camera->ray, (t_vec3){0, -0.2, -3}, (t_vec3){0, 0, 1});
+	// init_vec3(&camera->lower_left_corner, camera->ray.origin.x -VW / 2, camera->ray.origin.y -VH / 2, camera->ray.origin.z - DIST);
 }
 
 void	init_light(t_light *light, t_vec3 origin, t_vec3 direction, t_light_type type)
@@ -151,9 +200,11 @@ void	init_hit_rec(t_hit_rec *hit_rec, t_vec3 hitpos, t_vec3 normal, double t)
 
 void	init_data()
 {
-	data()->cam_dist = 1;
+	// data()->cam_dist = 1;
 	init_spheres(data()->objects);
-	data()->cam_origin = (t_vec3){0, 0, 0};
+	init_camera(&data()->camera, 90);
+	data()->ray.origin = data()->camera.origin;
+	// data()->cam_origin = (t_vec3){0, 0, 0};
 	init_ray(&(data()->ray), data()->cam_origin, (t_vec3){0, 0, 1});
 	data()->light.intensity = 1;
 	data()->light.type = POINT;

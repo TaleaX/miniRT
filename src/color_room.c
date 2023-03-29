@@ -84,6 +84,8 @@ bool	scatter(t_ray ray, t_ray *scattered, t_color *attenuation, t_pixel *px)
 		scattered_dir = vec3_subtraction(px->hitpoint, target);
 		// scattered_dir = vec3_add(px->normal, random_in_usphere());
 		// t_ray scattered = new_ray(px->hitpoint, vec3_subtraction(px->hitpoint, target));
+		if (near_zero(scattered_dir))
+			scattered_dir = px->normal;
 		*scattered = new_ray(px->hitpoint, scattered_dir);
 		*attenuation = px->color;
 		// color = color_scalar(color_room(r, coord, depth-1), 0.5, 1);
@@ -93,6 +95,7 @@ bool	scatter(t_ray ray, t_ray *scattered, t_color *attenuation, t_pixel *px)
 	}
 	if (px->material == MIRROR)
 	{
+		printf("in here\n");
 		// vec3_normalize(&ray.direction);
 		reflected_dir = reflected_direction(ray.direction, px->normal);
 		// t_ray reflected_ray = new_ray(px->hitpoint, vec3_add(reflected_dir, vec3_scalar(random_in_usphere(), px->fuzz)));

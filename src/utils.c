@@ -1,6 +1,6 @@
 #include <time.h>
 #include <stdlib.h>
-#include <miniRT.h>
+#include "miniRT.h"
 
 double	random_double(void)
 {
@@ -51,4 +51,20 @@ void set_face_normal(t_ray ray, t_vec3 *outward_normal)
 {
 	bool front_face = vec3_dot(ray.direction, *outward_normal) < 0;
 	*outward_normal = front_face ? *outward_normal : vec3_scalar(*outward_normal, -1);
+}
+
+bool	near_zero(t_vec3 vec)
+{
+	double	n_pos;
+	double	n_neg;
+
+	n_pos = 1e-8;
+	n_neg = -1e-8;
+
+	return (vec.x < n_pos && vec.x > n_neg && vec.y < n_pos && vec.y > n_neg && vec.z < n_pos && vec.z > n_neg);
+}
+
+double	degree_to_radian(double degree)
+{
+	return (degree * 2 * M_PI / 360.0);
 }
