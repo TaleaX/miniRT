@@ -6,18 +6,11 @@
 /*   By: dns <dns@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 16:17:01 by tdehne            #+#    #+#             */
-/*   Updated: 2023/03/30 15:50:09 by dns              ###   ########.fr       */
+/*   Updated: 2023/03/30 16:08:21 by dns              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/miniRT.h"
-#include "../include/color.h"
-#include "../include/calc.h"
-#include <time.h>
-#include <math.h>
-
-
-// static mlx_image_t	*g_img;
+#include "miniRT.h"
 
 static void	ft_error(void)
 {
