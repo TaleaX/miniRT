@@ -3,7 +3,7 @@ DATE	= $$(date +%Y/%m/%d)
 BUSER = ~/.brew/opt/glfw/lib/
 
 CC			=	cc
-CFLAGS		=	-Werror -Wextra -Wall
+CFLAGS		=	#-Werror -Wextra -Wall
 
 NAME 		=	miniRT
 
@@ -12,8 +12,8 @@ SRC_DIR		=	src/
 INC_DIR		=	include/
 LIBA = MLX42/build/libmlx42.a
 
-SRC_NAME	=	main init vector hit light color_utils color_room utils create
-INC_NAME	=	miniRT vector color calc structs
+SRC_NAME	=	main init vector hit light color_utils color_room utils create parser
+INC_NAME	=	miniRT vector color calc structs parser
 
 SRC_FILES	=	$(addsuffix .c, $(addprefix $(SRC_DIR), $(SRC_NAME)))
 OBJ_FILES	=	$(addsuffix .o, $(addprefix $(OBJ_DIR), $(SRC_NAME)))

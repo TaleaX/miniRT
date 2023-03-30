@@ -6,7 +6,7 @@
 /*   By: dns <dns@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 16:17:01 by tdehne            #+#    #+#             */
-/*   Updated: 2023/03/30 15:41:47 by dns              ###   ########.fr       */
+/*   Updated: 2023/03/30 15:50:09 by dns              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -208,11 +208,12 @@ double	map_x_rotationY(double x_start, double x, double radian)
 // }
 
 
-int32_t	main(void)
+int32_t	main(int ac, char **av)
 {
 	mlx_t		*mlx;
 	t_color		color;
 
+	parser(ac, av);
 	if (!(mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true)))
 		return (EXIT_FAILURE);
 	data()->g_img = mlx_new_image(mlx, WIDTH, HEIGHT);

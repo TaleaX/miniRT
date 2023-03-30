@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tdehne <tdehne@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: dns <dns@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 16:15:07 by tdehne            #+#    #+#             */
-/*   Updated: 2023/03/15 04:09:15 by tdehne           ###   ########.fr       */
+/*   Updated: 2023/03/30 15:56:00 by dns              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,14 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <memory.h>
+# include <parser.h>
 # define _USE_MATH_DEFINES
 # include <math.h>
 # include "vector.h"
 # include "structs.h"
 # include "color.h"
 # include "calc.h"
+# include "parser.h"
 # define RATIO 1.5f
 // # define VH 1.0f
 
