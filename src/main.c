@@ -101,10 +101,10 @@ double	map_x_rotationY(double x_start, double x, double radian)
 // 	double	verschiebung_y;
 // 	double	base_verschiebung_y = -0.5;
 // 	double	base_verschiebung_x = -0.5;
-// 	double	verschiebung_x = 0.5;
+// 	double	verschiebung_x = 0;
 // 	double	verschiebung_z;
-// 	double	rotation_rad_x = degree_to_radian(45);
-// 	double	rotation_rad_y = degree_to_radian(90);
+// 	double	rotation_rad_x = degree_to_radian(90);
+// 	double	rotation_rad_y = degree_to_radian(0);
 // 	double	y_start;
 // 	t_vec3	dist = {0, 0, 1};
 
@@ -233,38 +233,41 @@ int32_t	main(void)
 	double	y_start;
 
 	int	y_max = HEIGHT - 1;
-	data()->viewport_px.z = 1;
-	while (y < HEIGHT)
+	y = HEIGHT - 1;
+	// printf("%f %f\n", data()->ray.origin.z, data()->camera.origin.z);
+	// exit(0);
+	data()->viewport_px.z = -2;
+	while (y >= 0)
 	{
 		x = 0;
 		data()->coord.y = y;
 		while (x < WIDTH)
 		{
 			color = (t_color){0, 0, 0, 1};
-			s = 0;
-			while (s < samples)
-			{					
-				data()->viewport_px.y = ((y + random_double()) * data()->camera.viewport_height / (double)(HEIGHT - 1)) + (data()->camera.viewport_height * base_verschiebung_y);
+			// s = 0;
+			// while (s < samples)
+			// {					
+				data()->viewport_px.y = (((y) * data()->camera.viewport_height / (double)(HEIGHT - 1)) + (data()->camera.viewport_height * base_verschiebung_y)) * -1;
 				data()->coord.x = x;
-				data()->viewport_px.x = ((x + random_double()) * data()->camera.viewport_width / (double)(WIDTH -1)) + (data()->camera.viewport_width * base_verschiebung_x);
-			
+				data()->viewport_px.x = ((x) * data()->camera.viewport_width / (double)(WIDTH -1)) + (data()->camera.viewport_width * base_verschiebung_x);
+
 				data()->ray.direction.x = data()->viewport_px.x -  data()->ray.origin.x;
 				data()->ray.direction.y = data()->viewport_px.y -  data()->ray.origin.y;
 				data()->ray.direction.z = data()->viewport_px.z -  data()->ray.origin.z;
 
 				color = color_add(color, color_room(data()->ray, data()->coord, 50));
 				// color = sampling(window, room);
-				++s;
-			}
-			color.r = sqrt(scale * color.r);
-			color.g = sqrt(scale * color.g);
-			color.b = sqrt(scale * color.b);
+			// 	++s;
+			// }
+			// color.r = sqrt(scale * color.r);
+			// color.g = sqrt(scale * color.g);
+			// color.b = sqrt(scale * color.b);
 
-			mlx_put_pixel(data()->g_img, x, y_max, get_rgba(color));
+			mlx_put_pixel(data()->g_img, x, y, get_rgba(color));
 			++x;
 		}
-		++y;
-		y_max--;
+		--y;
+		// y_max--;
 	};
 	int end = clock();
 	printf("%f\n", (float)(end - start) / CLOCKS_PER_SEC);

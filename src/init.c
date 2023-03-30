@@ -51,7 +51,7 @@ void	init_spheres(t_obj* spheres)
 	double r = cos(M_PI / 4.0);
 	init_vec3(&spheres[0].center, 0.5, 0, 3);
 	init_vec3(&spheres[1].center, 0, -1000.5, 1);
-	init_vec3(&spheres[2].center, -1,    0.0, 2);
+	init_vec3(&spheres[2].center, -2,    0.0, 2);
 	init_vec3(&spheres[3].center, 0,    0.0, 4);
 	// init_vec3(&spheres[3].center, 0,    0.0, 1);
 
@@ -143,13 +143,23 @@ void	init_ray(t_ray *ray, t_vec3 origin, t_vec3 direction)
 	ray->direction = direction;
 }
 
-void	init_camera(t_camera *camera, double deg)
+void	init_camera(t_camera *camera, double vfov, t_vec3 vup, t_vec3 origin, t_vec3 lookat)
 {
-	double	rad;
+	double	vfov_rad;
+	t_vec3	w;
+	t_vec3	v;
+	t_vec3	u;
 
-	rad = degree_to_radian(deg);
-	init_vec3(&camera->origin, 0, 0, 0);
-	camera->viewport_height = 2 * tanf(rad / 2.0) * VIEWPORT_DIST;
+	vfov_rad = degree_to_radian(vfov);
+	camera->origin = origin;
+	camera->lookat = lookat;
+	w = vec3_subtraction(lookat, origin);
+	vec3_normalize(&w);
+	u = vec3_get_normal(vup, w);
+	vec3_normalize(&u);
+	v = vec3_get_normal(w, u);
+
+	camera->viewport_height = 2 * tanf(vfov_rad / 2.0) * VIEWPORT_DIST;
 	camera->viewport_width = ASPECT_RATIO * camera->viewport_height;
 	// init_ray(&camera->ray, (t_vec3){0, -0.2, -3}, (t_vec3){0, 0, 1});
 	// init_vec3(&camera->lower_left_corner, camera->ray.origin.x -VW / 2, camera->ray.origin.y -VH / 2, camera->ray.origin.z - DIST);
@@ -202,10 +212,11 @@ void	init_data()
 {
 	// data()->cam_dist = 1;
 	init_spheres(data()->objects);
-	init_camera(&data()->camera, 90);
+	init_camera(&data()->camera, 60,(t_vec3){0, 1, 0}, (t_vec3){0, 0, -10}, (t_vec3){0, 0, 1});
+	// init_vec3(&(data()->ray.origin), data()->camera.origin.x, data()->camera.origin.y, data()->camera.origin.z);
 	data()->ray.origin = data()->camera.origin;
 	// data()->cam_origin = (t_vec3){0, 0, 0};
-	init_ray(&(data()->ray), data()->cam_origin, (t_vec3){0, 0, 1});
+	// init_ray(&(data()->ray), data()->cam_origin, (t_vec3){0, 0, 1});
 	data()->light.intensity = 1;
 	data()->light.type = POINT;
 	init_ray(&data()->light.ray, (t_vec3){0.0, 1.0, 0.0},  (t_vec3){1.0, 1.0, 1.0});
