@@ -23,8 +23,13 @@ ifeq ($(shell uname -s),Linux)
 	OS := Linux
 	LIB	=	-ldl -lglfw -pthread -lm
 else ifeq ($(shell uname -s),Darwin)
-	OS := MacOS
-	LIB		=	-framework Cocoa -framework OpenGL -framework IOKit -lglfw -L ~/.brew/opt/glfw/lib/
+	ifeq ($(shell uname -p),arm)
+		OS := MacOS silicone
+		LIB		=	-framework Cocoa -framework OpenGL -framework IOKit -lglfw -L /opt/homebrew/Cellar/glfw/3.3.8/lib/
+	else
+		OS := MacOS intel
+		LIB		=	-framework Cocoa -framework OpenGL -framework IOKit -lglfw -L ~/.brew/opt/glfw/lib/
+	endif
 else
 	OS := Unknown
 	exit 1
