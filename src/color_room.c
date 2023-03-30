@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   color_room.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tdehne <tdehne@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: dns <dns@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 17:01:58 by tdehne            #+#    #+#             */
-/*   Updated: 2023/03/15 06:33:49 by tdehne           ###   ########.fr       */
+/*   Updated: 2023/03/30 15:43:37 by dns              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ double	power(double num)
 bool	scatter(t_ray ray, t_ray *scattered, t_color *attenuation, t_pixel *px)
 {
 	t_vec3	target;
-	t_vec3	random_p;
+	// t_vec3	random_p;
 	t_vec3	reflected_dir;
 	t_vec3	scattered_dir;
 	bool	ref = false;
@@ -116,10 +116,10 @@ bool	scatter(t_ray ray, t_ray *scattered, t_color *attenuation, t_pixel *px)
 }
 t_color	color_room(t_ray ray, t_vec2 coord, int depth)
 {
-	t_color	color;
-	t_vec3	target;
-	t_vec3	random_p;
-	t_vec3	reflected_dir;
+	// t_color	color;
+	// t_vec3	target;
+	// t_vec3	random_p;
+	// t_vec3	reflected_dir;
 	t_color	attenuation;
 	t_ray	scattered;
 	t_pixel	*px;

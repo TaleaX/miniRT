@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tdehne <tdehne@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: dns <dns@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 16:17:01 by tdehne            #+#    #+#             */
-/*   Updated: 2023/03/15 06:31:21 by tdehne           ###   ########.fr       */
+/*   Updated: 2023/03/30 15:41:47 by dns              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -222,17 +222,17 @@ int32_t	main(void)
 
 	init_data();
 
-	double samples = 20;
-	double	scale = 1.0 / samples;
+	// double samples = 20;
+	// double	scale = 1.0 / samples;
 	int	start = clock();
-	int s;
+	// int s;
 	int	x;
 	int	y = 0;
 	double	base_verschiebung_y = -0.5;
 	double	base_verschiebung_x = -0.5;
-	double	y_start;
+	// double	y_start;
 
-	int	y_max = HEIGHT - 1;
+	// int	y_max = HEIGHT - 1;
 	y = HEIGHT - 1;
 	// printf("%f %f\n", data()->ray.origin.z, data()->camera.origin.z);
 	// exit(0);

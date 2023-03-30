@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hit.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tdehne <tdehne@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: dns <dns@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 16:14:53 by tdehne            #+#    #+#             */
-/*   Updated: 2023/03/15 06:32:39 by tdehne           ###   ########.fr       */
+/*   Updated: 2023/03/30 15:43:03 by dns              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ double	hit_plane(t_plane plane, t_vec3 ray_origin, t_vec3 ray_direction)
 	t_vec3	oc;
 	double	denominator;
 	double	numerator;
-	double	d_y = ray_direction.y;
-	double	o_y = ray_origin.y;
+	// double	d_y = ray_direction.y;
+	// double	o_y = ray_origin.y;
 
 	oc = vec3_subtraction(ray_origin, plane.c);
 	numerator = vec3_dot(plane.normal, oc);

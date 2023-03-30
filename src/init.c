@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tdehne <tdehne@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: dns <dns@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 16:16:51 by tdehne            #+#    #+#             */
-/*   Updated: 2023/03/15 06:30:24 by tdehne           ###   ########.fr       */
+/*   Updated: 2023/03/30 15:42:45 by dns              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	init_spheres(t_obj* spheres)
 	// spheres[1].material = MIRROR;
 	// spheres[2].material = MIRROR;
 	// spheres[3].material = MATTE;
-	double r = cos(M_PI / 4.0);
+	//double r = cos(M_PI / 4.0);
 	init_vec3(&spheres[0].center, 0.5, 0, 3);
 	init_vec3(&spheres[1].center, 0, -1000.5, 1);
 	init_vec3(&spheres[2].center, -2,    0.0, 2);
@@ -147,7 +147,7 @@ void	init_camera(t_camera *camera, double vfov, t_vec3 vup, t_vec3 origin, t_vec
 {
 	double	vfov_rad;
 	t_vec3	w;
-	t_vec3	v;
+	// t_vec3	v;
 	t_vec3	u;
 
 	vfov_rad = degree_to_radian(vfov);
@@ -157,7 +157,7 @@ void	init_camera(t_camera *camera, double vfov, t_vec3 vup, t_vec3 origin, t_vec
 	vec3_normalize(&w);
 	u = vec3_get_normal(vup, w);
 	vec3_normalize(&u);
-	v = vec3_get_normal(w, u);
+	// v = vec3_get_normal(w, u);
 
 	camera->viewport_height = 2 * tanf(vfov_rad / 2.0) * VIEWPORT_DIST;
 	camera->viewport_width = ASPECT_RATIO * camera->viewport_height;
