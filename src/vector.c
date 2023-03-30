@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vector.h"
+#include "structs.h"
 
 double	vec3_length_squared(t_vec3 v)
 {
@@ -66,7 +66,7 @@ t_vec3	vec3_scalar(t_vec3 vec, double scalar)
 
 t_vec3	vec3_get_normal(t_vec3 vec1, t_vec3 vec2)
 {
-	return ((t_vec3){vec1.y * vec2.z - vec1.z * vec2.y, vec1.z * vec2.x - vec1.x - vec2.z, vec1.y * vec2.x - vec1.x - vec2.y});
+	return ((t_vec3){vec1.y * vec2.z - vec1.z * vec2.y, vec1.z * vec2.x - vec1.x * vec2.z, vec1.x * vec2.y - vec1.y * vec2.x});
 }
 
 t_vec3	vec3_scalar_subtraction(t_vec3 vec, double scalar)
@@ -74,7 +74,10 @@ t_vec3	vec3_scalar_subtraction(t_vec3 vec, double scalar)
 	return ((t_vec3){vec.x - scalar, vec.y - scalar, vec.z - scalar});
 }
 
-
+t_vec3	vec3_mult(t_vec3 vec1, t_vec3 vec2)
+{
+	return ((t_vec3){vec1.x * vec2.x, vec1.y * vec2.y, vec1.z * vec2.z});
+}
 
 
 t_color	color_add(t_color color1, t_color color2)

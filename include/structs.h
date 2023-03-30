@@ -13,7 +13,7 @@
 #ifndef STRUCTS_H
 # define STRUCTS_H
 # include "../MLX42/include/MLX42/MLX42.h"
-# define ASPECT_RATIO (double)(21.0 / 9.0)
+# define ASPECT_RATIO (double)(16.0 / 9.0)
 # define HEIGHT 800
 # define WIDTH ((int)(HEIGHT * ASPECT_RATIO))
 # define VH 1.0
@@ -138,8 +138,8 @@ struct s_camera {
 	// t_ray	ray;
 	t_vec3	origin;
 	t_vec3	lookat;
-	double	viewport_height;
-	double	viewport_width;
+	t_vec3	viewport_vertical;
+	t_vec3	viewport_horizontal;
 	double	vfov;
 	t_vec3	lower_left_corner;
 };
@@ -149,16 +149,14 @@ struct s_data
 	mlx_image_t	*g_img;
 	t_pixel     px[HEIGHT][WIDTH];
 	t_vec2		coord;
-	double		cam_dist;
 	t_camera	camera;
 	t_obj		objects[1000];
 	t_ray		ray;
 	t_light		light;
 	t_vec3		viewport_px;
+	double		v;
+	double		h;
 	t_vec3		cam_origin;
-	t_vec3		horizontal;
-	t_vec3      vertical;
-	t_vec3		lower_left_corner;
 	int			samples;
 	int			obj_len;
 	double		scale; 
@@ -178,30 +176,6 @@ struct s_plane {
 	t_vec3	c;
 	t_color	color;
 };
-
-
-
-
-// struct s_room {
-// 	t_camera	camera;
-// 	t_light		light;
-// 	t_plane		planes[4];
-// 	t_sphere	spheres[4];
-// 	size_t		num_spheres;
-// 	size_t		num_lights;
-// 	size_t		num_planes;
-// };
-
-
-
-// struct s_window {
-// 	mlx_image_t	*g_img;
-// 	int			x;
-// 	int			y;
-// 	int			WIN_WIDTH;
-// 	int			WIN_HEIGHT;
-// };
-
 
 struct	s_hit_rec
 {

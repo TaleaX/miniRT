@@ -28,8 +28,6 @@ void hook(void *param) {
 
 }
 
-t_color	test(t_vec3 origin, t_vec3 dir, t_sphere spheres[4]);
-
 t_data	*data(void)
 {
 	static t_data data;
@@ -226,12 +224,12 @@ int32_t	main(int ac, char **av)
 	double	base_verschiebung_x = -0.5;
 	// double	y_start;
 
-	// int	y_max = HEIGHT - 1;
-	y = HEIGHT - 1;
+	int	y_max = HEIGHT - 1;
+	y = 0;
 	// printf("%f %f\n", data()->ray.origin.z, data()->camera.origin.z);
 	// exit(0);
-	data()->viewport_px.z = -2;
-	while (y >= 0)
+	// data()->viewport_px.z = -2;
+	while (y < HEIGHT - 1)
 	{
 		x = 0;
 		data()->coord.y = y;
@@ -241,13 +239,15 @@ int32_t	main(int ac, char **av)
 			// s = 0;
 			// while (s < samples)
 			// {					
-				data()->viewport_px.y = (((y) * data()->camera.viewport_height / (double)(HEIGHT - 1)) + (data()->camera.viewport_height * base_verschiebung_y)) * -1;
 				data()->coord.x = x;
-				data()->viewport_px.x = ((x) * data()->camera.viewport_width / (double)(WIDTH -1)) + (data()->camera.viewport_width * base_verschiebung_x);
 
-				data()->ray.direction.x = data()->viewport_px.x -  data()->ray.origin.x;
-				data()->ray.direction.y = data()->viewport_px.y -  data()->ray.origin.y;
-				data()->ray.direction.z = data()->viewport_px.z -  data()->ray.origin.z;
+
+				data()->h = ((x) / (double)(WIDTH -1));// + (data()->camera.viewport_width * base_verschiebung_x);
+				data()->v = ((y) / (double)(HEIGHT - 1));// + (data()->camera.viewport_height * base_verschiebung_y)) * -1;
+				data()->ray = get_ray();
+				// data()->ray.direction.x = data()->viewport_px.x -  data()->ray.origin.x;
+				// data()->ray.direction.y = data()->viewport_px.y -  data()->ray.origin.y;
+				// data()->ray.direction.z = data()->viewport_px.z -  data()->ray.origin.z;
 
 				color = color_add(color, color_room(data()->ray, data()->coord, 50));
 				// color = sampling(window, room);
@@ -257,11 +257,11 @@ int32_t	main(int ac, char **av)
 			// color.g = sqrt(scale * color.g);
 			// color.b = sqrt(scale * color.b);
 
-			mlx_put_pixel(data()->g_img, x, y, get_rgba(color));
+			mlx_put_pixel(data()->g_img, x, y_max, get_rgba(color));
 			++x;
 		}
-		--y;
-		// y_max--;
+		++y;
+		y_max--;
 	};
 	int end = clock();
 	printf("%f\n", (float)(end - start) / CLOCKS_PER_SEC);

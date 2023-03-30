@@ -1,5 +1,3 @@
-#include <time.h>
-#include <stdlib.h>
 #include "miniRT.h"
 
 double	random_double(void)
@@ -67,4 +65,20 @@ bool	near_zero(t_vec3 vec)
 double	degree_to_radian(double degree)
 {
 	return (degree * 2 * M_PI / 360.0);
+}
+
+t_ray	get_ray()
+{
+	t_ray	ray;
+	t_vec3	x;
+	t_vec3	y;
+	t_vec3	viewport_px;
+
+	x = vec3_scalar(data()->camera.viewport_horizontal, data()->h);
+	y = vec3_scalar(data()->camera.viewport_vertical, data()->v);
+	viewport_px = vec3_add(data()->camera.lower_left_corner, vec3_add(x, y));
+
+	ray.origin = data()->camera.origin;
+	ray.direction = vec3_subtraction(ray.origin, viewport_px);
+	return (ray);
 }

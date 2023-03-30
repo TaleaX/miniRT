@@ -49,10 +49,10 @@ void	init_spheres(t_obj* spheres)
 	// spheres[2].material = MIRROR;
 	// spheres[3].material = MATTE;
 	//double r = cos(M_PI / 4.0);
-	init_vec3(&spheres[0].center, 0.5, 0, 3);
+	init_vec3(&spheres[0].center, 0.0, 0, 1);
 	init_vec3(&spheres[1].center, 0, -1000.5, 1);
-	init_vec3(&spheres[2].center, -2,    0.0, 2);
-	init_vec3(&spheres[3].center, 0,    0.0, 4);
+	init_vec3(&spheres[2].center, -1,    0.0, 1);
+	init_vec3(&spheres[3].center, 1,    0.0, 1);
 	// init_vec3(&spheres[3].center, 0,    0.0, 1);
 
 	init_color(&spheres[0].color, 0.7, 0.3, 0.3);
@@ -143,24 +143,65 @@ void	init_ray(t_ray *ray, t_vec3 origin, t_vec3 direction)
 	ray->direction = direction;
 }
 
-void	init_camera(t_camera *camera, double vfov, t_vec3 vup, t_vec3 origin, t_vec3 lookat)
+void	init_camera(t_camera *camera, double vfov, t_vec3 origin, t_vec3 vup, t_vec3 lookat)
 {
 	double	vfov_rad;
+	double	viewport_width;
+	double	viewport_height;
 	t_vec3	w;
-	// t_vec3	v;
+	t_vec3	v;
 	t_vec3	u;
+	t_vec3	negative_offset;
 
 	vfov_rad = degree_to_radian(vfov);
 	camera->origin = origin;
 	camera->lookat = lookat;
+
 	w = vec3_subtraction(lookat, origin);
 	vec3_normalize(&w);
 	u = vec3_get_normal(vup, w);
 	vec3_normalize(&u);
-	// v = vec3_get_normal(w, u);
+	v = vec3_get_normal(w, u);
 
-	camera->viewport_height = 2 * tanf(vfov_rad / 2.0) * VIEWPORT_DIST;
-	camera->viewport_width = ASPECT_RATIO * camera->viewport_height;
+	printf("w %f %f %f\n", w.x, w.y, w.z);
+	printf("u %f %f %f\n", u.x, u.y, u.z);
+	printf("v %f %f %f\n", v.x, v.y, v.z);
+
+	viewport_height = 2 * tanf(vfov_rad / 2.0) * VIEWPORT_DIST;
+	viewport_width = ASPECT_RATIO * viewport_height;
+
+	init_vec3(&(camera->viewport_vertical), 0, viewport_height, 0);
+	init_vec3(&(camera->viewport_horizontal), viewport_width, 0, 0);
+
+	camera->viewport_vertical = vec3_scalar(v, viewport_height);//viewport_height * v;//vec3_mult(camera->viewport_vertical, v);
+	camera->viewport_horizontal = vec3_scalar(u, viewport_width);// * u;//vec3_mult(camera->viewport_horizontal, u);
+
+	printf("vertical %f %f %f\n", camera->viewport_vertical.x, camera->viewport_vertical.y, camera->viewport_vertical.z);
+
+	camera->lower_left_corner = vec3_subtraction(vec3_scalar(camera->viewport_horizontal,  0.5), camera->origin);
+	camera->lower_left_corner = vec3_subtraction(vec3_scalar(camera->viewport_vertical,  0.5), camera->lower_left_corner);
+	// negative_offset = vec3_subtraction(vec3_scalar(camera->viewport_vertical,  0.5), vec3_scalar(camera->viewport_horizontal,  0.5));
+	// negative_offset = vec3_add(negative_offset, w);
+	camera->lower_left_corner.x -= w.x;
+	camera->lower_left_corner.y -= w.y;
+	camera->lower_left_corner.z -= w.z;
+	// camera->lower_left_corner = vec3_add(camera->lower_left_corner, w);
+	// negative_offset.x += w.x;//, negative_offset);
+	// negative_offset.y += w.y;
+	// negative_offset.z += w.z;
+	// printf("%f %f %f\n", negative_offset.x, negative_offset.y, negative_offset.z);
+
+	// camera->lower_left_corner =  vec3_subtraction(negative_offset, camera->origin);
+	// camera->lower_left_corner.x -= w.x;
+	// camera->lower_left_corner.y -= w.y;
+	// camera->lower_left_corner.z += w.z;
+	// camera->lower_left_corner.x = -viewport_width / 2.0;
+	// camera->lower_left_corner.y = -viewport_height / 2.0;
+	// camera->lower_left_corner.z = -1;
+
+	printf("x %f y %f z %f\n", camera->lower_left_corner.x, camera->lower_left_corner.y, camera->lower_left_corner.z);
+	// camera->lower_left_corner = vec3_add(camera->lower_left_corner, w);
+	
 	// init_ray(&camera->ray, (t_vec3){0, -0.2, -3}, (t_vec3){0, 0, 1});
 	// init_vec3(&camera->lower_left_corner, camera->ray.origin.x -VW / 2, camera->ray.origin.y -VH / 2, camera->ray.origin.z - DIST);
 }
@@ -212,7 +253,7 @@ void	init_data()
 {
 	// data()->cam_dist = 1;
 	init_spheres(data()->objects);
-	init_camera(&data()->camera, 60,(t_vec3){0, 1, 0}, (t_vec3){0, 0, -10}, (t_vec3){0, 0, 1});
+	init_camera(&data()->camera, 90, (t_vec3){-2, 2, -1}, (t_vec3){0, 1, 0}, (t_vec3){0, 0, 1});
 	// init_vec3(&(data()->ray.origin), data()->camera.origin.x, data()->camera.origin.y, data()->camera.origin.z);
 	data()->ray.origin = data()->camera.origin;
 	// data()->cam_origin = (t_vec3){0, 0, 0};

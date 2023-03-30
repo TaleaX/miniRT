@@ -2,6 +2,9 @@
 # Edit at https://www.toptal.com/developers/gitignore?templates=c,visualstudiocode,macos,linux
 
 ### miniRT ###
+*/tinux.h
+*/include/tinux.h
+include/tinux.h
 tinux.h
 MLX42/
 
