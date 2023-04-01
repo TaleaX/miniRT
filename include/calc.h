@@ -30,4 +30,6 @@ void	set_face_normal(t_ray ray, t_vec3 *outward_normal);
 t_vec3	vec3_scalar_subtraction(t_vec3 vec, double scalar);
 bool	near_zero(t_vec3 vec);
 double	degree_to_radian(double degree);
+t_vec3	random_in_udisk(void);
+
 #endif

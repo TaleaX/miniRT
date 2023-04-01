@@ -159,7 +159,8 @@ struct s_data
 	t_vec3		cam_origin;
 	int			samples;
 	int			obj_len;
-	double		scale; 
+	double		scale;
+	double		lens_radius;
 };
 
 struct s_sphere {

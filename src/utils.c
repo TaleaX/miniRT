@@ -24,6 +24,20 @@ t_vec3	random_in_usphere(void)
 	}
 }
 
+t_vec3	random_in_udisk(void)
+{
+	t_vec3	random_point;
+
+	while (true)
+	{
+		// printf("random point x %f %f %f\n", random_point.x, random_point.y, random_point.z);
+		init_vec3(&random_point, random_min_max(-1, 1), random_min_max(-1, 1), 0);
+		if (vec3_length_squared(random_point) >= 1)
+			continue;
+		return (random_point);
+	}
+}
+
 t_vec3	random_in_hemisphere(t_vec3 normal)
 {
 	t_vec3	in_usphere;
@@ -73,6 +87,7 @@ t_ray	get_ray()
 	t_vec3	x;
 	t_vec3	y;
 	t_vec3	viewport_px;
+	t_vec3	rd;
 
 	x = vec3_scalar(data()->camera.viewport_horizontal, data()->h);
 	y = vec3_scalar(data()->camera.viewport_vertical, data()->v);

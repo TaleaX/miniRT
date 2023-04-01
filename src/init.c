@@ -50,7 +50,7 @@ void	init_spheres(t_obj* spheres)
 	// spheres[3].material = MATTE;
 	//double r = cos(M_PI / 4.0);
 	init_vec3(&spheres[0].center, 0.0, 0, 1);
-	init_vec3(&spheres[1].center, 0, -1000.5, 1);
+	init_vec3(&spheres[1].center, 0, -5000.5, 1);
 	init_vec3(&spheres[2].center, -1,    0.0, 1);
 	init_vec3(&spheres[3].center, 1,    0.0, 1);
 	// init_vec3(&spheres[3].center, 0,    0.0, 1);
@@ -61,14 +61,14 @@ void	init_spheres(t_obj* spheres)
 	init_color(&spheres[3].color, 0.8, 0.8, 0.8);
 
 	spheres[0].radius = 0.5;
-	spheres[1].radius = 1000;
+	spheres[1].radius = 5000;
 	spheres[2].radius = 0.5;
 	spheres[3].radius = 0.5;
 
-	spheres[0].material = MATTE;
-	spheres[1].material = MATTE;
-	spheres[2].material = MATTE;
-	spheres[3].material = MATTE;
+	spheres[0].material = MIRROR;
+	spheres[1].material = MIRROR;
+	spheres[2].material = MIRROR;
+	spheres[3].material = MIRROR;
 
 	spheres[0].specular = -1;
 	spheres[1].specular = -1;
@@ -78,37 +78,37 @@ void	init_spheres(t_obj* spheres)
 	spheres[0].fuzz = 0;
 	spheres[1].fuzz = 0.0;
 	spheres[2].fuzz = 0.0;
-	spheres[3].fuzz = 0.3;
+	spheres[3].fuzz = 0.0;
 
-	// int i = 4;
-	// for (int a = -11; a < 11; a++)
-	// {
-	// 	for (int b = -11; b < 11; b++)
-	// 	{
-	// 		double	rand_matterial = random_double();
-	// 		t_vec3	center = {a + 0.9*random_double(), -0.4, b + 0.9 * random_double()};
-	// 		// t_vec3	lol = vec3_scalar_subtraction(center, vec3_length((t_vec3){4, -0.4, 0}));
-	// 		if (vec3_length(vec3_subtraction((t_vec3){4, -0.4, 0}, center)) > 0.9)
-	// 		{
-	// 			spheres[i].center = center;
-	// 			spheres[i].radius = 0.1;
-	// 			if (rand_matterial < 0.8) {
-	// 				spheres[i].color = (t_color){random_double(), random_double(), random_double(), 1};
-	// 				spheres[i].material = MATTE;
-	// 				spheres[i].fuzz = 0;
-	// 				spheres[i].specular = -1;
-	// 			}
-	// 			else {
-	// 				spheres[i].color = (t_color){random_min_max(0.5, 1), random_min_max(0.5, 1), random_min_max(0.5, 1), 1};
-	// 				spheres[i].material = MIRROR;
-	// 				spheres[i].fuzz = random_min_max(0, 0.5);
-	// 				spheres[i].specular = -1;
-	// 			}
-	// 			++i;
-	// 		}
-	// 	}
-	// }
-	// data()->obj_len = i;
+	int i = 4;
+	for (int a = -2; a < 5; a++)
+	{
+		for (int b = -2; b < 5; b++)
+		{
+			double	rand_matterial = random_double();
+			t_vec3	center = {a + 0.9*random_double(), -0.4, b + 0.9 * random_double()};
+			// t_vec3	lol = vec3_scalar_subtraction(center, vec3_length((t_vec3){4, -0.4, 0}));
+			if (vec3_length(vec3_subtraction((t_vec3){4, -0.4, 0}, center)) > 0.9)
+			{
+				spheres[i].center = center;
+				spheres[i].radius = 0.1;
+				if (rand_matterial < 0.1) {
+					spheres[i].color = (t_color){random_double(), random_double(), random_double(), 1};
+					spheres[i].material = MATTE;
+					spheres[i].fuzz = 0;
+					spheres[i].specular = -1;
+				}
+				else {
+					spheres[i].color = (t_color){random_min_max(0.5, 1), random_min_max(0.5, 1), random_min_max(0.5, 1), 1};
+					spheres[i].material = MIRROR;
+					spheres[i].fuzz = random_min_max(0, 0.5);
+					spheres[i].specular = -1;
+				}
+				++i;
+			}
+		}
+	}
+	data()->obj_len = i;
 	// init_vec3(&spheres[4].center, 0.2,    -0.4, 0);
 	// init_vec3(&spheres[5].center, 0.5,    -0.4, -0.2);
 	// init_color(&spheres[4].color, 0.3, 0.0, 0.7);
@@ -143,7 +143,7 @@ void	init_ray(t_ray *ray, t_vec3 origin, t_vec3 direction)
 	ray->direction = direction;
 }
 
-void	init_camera(t_camera *camera, double vfov, t_vec3 origin, t_vec3 vup, t_vec3 lookat)
+void	init_camera(t_camera *camera, double vfov, t_vec3 origin, t_vec3 vup, t_vec3 lookat, double focus_dist, double aperture)
 {
 	double	vfov_rad;
 	double	viewport_width;
@@ -163,20 +163,14 @@ void	init_camera(t_camera *camera, double vfov, t_vec3 origin, t_vec3 vup, t_vec
 	vec3_normalize(&u);
 	v = vec3_get_normal(w, u);
 
-	printf("w %f %f %f\n", w.x, w.y, w.z);
-	printf("u %f %f %f\n", u.x, u.y, u.z);
-	printf("v %f %f %f\n", v.x, v.y, v.z);
-
 	viewport_height = 2 * tanf(vfov_rad / 2.0) * VIEWPORT_DIST;
 	viewport_width = ASPECT_RATIO * viewport_height;
 
-	init_vec3(&(camera->viewport_vertical), 0, viewport_height, 0);
-	init_vec3(&(camera->viewport_horizontal), viewport_width, 0, 0);
+	// init_vec3(&(camera->viewport_vertical), 0, viewport_height, 0);
+	// init_vec3(&(camera->viewport_horizontal), viewport_width, 0, 0);
 
 	camera->viewport_vertical = vec3_scalar(v, viewport_height);//viewport_height * v;//vec3_mult(camera->viewport_vertical, v);
 	camera->viewport_horizontal = vec3_scalar(u, viewport_width);// * u;//vec3_mult(camera->viewport_horizontal, u);
-
-	printf("vertical %f %f %f\n", camera->viewport_vertical.x, camera->viewport_vertical.y, camera->viewport_vertical.z);
 
 	camera->lower_left_corner = vec3_subtraction(vec3_scalar(camera->viewport_horizontal,  0.5), camera->origin);
 	camera->lower_left_corner = vec3_subtraction(vec3_scalar(camera->viewport_vertical,  0.5), camera->lower_left_corner);

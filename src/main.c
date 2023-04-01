@@ -214,10 +214,10 @@ int32_t	main(int ac, char **av)
 
 	init_data();
 
-	// double samples = 20;
-	// double	scale = 1.0 / samples;
+	double samples = 20;
+	double	scale = 1.0 / samples;
 	int	start = clock();
-	// int s;
+	int s;
 	int	x;
 	int	y = 0;
 	double	base_verschiebung_y = -0.5;
@@ -236,14 +236,14 @@ int32_t	main(int ac, char **av)
 		while (x < WIDTH)
 		{
 			color = (t_color){0, 0, 0, 1};
-			// s = 0;
-			// while (s < samples)
-			// {					
+			s = 0;
+			while (s < samples)
+			{					
 				data()->coord.x = x;
 
 
-				data()->h = ((x) / (double)(WIDTH -1));// + (data()->camera.viewport_width * base_verschiebung_x);
-				data()->v = ((y) / (double)(HEIGHT - 1));// + (data()->camera.viewport_height * base_verschiebung_y)) * -1;
+				data()->h = ((x + random_double()) / (double)(WIDTH -1));// + (data()->camera.viewport_width * base_verschiebung_x);
+				data()->v = ((y + random_double()) / (double)(HEIGHT - 1));// + (data()->camera.viewport_height * base_verschiebung_y)) * -1;
 				data()->ray = get_ray();
 				// data()->ray.direction.x = data()->viewport_px.x -  data()->ray.origin.x;
 				// data()->ray.direction.y = data()->viewport_px.y -  data()->ray.origin.y;
@@ -251,11 +251,11 @@ int32_t	main(int ac, char **av)
 
 				color = color_add(color, color_room(data()->ray, data()->coord, 50));
 				// color = sampling(window, room);
-			// 	++s;
-			// }
-			// color.r = sqrt(scale * color.r);
-			// color.g = sqrt(scale * color.g);
-			// color.b = sqrt(scale * color.b);
+				++s;
+			}
+			color.r = sqrt(scale * color.r);
+			color.g = sqrt(scale * color.g);
+			color.b = sqrt(scale * color.b);
 
 			mlx_put_pixel(data()->g_img, x, y_max, get_rgba(color));
 			++x;
