@@ -88,12 +88,16 @@ t_ray	get_ray()
 	t_vec3	y;
 	t_vec3	viewport_px;
 	t_vec3	rd;
+	t_vec3	offset;
+
+	// rd = vec3_scalar(random_in_udisk(), data()->camera.lens_radius);
+	// offset = vec3_add(vec3_scalar(data()->camera.u, rd.x), vec3_scalar(data()->camera.v, rd.y));
 
 	x = vec3_scalar(data()->camera.viewport_horizontal, data()->h);
 	y = vec3_scalar(data()->camera.viewport_vertical, data()->v);
 	viewport_px = vec3_add(data()->camera.lower_left_corner, vec3_add(x, y));
 
-	ray.origin = data()->camera.origin;
-	ray.direction = vec3_subtraction(ray.origin, viewport_px);
+	ray.origin = data()->camera.origin;//vec3_add(data()->camera.origin, offset);
+	ray.direction = vec3_subtraction(ray.origin, viewport_px);//vec3_subtraction(offset, vec3_subtraction(ray.origin, viewport_px));
 	return (ray);
 }

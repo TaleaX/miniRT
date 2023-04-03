@@ -13,7 +13,7 @@
 #ifndef STRUCTS_H
 # define STRUCTS_H
 # include "../MLX42/include/MLX42/MLX42.h"
-# define ASPECT_RATIO (double)(16.0 / 9.0)
+# define ASPECT_RATIO (double)(3.0 / 2.0)
 # define HEIGHT 800
 # define WIDTH ((int)(HEIGHT * ASPECT_RATIO))
 # define VH 1.0
@@ -142,6 +142,11 @@ struct s_camera {
 	t_vec3	viewport_horizontal;
 	double	vfov;
 	t_vec3	lower_left_corner;
+	double		lens_radius;
+	double		aperture;
+	t_vec3		w;
+	t_vec3		v;
+	t_vec3		u;
 };
 
 struct s_data
@@ -160,7 +165,6 @@ struct s_data
 	int			samples;
 	int			obj_len;
 	double		scale;
-	double		lens_radius;
 };
 
 struct s_sphere {

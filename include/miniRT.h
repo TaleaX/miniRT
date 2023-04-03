@@ -53,6 +53,6 @@ void	init_room(t_room *room);
 void	init_ray(t_ray *ray, t_vec3 origin, t_vec3 direction);
 t_ray	new_ray(t_vec3 origin, t_vec3 direction);
 t_ray	get_ray();
-
+t_color	sampling(t_vec2 coord);
 void	init_data();
 #endif

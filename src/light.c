@@ -12,7 +12,7 @@
 
 #include "miniRT.h"
 
-t_vec3	get_lightDir(t_light light, t_vec3 hit_pos)
+static t_vec3	get_lightDir(t_light light, t_vec3 hit_pos)
 {
 	if (light.type == SUN)
 		return (light.ray.direction);
@@ -56,3 +56,40 @@ double calc_light(t_light light, t_vec3 v, t_pixel px)
 	}
 	return (light_var);
 }
+
+
+// t_vec3	get_lightDir(t_light light, t_vec3 hit_pos)
+// {
+// 	if (light.type == SUN)
+// 		return (light.ray.direction);
+// 	return(vec3_subtraction(hit_pos, light.ray.origin));
+// }
+
+
+// double calc_light(t_light light, t_vec3 v, t_hit_rec rec)
+// {
+// 	double	n_dot_l;
+// 	double	r_dot_v;
+// 	double	light_var = 0.0;
+// 	t_vec3	reflected_direction;
+// 	t_vec3	light_dir;
+
+
+// 	light_dir = get_lightDir(light, rec.hitpos);
+// 	vec3_normalize(&light_dir);
+
+// 	n_dot_l = vec3_dot(rec.normal, light_dir);
+// 	if (n_dot_l > 0)
+// 	{
+// 		light_var += light.intensity * n_dot_l/(vec3_length(rec.normal) * vec3_length(light_dir));
+// 	}
+// 	if (rec.specular > 0)
+// 	{
+// 		reflected_direction = vec3_subtraction(light_dir, vec3_scalar(rec.normal, n_dot_l * 2));
+// 		r_dot_v = vec3_dot(reflected_direction, v);
+// 		if (r_dot_v > 0)
+// 			light_var += light.intensity * pow(r_dot_v / (vec3_length(reflected_direction) * vec3_length(v)), rec.specular);
+// 	}
+// 	return (light_var);
+// }
+
