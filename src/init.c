@@ -222,7 +222,7 @@ void	init_data()
 {
 	// double focus_dist = vec3_length(vec3_subtraction((t_vec3){3, 3, -2}, (t_vec3){0, 0, 1}));
 	// data()->cam_dist = 1;
-	// init_spheres(data()->objects);
+	init_spheres(data()->objects);
 	init_camera(&data()->camera, 90, (t_vec3){8, 0, -3}, (t_vec3){0, 1, 0}, (t_vec3){0, 0, 0}, 1, 0);
 	// init_vec3(&(data()->ray.origin), data()->camera.origin.x, data()->camera.origin.y, data()->camera.origin.z);
 	data()->ray.origin = data()->camera.origin;
