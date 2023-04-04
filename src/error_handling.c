@@ -1,21 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   error_handling.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dns <dns@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/30 15:51:08 by dns               #+#    #+#             */
-/*   Updated: 2023/03/30 15:55:42 by dns              ###   ########.fr       */
+/*   Created: 2023/03/30 16:25:44 by dns               #+#    #+#             */
+/*   Updated: 2023/03/30 16:38:01 by dns              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/miniRT.h"
+#include "miniRT.h"
 
-int	parser(int ac, char **av)
+int	error_handling(int error)
 {
-	(void)ac;
-	(void)av;
-	printf("Hello\n");
-	return(0);
+	if (error == 1)
+		printf("Can't open the file!\n");
+	printf("Terminating program...\n");
+	exit(EXIT_FAILURE);
 }
