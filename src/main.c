@@ -222,13 +222,9 @@ int32_t	main(int ac, char **av)
 	int	y = 0;
 	double	base_verschiebung_y = -0.5;
 	double	base_verschiebung_x = -0.5;
-	// double	y_start;
 
 	int	y_max = HEIGHT - 1;
 	y = 0;
-	// printf("%f %f\n", data()->ray.origin.z, data()->camera.origin.z);
-	// exit(0);
-	// data()->viewport_px.z = -2;
 	while (y < HEIGHT - 1)
 	{
 		x = 0;
@@ -242,14 +238,9 @@ int32_t	main(int ac, char **av)
 			{					
 
 
-				data()->h = ((x + random_double()) / (double)(WIDTH -1));// + (data()->camera.viewport_width * base_verschiebung_x);
-				data()->v = ((y + random_double()) / (double)(HEIGHT - 1));// + (data()->camera.viewport_height * base_verschiebung_y)) * -1;
+				data()->h = ((x + random_double()) / (double)(WIDTH -1));
+				data()->v = ((y + random_double()) / (double)(HEIGHT - 1));
 				data()->ray = get_ray();
-				// data()->ray.direction.x = data()->viewport_px.x -  data()->ray.origin.x;
-				// data()->ray.direction.y = data()->viewport_px.y -  data()->ray.origin.y;
-				// data()->ray.direction.z = data()->viewport_px.z -  data()->ray.origin.z;
-
-				// color = sampling(data()->coord);
 				color = color_add(color, color_room(data()->ray, data()->coord, 50));
 				++s;
 			}
