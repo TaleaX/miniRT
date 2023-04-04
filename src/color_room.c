@@ -82,7 +82,7 @@ bool	scatter(t_ray ray, t_ray *scattered, t_color *attenuation, t_pixel *px)
 			scattered_dir = px->normal;
 		*scattered = new_ray(px->hitpoint, scattered_dir);
 		*attenuation = px->color;
-		ref = __FLT32X_HAS_DENORM__;
+		ref = false;
 
 		// return (color_mult(color, px->color));
 	}
@@ -134,75 +134,55 @@ t_color	color_room(t_ray ray, t_vec2 coord, int depth)
 		}
 		return ((t_color){0, 0, 0, 1});
 	}
-
-    // double t = 0.5*(ray.direction.y + 1.0);
-	// t_color colorStart = (t_color){1, 1, 1, 1};
-	// colorStart = color_scalar(colorStart, 1.0 - t , 1);
-	// return (color_add(colorStart, color_scalar((t_color){0.5, 0.7, 1.0, 1.0}, t, 1)));
+    double t = 0.5*(ray.direction.y + 1.0);
+	t_color colorStart = (t_color){1, 1, 1, 1};
+	colorStart = color_scalar(colorStart, 1.0 - t , 1);
+	return (color_add(colorStart, color_scalar((t_color){0.5, 0.7, 1.0, 1.0}, t, 1)));
 }
 
 
-t_color	sampling(t_vec2 coord)
-{
-	t_color color;
-	int		s;
-	int		samples = 20;
-	double	scale = (double)(1.0 / samples);
-	t_hit_rec rec;
+// t_color	sampling(t_vec2 coord)
+// {
+// 	t_pixel	*px;
 
-	s = 0;
-	data()->h = ((coord.x) / (double)(WIDTH -1));
-	data()->v = ((coord.y) / (double)(HEIGHT - 1));
-	data()->ray = get_ray();
-	t_pixel	*px;
-
-	px = &(data()->px[coord.y][coord.x]);
-	if (!hit_obj(data()->ray, px))
-	{
-		double t = 0.5*(data()->ray.direction.y + 1.0);
-		t_color colorStart = (t_color){1, 1, 1, 1};
-		colorStart = color_scalar(colorStart, 1.0 - t , 1);
-		return (color_add(colorStart, color_scalar((t_color){0.5, 0.7, 1.0, 1.0}, t, 1)));
-	}
-	// color = (t_color){0, 0, 0, 1};
-	// printf("in here\n");
-	// double dist = power(px->hitpoint.x - data()->objects[px->obj_id].center.x) + power(px->hitpoint.y - data()->objects[px->obj_id].center.y) + power(px->hitpoint.z - data()->objects[px->obj_id].center.z);
-
-	t_vec3	center_hit_dir = vec3_subtraction(data()->objects[px->obj_id].center, px->hitpoint);
-	// printf("center %f %f %f\n", data()->objects[px->obj_id].center.x, data()->objects[px->obj_id].center.y, data()->objects[px->obj_id].center.z);
-	double	dist = power(center_hit_dir.x) + power(center_hit_dir.y) + power(center_hit_dir.z);
-	// printf("dist %f\n", dist);
-	// if (dist != power(data()->objects[px->obj_id].radius)) //- 0.1) || dist > (power(data()->objects[px->obj_id].radius) + 0.1))
-	// {
-	// 	// printf("in here\n");
-		
-		
-	// }
-	return (color_room(data()->ray, coord, 50));
-	// {
-	// 	color = color_add(color, color_room(room.camera.ray, room, 40));
-	// 	return (color);
-	// }
-	// if (hit_obj(&rec, room.camera.ray, room))
-	// {
-	// 	color = color_add(color, color_room(room.camera.ray, room, 40));
-	// 	return (color);
-	// }
-
-	
-	while (s < samples)
-	{
-		data()->h = ((coord.x + random_double()) / (double)(WIDTH -1));
-		data()->v = ((coord.y + random_double()) / (double)(HEIGHT - 1));
-		color = color_add(color, color_room(data()->ray, coord, 50));
-		// printf("%f %f %f\n", color.r, color.g, color.b);
-		++s;
-	}
-	color.r = sqrt(scale * color.r);
-	color.g = sqrt(scale * color.g);
-	color.b = sqrt(scale * color.b);
-	return (color);
-}
+// 	px = &(data()->px[coord.y][coord.x]);
+// 	data()->h = ((coord.x) / (double)(WIDTH -1));
+// 	data()->v = ((coord.y) / (double)(HEIGHT - 1));
+// 	data()->ray = get_ray();
+// 	if (hit_obj(data()->ray, px))
+// 	{
+// 		t_vec3	center = data()->objects[px->obj_id].center;
+// 		t_vec3	hit_cood = (t_vec3){px->hitpoint.x, px->hitpoint.y, 0};
+// 		t_vec3	center_coord = (t_vec3){center.x, center.y, 0};
+// 		t_vec3	center_hit_dir = vec3_subtraction(center_coord, hit_cood);
+// 		double	dist = power(center_hit_dir.x) + power(center_hit_dir.y);
+// 		double	length_squared = vec3_length_squared(center_hit_dir);
+// 		// printf("length squared %f\n", length_squared);
+// 		if (length_squared <= (power(data()->objects[px->obj_id].radius) + 0.1) && length_squared >= (power(data()->objects[px->obj_id].radius) - 0.1))
+// 		{
+// 			int		s = 0;
+// 			int		samples = 20;
+// 			double	scale = (1.0 / samples);
+// 			// color = (t_color);
+// 			t_color color = {0, 0, 0, 1};
+// 			while (s < samples)
+// 			{
+// 				// printf("in here\n");
+// 				data()->h = ((coord.x + random_double()) / (double)(WIDTH -1));
+// 				data()->v = ((coord.y + random_double()) / (double)(HEIGHT - 1));
+// 				data()->ray = get_ray();
+// 				color = color_add(color, color_room(data()->ray, coord, 50));
+// 				// printf("%f %f %f\n", color.r, color.g, color.b);
+// 				++s;
+// 			}
+// 			color.r = sqrt(scale * color.r);
+// 			color.g = sqrt(scale * color.g);
+// 			color.b = sqrt(scale * color.b);
+// 			return (color);
+// 		}
+// 	}
+// 	return(color_room(data()->ray, coord, 50));
+// }
 // random_p = random_in_usphere();
 // // light_ray = get_lightRay(room.light, rec.hitpos);
 // // exit(0);
