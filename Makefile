@@ -12,7 +12,6 @@ SRC_DIR		=	src/
 INC_DIR		=	include/
 LIBA = MLX42/build/libmlx42.a
 
-SRC_NAME	=	main init vector hit light color_utils color_room utils create parser
 GNL_DIR = ./get_next_line/
 GNL = ./get_next_line/gnl.a
 
@@ -45,20 +44,24 @@ all : $(NAME)
 
 $(OBJ_DIR):
 	@mkdir -p $(OBJ_DIR)
+	@mkdir -p $(OBJ_DIR)/parser
+
+$(GNL):
+	@make -C $(GNL_DIR)
 
 $(OBJ_DIR)%.o : $(SRC_DIR)%.c
 	$(CC) $(CFLAGS) -c $< -I$(INC_DIR) -o $@ -IMLX42/include
 #
-$(NAME) : $(OBJ_DIR) $(OBJ_FILES) $(INC_FILES)
-	$(CC) $(CFLAGS) $(OBJ_FILES) -o $(NAME) $(LIBA) $(LIB) -I$(INC_DIR)
 $(NAME) : $(GNL) $(OBJ_DIR) $(OBJ_FILES) $(INC_FILES)
 	$(CC) $(CFLAGS) $(OBJ_FILES) -o $(NAME) $(LIBA) $(LIB) -I$(INC_DIR) $(GNL)
 
 clean:
 	@rm -rf $(OBJ_DIR)
+	@make clean -C $(GNL_DIR)
 
 fclean: clean
 	@rm -f $(NAME) .header
+	@make fclean -C $(GNL_DIR)
 
 re: fclean all
 
