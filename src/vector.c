@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   vector.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tdehne <tdehne@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: dns <dns@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 16:17:08 by tdehne            #+#    #+#             */
-/*   Updated: 2023/03/15 03:55:58 by tdehne           ###   ########.fr       */
+/*   Updated: 2023/04/04 17:47:41 by dns              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "structs.h"
+#include "miniRT.h"
 
 double	vec3_length_squared(t_vec3 v)
 {
