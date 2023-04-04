@@ -6,13 +6,13 @@
 /*   By: dns <dns@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 15:53:15 by dns               #+#    #+#             */
-/*   Updated: 2023/03/30 15:55:48 by dns              ###   ########.fr       */
+/*   Updated: 2023/03/30 16:36:31 by dns              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSER_H
 # define PARSER_H
 
-int	parser(int ac, char **av);
+int	parser(int ac, char *av);
 
 # endif
