@@ -6,13 +6,14 @@
 /*   By: dns <dns@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 16:15:13 by tdehne            #+#    #+#             */
-/*   Updated: 2023/03/30 16:07:00 by dns              ###   ########.fr       */
+/*   Updated: 2023/04/04 17:48:02 by dns              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCTS_H
 # define STRUCTS_H
 # include "../MLX42/include/MLX42/MLX42.h"
+# include "miniRT.h"
 # define ASPECT_RATIO (double)(3.0 / 2.0)
 # define HEIGHT 800
 # define WIDTH ((int)(HEIGHT * ASPECT_RATIO))
