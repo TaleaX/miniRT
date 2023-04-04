@@ -6,7 +6,6 @@
 /*   By: dns <dns@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 16:15:07 by tdehne            #+#    #+#             */
-/*   Updated: 2023/03/30 16:08:35 by dns              ###   ########.fr       */
 /*   Updated: 2023/03/30 16:43:36 by dns              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -21,6 +20,9 @@
 # define _USE_MATH_DEFINES
 # include <math.h>
 # include <time.h>
+# include <fcntl.h>
+
+# include "../get_next_line/get_next_line.h"
 # include "vector.h"
 # include "structs.h"
 # include "color.h"
@@ -49,9 +51,13 @@ bool	hit_obj(t_ray ray, t_pixel *px);
 
 //init
 void	init_spheres(t_obj* spheres);
+void	init_color(t_color *color, double r, double g, double b);
 void	init_plane(t_plane* plane);
 void	init_room(t_room *room);
 void	init_ray(t_ray *ray, t_vec3 origin, t_vec3 direction);
 t_ray	new_ray(t_vec3 origin, t_vec3 direction);
 void	init_data();
+
+int	error_handling(int error);
+
 #endif
