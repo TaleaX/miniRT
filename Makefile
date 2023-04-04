@@ -13,6 +13,10 @@ INC_DIR		=	include/
 LIBA = MLX42/build/libmlx42.a
 
 SRC_NAME	=	main init vector hit light color_utils color_room utils create parser
+GNL_DIR = ./get_next_line/
+GNL = ./get_next_line/gnl.a
+
+SRC_NAME	=	main init vector hit light color_utils color_room utils create parser/parser error_handling
 INC_NAME	=	miniRT vector color calc structs parser
 
 SRC_FILES	=	$(addsuffix .c, $(addprefix $(SRC_DIR), $(SRC_NAME)))
@@ -47,6 +51,8 @@ $(OBJ_DIR)%.o : $(SRC_DIR)%.c
 #
 $(NAME) : $(OBJ_DIR) $(OBJ_FILES) $(INC_FILES)
 	$(CC) $(CFLAGS) $(OBJ_FILES) -o $(NAME) $(LIBA) $(LIB) -I$(INC_DIR)
+$(NAME) : $(GNL) $(OBJ_DIR) $(OBJ_FILES) $(INC_FILES)
+	$(CC) $(CFLAGS) $(OBJ_FILES) -o $(NAME) $(LIBA) $(LIB) -I$(INC_DIR) $(GNL)
 
 clean:
 	@rm -rf $(OBJ_DIR)

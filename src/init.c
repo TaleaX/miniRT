@@ -7,6 +7,7 @@
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 16:16:51 by tdehne            #+#    #+#             */
 /*   Updated: 2023/03/30 15:42:45 by dns              ###   ########.fr       */
+/*   Updated: 2023/03/30 16:21:00 by dns              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,6 +213,7 @@ void	init_data()
 {
 	// data()->cam_dist = 1;
 	init_spheres(data()->objects);
+	// init_spheres(data()->objects);
 	init_camera(&data()->camera, 60,(t_vec3){0, 1, 0}, (t_vec3){0, 0, -10}, (t_vec3){0, 0, 1});
 	// init_vec3(&(data()->ray.origin), data()->camera.origin.x, data()->camera.origin.y, data()->camera.origin.z);
 	data()->ray.origin = data()->camera.origin;

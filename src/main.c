@@ -7,6 +7,7 @@
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 16:17:01 by tdehne            #+#    #+#             */
 /*   Updated: 2023/03/30 16:08:21 by dns              ###   ########.fr       */
+/*   Updated: 2023/03/30 16:36:15 by dns              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,6 +208,7 @@ int32_t	main(int ac, char **av)
 	t_color		color;
 
 	parser(ac, av);
+	parser(ac, av[1]);
 	if (!(mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true)))
 		return (EXIT_FAILURE);
 	data()->g_img = mlx_new_image(mlx, WIDTH, HEIGHT);
