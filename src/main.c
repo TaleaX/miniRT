@@ -6,7 +6,7 @@
 /*   By: dns <dns@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 16:17:01 by tdehne            #+#    #+#             */
-/*   Updated: 2023/03/30 16:36:15 by dns              ###   ########.fr       */
+/*   Updated: 2023/04/05 12:15:32 by dns              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int32_t	main(int ac, char **av)
 	if (!data()->g_img || (mlx_image_to_window(mlx, data()->g_img, 0, 0) < 0))
 		ft_error();
 
-	init_data();
+	// init_data();
 
 	double samples = 20;
 	double	scale = 1.0 / samples;
