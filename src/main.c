@@ -83,7 +83,7 @@ int32_t	main(int ac, char **av)
 
 	init_data();
 
-	double samples = 10;
+	double samples = 20;
 	double	scale = 1.0 / samples;
 	int	start = clock();
 	int s;
