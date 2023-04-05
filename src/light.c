@@ -39,6 +39,8 @@ double calc_light(t_light light, t_vec3 v, t_pixel px)
 	t_vec3	light_dir;
 
 
+	if (light.type == AMBIENT)
+		return (light.intensity);
 	light_dir = get_lightDir(light, px.hitpoint);
 	vec3_normalize(&light_dir);
 

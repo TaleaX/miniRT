@@ -108,7 +108,7 @@ bool	scatter(t_ray ray, t_ray *scattered, t_color *attenuation, t_pixel *px)
 }
 t_color	color_room(t_ray ray, t_vec2 coord, int depth)
 {
-	// t_color	color;
+	t_color	color;
 	// t_vec3	target;
 	// t_vec3	random_p;
 	// t_vec3	reflected_dir;
@@ -118,19 +118,21 @@ t_color	color_room(t_ray ray, t_vec2 coord, int depth)
 
 	px = &(data()->px[coord.y][coord.x]);
 	vec3_normalize(&ray.direction);
+	t_vec3 v = vec3_scalar(ray.direction, -1);
 	if (depth <= 0.0)
 		return ((t_color){0, 0, 0, 1});
 	if (hit_obj(ray, px))
 	{
 		if (px->material == MATTE)
 		{
-			t_vec3 v = vec3_scalar(ray.direction, -1);
+			// t_vec3 v = vec3_scalar(ray.direction, -1);
 			return (get_color(calc_light(data()->light, v, *px), px->color));
 		}
 		else if (scatter(ray, &scattered, &attenuation, px))
 		{
-
-			return (color_mult(attenuation, color_room(scattered, coord, depth - 1)));
+			// t_vec3 v = vec3_scalar(ray.direction, -1);
+			// color = color_mult(attenuation, color_room(scattered, coord, depth - 1));
+			return (get_color(calc_light(data()->light, v, *px), color_mult(attenuation, color_room(scattered, coord, depth - 1))));
 		}
 		return ((t_color){0, 0, 0, 1});
 	}

@@ -105,8 +105,6 @@ int32_t	main(int ac, char **av)
 			s = 0;
 			while (s < samples)
 			{					
-
-
 				data()->h = ((x + random_double()) / (double)(WIDTH -1));
 				data()->v = ((y + random_double()) / (double)(HEIGHT - 1));
 				data()->ray = get_ray();

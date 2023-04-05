@@ -65,12 +65,12 @@ void	init_spheres(t_obj* spheres)
 	spheres[2].radius = 1.0;
 	spheres[3].radius = 1.0;
 
-	spheres[0].material = MATTE;
-	spheres[1].material = MATTE;
+	spheres[0].material = MIRROR;
+	spheres[1].material = MIRROR;
 	spheres[2].material = MATTE;
 	spheres[3].material = MATTE;
 
-	spheres[0].specular = 20;
+	spheres[0].specular = -1;
 	spheres[1].specular = -1;
 	spheres[2].specular =  20;
 	spheres[3].specular =  20;
@@ -223,12 +223,12 @@ void	init_data()
 	// double focus_dist = vec3_length(vec3_subtraction((t_vec3){3, 3, -2}, (t_vec3){0, 0, 1}));
 	// data()->cam_dist = 1;
 	init_spheres(data()->objects);
-	init_camera(&data()->camera, 90, (t_vec3){0, 0, -6}, (t_vec3){0, 1, 0}, (t_vec3){0, 0, 0}, 1, 0);
+	init_camera(&data()->camera, 30, (t_vec3){0, 0, -16}, (t_vec3){0, 1, 0}, (t_vec3){0, 0, 0}, 1, 0);
 	// init_vec3(&(data()->ray.origin), data()->camera.origin.x, data()->camera.origin.y, data()->camera.origin.z);
 	data()->ray.origin = data()->camera.origin;
 	// data()->cam_origin = (t_vec3){0, 0, 0};
 	// init_ray(&(data()->ray), data()->cam_origin, (t_vec3){0, 0, 1});
-	data()->light.intensity = 1;
+	data()->light.intensity = 1.8;
 	data()->light.type = POINT;
-	init_ray(&data()->light.ray, (t_vec3){0.0, 0.0, -6.0},  (t_vec3){0.0, 0.0, 1.0});
+	init_ray(&data()->light.ray, (t_vec3){0.0, 0.0, -15.0},  (t_vec3){0.0, 0.0, 1.0});
 }
