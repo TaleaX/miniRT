@@ -6,7 +6,7 @@
 /*   By: dns <dns@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 15:51:08 by dns               #+#    #+#             */
-/*   Updated: 2023/03/30 17:20:02 by dns              ###   ########.fr       */
+/*   Updated: 2023/04/05 12:18:59 by dns              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ int	parser(int ac, char *av)
 	int	fd;
 
 	if (ac != 2)
-		return(default_map(data()->objects));
+		return(init_data(), 0);
 	if (!(cmp_filename(av)))
 		error_handling(0);
 	fd = open(av, O_RDONLY);
