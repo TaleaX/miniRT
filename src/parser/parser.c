@@ -6,7 +6,7 @@
 /*   By: dns <dns@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 15:51:08 by dns               #+#    #+#             */
-/*   Updated: 2023/04/05 12:18:59 by dns              ###   ########.fr       */
+/*   Updated: 2023/04/05 14:24:10 by dns              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,10 +90,35 @@ int	skip_space(char *input)
 int	get_sphere(char *line)
 {
 	int	offset;
+	t_float	f;
+	float	value[3];
 
 	offset = skip_space(line);
-	printf("%s\n", line+offset);
+	value[0] = parse_float(line+offset, f);
+	value[1] = parse_float(line+offset, f);
+	value[2] = parse_float(line+offset, f);
+	data()->objects[data()->n_objs].center = (t_vec3){value[0], value[1], value[2]};
+	// printf("%s\n", line+offset);
 	return(0);
+}
+
+int	get_object(char *line)
+{
+	if (ft_strncmp(line, "sp", 2) == 0)
+			get_sphere(line+2);
+	else if (ft_strncmp(line, "A", 1) == 0)
+		printf("Ambient light to be implemented..\n");
+	else if (ft_strncmp(line, "C", 1) == 0)
+		printf("Camera to be implemented..\n");
+	else if (ft_strncmp(line, "L", 1) == 0)
+		printf("Light to be implemented..\n");
+	else if (ft_strncmp(line, "pl", 2) == 0)
+		printf("Plane to be implemented..\n");
+	else if (ft_strncmp(line, "cy", 2) == 0)
+		printf("Cylinder to be implemented..\n");
+	else
+		return (1);
+	return (0);
 }
 
 static int	get_scene(const int fd)
@@ -105,8 +130,7 @@ static int	get_scene(const int fd)
 	while (line != NULL)
 	{
 		offset = skip_space(line);
-		if (line[0] == 's' && line[1] == 'p')
-			get_sphere(line+offset+2);
+		get_object(line+offset);
 		free(line);
 		line = get_next_line(fd);
 	}
@@ -126,6 +150,7 @@ int	parser(int ac, char *av)
 	fd = open(av, O_RDONLY);
 	if (fd < 0)
 		error_handling(1);
+	data()->n_objs = 0;
 	get_scene(fd);
 	close (fd);
 	return(0);
