@@ -49,10 +49,10 @@ void	init_spheres(t_obj* spheres)
 	// spheres[2].material = MIRROR;
 	// spheres[3].material = MATTE;
 	//double r = cos(M_PI / 4.0);
-	init_vec3(&spheres[0].center, 0.0, -1, 0);
-	init_vec3(&spheres[1].center, 0, -5002, 0);
-	init_vec3(&spheres[2].center, -4,    -1, 0);
-	init_vec3(&spheres[3].center, 4,    -1, 0);
+	init_vec3(&spheres[0].center, 0.0, -1, 3);
+	init_vec3(&spheres[1].center, 0, -5001, 1);
+	init_vec3(&spheres[2].center, -2,    0, 4);
+	init_vec3(&spheres[3].center, 2,    0, 4);
 	// init_vec3(&spheres[3].center, 0,    0.0, 1);
 
 	init_color(&spheres[0].color, 0.7, 0.3, 0.3);
@@ -65,15 +65,15 @@ void	init_spheres(t_obj* spheres)
 	spheres[2].radius = 1.0;
 	spheres[3].radius = 1.0;
 
-	spheres[0].material = MIRROR;
-	spheres[1].material = MIRROR;
+	spheres[0].material = MATTE;
+	spheres[1].material = MATTE;
 	spheres[2].material = MATTE;
 	spheres[3].material = MATTE;
 
-	spheres[0].specular = -1;
-	spheres[1].specular = -1;
-	spheres[2].specular =  20;
-	spheres[3].specular =  20;
+	spheres[0].specular = 500;
+	spheres[1].specular = 1000;
+	spheres[2].specular =  10;
+	spheres[3].specular =  500;
 
 	spheres[0].fuzz = 0;
 	spheres[1].fuzz = 0.0;
@@ -81,9 +81,9 @@ void	init_spheres(t_obj* spheres)
 	spheres[3].fuzz = 0.0;
 
 	int i = 4;
-	for (int a = -3; a < 3; a++)
+	for (int a = -2; a < 3; a++)
 	{
-		for (int b = -3; b < 3; b++)
+		for (int b = -2; b < 3; b++)
 		{
 			double	rand_matterial = random_double();
 			t_vec3	center = {a + 0.9*random_double(), -1.8, b + 0.9 * random_double()};
@@ -218,17 +218,34 @@ void	init_hit_rec(t_hit_rec *hit_rec, t_vec3 hitpos, t_vec3 normal, double t)
 // 	sphere->obj_type = SPHERE;
 // }
 
+void	init_lights(t_light *lights)
+{
+	lights[0].intensity = 0.2;
+	lights[0].type = AMBIENT;
+
+	lights[1].intensity = 0.6;
+	lights[1].type = POINT;
+	init_ray(&lights[1].ray, (t_vec3){2.0, 1.0, 0.0},  (t_vec3){0, 0.0, 0.0});
+
+	// init_ray(&lights[0].ray, (t_vec3){2.0, 1.0, 0.0},  (t_vec3){0, 0.0, 0.0});
+
+	lights[2].intensity = 0.2;
+	lights[2].type = SUN;
+	init_ray(&lights[2].ray, (t_vec3){0.0, 0.0, 0.0},  (t_vec3){1, 4.0, 4.0});
+
+	data()->lights_len = 3;
+}
+
 void	init_data()
 {
 	// double focus_dist = vec3_length(vec3_subtraction((t_vec3){3, 3, -2}, (t_vec3){0, 0, 1}));
 	// data()->cam_dist = 1;
 	init_spheres(data()->objects);
-	init_camera(&data()->camera, 30, (t_vec3){0, 0, -16}, (t_vec3){0, 1, 0}, (t_vec3){0, 0, 0}, 1, 0);
+	init_camera(&data()->camera, 40, (t_vec3){0, 0, -1}, (t_vec3){0, 1, 0}, (t_vec3){0, 0, 1}, 1, 0);
 	// init_vec3(&(data()->ray.origin), data()->camera.origin.x, data()->camera.origin.y, data()->camera.origin.z);
 	data()->ray.origin = data()->camera.origin;
+	init_lights(&data()->lights);
 	// data()->cam_origin = (t_vec3){0, 0, 0};
 	// init_ray(&(data()->ray), data()->cam_origin, (t_vec3){0, 0, 1});
-	data()->light.intensity = 1.8;
-	data()->light.type = POINT;
-	init_ray(&data()->light.ray, (t_vec3){0.0, 0.0, -15.0},  (t_vec3){0.0, 0.0, 1.0});
+	
 }

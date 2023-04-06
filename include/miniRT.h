@@ -46,7 +46,7 @@
 
 // void	init_window(t_window *window, mlx_image_t *g_img, double height, double width);
 void	init_hit_rec(t_hit_rec *hit_rec, t_vec3 hitpos, t_vec3 normal, double t);
-bool	hit_obj(t_ray ray, t_pixel *px);
+bool	hit_obj(t_ray ray, t_pixel *px, double t_max);
 // t_color	sampling(t_window window, t_room room);
 
 //init
@@ -59,6 +59,7 @@ t_ray	new_ray(t_vec3 origin, t_vec3 direction);
 t_ray	get_ray();
 t_color	sampling(t_vec2 coord);
 void	init_data();
+t_vec3	reflected_direction(t_vec3 lightRay, t_vec3 normal);
 
 int	error_handling(int error);
 

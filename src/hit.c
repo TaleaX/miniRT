@@ -56,7 +56,7 @@ double	hit_plane(t_plane plane, t_vec3 ray_origin, t_vec3 ray_direction)
 }
 
 
-bool	hit_obj(t_ray ray, t_pixel *px)
+bool	hit_obj(t_ray ray, t_pixel *px, double t_max)
 {
 	int		i;
 	bool	hit;
@@ -70,10 +70,11 @@ bool	hit_obj(t_ray ray, t_pixel *px)
 	while (i < data()->obj_len)
 	{
 		t = hit_sphere(data()->objects[i], ray.origin, ray.direction);
-		if (t > 0.001 && t < t_closest )
+		if (t > 0.001 && t < t_closest && t <= t_max)
 		{
 			px->hitpoint = get_hitpos(ray.origin, ray.direction, t);
 			px->normal = vec3_subtraction(data()->objects[i].center, px->hitpoint);
+			vec3_normalize(&px->normal);
 			set_face_normal(ray, &px->normal);
 			px->t = t;
 			px->material = data()->objects[i].material;
