@@ -158,13 +158,14 @@ struct s_data
 	t_camera	camera;
 	t_obj		objects[1000];
 	t_ray		ray;
-	t_light		light;
+	t_light		lights[10];
 	t_vec3		viewport_px;
 	double		v;
 	double		h;
 	t_vec3		cam_origin;
 	int			samples;
 	int			obj_len;
+	int			lights_len;
 	double		scale;
 };
 
