@@ -6,7 +6,7 @@
 /*   By: dns <dns@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 16:15:13 by tdehne            #+#    #+#             */
-/*   Updated: 2023/04/04 17:48:02 by dns              ###   ########.fr       */
+/*   Updated: 2023/04/05 14:16:30 by dns              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,6 +157,7 @@ struct s_data
 	t_vec2		coord;
 	t_camera	camera;
 	t_obj		objects[1000];
+	size_t		n_objs;
 	t_ray		ray;
 	t_light		light;
 	t_vec3		viewport_px;
@@ -168,13 +169,12 @@ struct s_data
 	double		scale;
 };
 
-struct s_sphere {
-	t_vec3			center;
-	double			radius;
-	t_color			color;
-	t_material_type material;
-
-};
+// struct s_sphere {
+// 	t_vec3			center;
+// 	double			radius;
+// 	t_color			color;
+// 	t_material_type material;
+// };
 
 struct s_plane {
 	t_vec3	p;
