@@ -39,22 +39,23 @@ double	hit_sphere(t_obj sphere, t_vec3 ray_origin, t_vec3 ray_direction)
 }
 
 
-double	hit_plane(t_plane plane, t_vec3 ray_origin, t_vec3 ray_direction)
+double	hit_plane(t_obj plane, t_vec3 ray_origin, t_vec3 ray_direction)
 {
-	t_vec3	oc;
+	t_vec3	co;
 	double	denominator;
 	double	numerator;
 	// double	d_y = ray_direction.y;
 	// double	o_y = ray_origin.y;
 
-	oc = vec3_subtraction(ray_origin, plane.c);
-	numerator = vec3_dot(plane.normal, oc);
+	co = vec3_scalar(vec3_subtraction(plane.center, ray_origin), -1);
+
+	numerator = vec3_dot(plane.normal, co);
 	denominator = vec3_dot(ray_direction, plane.normal);
+
 	if (denominator == 0.0)
 		return (-1);
 	return (numerator / denominator);
 }
-
 
 bool	hit_obj(t_ray ray, t_pixel *px, double t_max)
 {
@@ -69,11 +70,17 @@ bool	hit_obj(t_ray ray, t_pixel *px, double t_max)
 	t_closest = __DBL_MAX__;
 	while (i < data()->obj_len)
 	{
-		t = hit_sphere(data()->objects[i], ray.origin, ray.direction);
+		if (data()->objects[i].obj_type == SPHERE)
+			t = hit_sphere(data()->objects[i], ray.origin, ray.direction);
+		else
+			t = hit_plane(data()->objects[i], ray.origin, ray.direction);
 		if (t > 0.001 && t < t_closest && t <= t_max)
 		{
 			px->hitpoint = get_hitpos(ray.origin, ray.direction, t);
-			px->normal = vec3_subtraction(data()->objects[i].center, px->hitpoint);
+			if (data()->objects[i].obj_type == SPHERE)
+				px->normal = vec3_subtraction(data()->objects[i].center, px->hitpoint);
+			else
+				px->normal = data()->objects[i].normal;
 			vec3_normalize(&px->normal);
 			set_face_normal(ray, &px->normal);
 			px->t = t;
