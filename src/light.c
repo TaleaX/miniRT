@@ -19,17 +19,6 @@ static t_vec3	get_lightDir(t_light light, t_vec3 hit_pos)
 	return(vec3_subtraction(hit_pos, light.ray.origin));
 }
 
-// double calc_light(t_vec3 light_ray, t_vec3 normal, double intensity)
-// {
-// 	double	n_dot_l;
-// 	double	light = 0.0;
-
-// 	n_dot_l = vec3_dot(light_ray, normal);
-// 	if (n_dot_l > 0)
-// 		light = intensity * n_dot_l / (vec3_length(normal) * vec3_length(light_ray));
-// 	return (light);
-// }
-
 double calc_light(t_light *lights, t_vec3 v, t_pixel px)
 {
 	double	n_dot_l;
@@ -55,10 +44,10 @@ double calc_light(t_light *lights, t_vec3 v, t_pixel px)
 			// vec3_normalize(&light_dir);
 			if (lights[i].type == POINT)
 				t_max = 1;
-				// t_max = vec3_length(light_dir);
 			else if (lights[i].type == SUN)
 				t_max = INFINITY;
 			init_ray(&ray, px.hitpoint, light_dir);
+
 			//shadow
 			if (hit_obj(ray, &px, t_max))
 			{
@@ -74,9 +63,9 @@ double calc_light(t_light *lights, t_vec3 v, t_pixel px)
 			//specular
 			if (px.specular > 0)
 			{
-				// reflected_dir = vec3_subtraction(light_dir, vec3_scalar(px.normal, n_dot_l * 2));
-				lp = vec3_subtraction(vec3_scalar(px.normal, n_dot_l), light_dir);
-				reflected_dir = vec3_subtraction(lp, vec3_scalar(px.normal, n_dot_l));
+				reflected_dir = vec3_subtraction(light_dir, vec3_scalar(px.normal, n_dot_l * 2));
+				// lp = vec3_subtraction(vec3_scalar(px.normal, n_dot_l), light_dir);
+				// reflected_dir = vec3_subtraction(lp, vec3_scalar(px.normal, n_dot_l));
 				r_dot_v = vec3_dot(reflected_dir, v);
 				if (r_dot_v > 0)
 					light_var += lights[i].intensity * pow(r_dot_v / (vec3_length(reflected_dir) * vec3_length(v)), px.specular);
@@ -87,40 +76,3 @@ double calc_light(t_light *lights, t_vec3 v, t_pixel px)
 
 	return (light_var);
 }
-
-
-// t_vec3	get_lightDir(t_light light, t_vec3 hit_pos)
-// {
-// 	if (light.type == SUN)
-// 		return (light.ray.direction);
-// 	return(vec3_subtraction(hit_pos, light.ray.origin));
-// }
-
-
-// double calc_light(t_light light, t_vec3 v, t_hit_rec rec)
-// {
-// 	double	n_dot_l;
-// 	double	r_dot_v;
-// 	double	light_var = 0.0;
-// 	t_vec3	reflected_direction;
-// 	t_vec3	light_dir;
-
-
-// 	light_dir = get_lightDir(light, rec.hitpos);
-// 	vec3_normalize(&light_dir);
-
-// 	n_dot_l = vec3_dot(rec.normal, light_dir);
-// 	if (n_dot_l > 0)
-// 	{
-// 		light_var += light.intensity * n_dot_l/(vec3_length(rec.normal) * vec3_length(light_dir));
-// 	}
-// 	if (rec.specular > 0)
-// 	{
-// 		reflected_direction = vec3_subtraction(light_dir, vec3_scalar(rec.normal, n_dot_l * 2));
-// 		r_dot_v = vec3_dot(reflected_direction, v);
-// 		if (r_dot_v > 0)
-// 			light_var += light.intensity * pow(r_dot_v / (vec3_length(reflected_direction) * vec3_length(v)), rec.specular);
-// 	}
-// 	return (light_var);
-// }
-

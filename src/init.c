@@ -49,15 +49,15 @@ void	init_spheres(t_obj* spheres)
 	// spheres[2].material = MIRROR;
 	// spheres[3].material = MATTE;
 	//double r = cos(M_PI / 4.0);
-	init_vec3(&spheres[0].center, 0.0, -1, 3);
+	init_vec3(&spheres[0].center, 0.5, 1, 2);
 	init_vec3(&spheres[1].center, 0, -5001, 1);
-	init_vec3(&spheres[2].center, -2,    0, 4);
+	init_vec3(&spheres[2].center, -2,   0, 2);
 	init_vec3(&spheres[3].center, 2,    0, 4);
 	// init_vec3(&spheres[3].center, 0,    0.0, 1);
 
 	init_color(&spheres[0].color, 0.7, 0.3, 0.3);
 	init_color(&spheres[1].color, 0.5, 0.5, 0.5);
-	init_color(&spheres[2].color, 0.8, 0.6, 0.2);
+	init_color(&spheres[2].color, 0.8, 0.55, 1);
 	init_color(&spheres[3].color, 0.8, 0.8, 0.8);
 
 	spheres[0].radius = 1.0;
@@ -65,12 +65,12 @@ void	init_spheres(t_obj* spheres)
 	spheres[2].radius = 1.0;
 	spheres[3].radius = 1.0;
 
-	spheres[0].material = MATTE;
-	spheres[1].material = MATTE;
+	spheres[0].material = MIRROR;
+	spheres[1].material = MIRROR;
 	spheres[2].material = MATTE;
 	spheres[3].material = MATTE;
 
-	spheres[0].specular = 500;
+	spheres[0].specular = -1;
 	spheres[1].specular = 1000;
 	spheres[2].specular =  10;
 	spheres[3].specular =  500;
@@ -80,29 +80,37 @@ void	init_spheres(t_obj* spheres)
 	spheres[2].fuzz = 0.0;
 	spheres[3].fuzz = 0.0;
 
+	spheres[0].obj_type = SPHERE;
+	spheres[1].obj_type = SPHERE;
+	spheres[2].obj_type = SPHERE;
+	spheres[3].obj_type = SPHERE;
+
 	int i = 4;
 	for (int a = -2; a < 3; a++)
 	{
 		for (int b = -2; b < 3; b++)
 		{
 			double	rand_matterial = random_double();
-			t_vec3	center = {a + 0.9*random_double(), -1.8, b + 0.9 * random_double()};
+			t_vec3	center = {a + 0.9*random_double(), -0.8, b + 0.9 * random_double()};
 			// t_vec3	lol = vec3_scalar_subtraction(center, vec3_length((t_vec3){4, -0.4, 0}));
-			if (vec3_length(vec3_subtraction((t_vec3){4, -1.8, 0}, center)) > 0.9)
+			if (vec3_length(vec3_subtraction((t_vec3){4, -0.8, 0}, center)) > 0.9)
 			{
 				spheres[i].center = center;
 				spheres[i].radius = 0.2;
-				if (rand_matterial < 0.99) {
+				if (rand_matterial < 0.01) {
 					spheres[i].color = (t_color){random_double(), random_double(), random_double(), 1};
 					spheres[i].material = MATTE;
 					spheres[i].fuzz = 0;
 					spheres[i].specular = -1;
+					spheres[i].obj_type = SPHERE;
 				}
 				else {
 					spheres[i].color = (t_color){random_min_max(0.5, 1), random_min_max(0.5, 1), random_min_max(0.5, 1), 1};
 					spheres[i].material = MIRROR;
 					spheres[i].fuzz = random_min_max(0, 0.1);
 					spheres[i].specular = -1;
+					spheres[i].obj_type = SPHERE;
+
 				}
 				++i;
 			}
@@ -110,13 +118,6 @@ void	init_spheres(t_obj* spheres)
 	}
 	data()->obj_len = i;
 }
-
-// void	init_sphere(t_sphere sphere, t_vec3 center, t_color color, double radius)
-// {
-// 	sphere.color = color;
-// 	sphere.radius = radius;
-// 	sphere.center = center;
-// }
 
 void	init_plane(t_plane* plane)
 {
@@ -170,53 +171,7 @@ void	init_camera(t_camera *camera, double vfov, t_vec3 origin, t_vec3 vup, t_vec
 	// camera->lower_left_corner.y -= w.y;
 	// camera->lower_left_corner.z -= w.z;
 	camera->lens_radius = aperture / 2.0;
-	
-
-	printf("x %f y %f z %f\n", camera->lower_left_corner.x, camera->lower_left_corner.y, camera->lower_left_corner.z);
 }
-
-void	init_light(t_light *light, t_vec3 origin, t_vec3 direction, t_light_type type)
-{
-	// init_vec3(&light->origin, 0.0, 1.0, 0.0);
-	// init_vec3(&light->direction, 1, 1, 1);
-	light->ray.origin = origin;
-	light->ray.direction = direction;
-	light->type = type;
-}
-
-// void	init_room(t_room *room)
-// {
-// 	init_spheres(room->spheres);
-// 	init_plane(&room->planes[0]);
-// 	init_camera(&room->camera);
-// 	init_light(&room->light, (t_vec3){0.0, 1.0, 0.0},  (t_vec3){1.0, 1.0, 1.0}, POINT);
-// }
-
-// void	init_window(t_window *window, mlx_image_t *g_img, double height, double width)
-// {
-// 	window->g_img = g_img;
-// 	window->x = 0;
-// 	window->y = 0;
-// 	window->WIN_HEIGHT = height;
-// 	window->WIN_WIDTH = width;
-// }
-
-
-void	init_hit_rec(t_hit_rec *hit_rec, t_vec3 hitpos, t_vec3 normal, double t)
-{
-	hit_rec->hitpos = hitpos;
-	hit_rec->normal = normal;
-	hit_rec->t = t;
-}
-
-// void	init_sphere(t_obj *sphere, t_vec3 center, double radius, t_material_type material, t_color color)
-// {
-// 	sphere->center = center;
-// 	sphere->radius = radius;
-// 	sphere->color = color;
-// 	sphere->material = material;
-// 	sphere->obj_type = SPHERE;
-// }
 
 void	init_lights(t_light *lights)
 {
@@ -225,7 +180,7 @@ void	init_lights(t_light *lights)
 
 	lights[1].intensity = 0.6;
 	lights[1].type = POINT;
-	init_ray(&lights[1].ray, (t_vec3){2.0, 1.0, 0.0},  (t_vec3){0, 0.0, 0.0});
+	init_ray(&lights[1].ray, (t_vec3){4.0, 3.0, -3.0},  (t_vec3){0, 0.0, 0.0});
 
 	// init_ray(&lights[0].ray, (t_vec3){2.0, 1.0, 0.0},  (t_vec3){0, 0.0, 0.0});
 
@@ -235,17 +190,40 @@ void	init_lights(t_light *lights)
 
 	data()->lights_len = 3;
 }
+void	init_planes(t_obj *planes)
+{
+	int i;
+
+	i = data()->obj_len - 1;
+	planes[i].center = (t_vec3){1, 1, 8};
+	planes[i].normal = (t_vec3){0, 0, -1};
+	planes[i].obj_type = PLANE;
+	planes[i].material = MATTE;
+	planes[i].color = (t_color){0.6, 0.9, 0.8, 1};
+
+	planes[i + 1].center = (t_vec3){-3, 1, 1};
+	planes[i + 1].normal = (t_vec3){1, 0, 0};
+	planes[i + 1].obj_type = PLANE;
+	planes[i + 1].material = MATTE;
+	planes[i + 1].color = (t_color){0.6, 0.9, 0.8, 1};
+
+	planes[i + 2].center = (t_vec3){6.8, 1, 1};
+	planes[i + 2].normal = (t_vec3){-1, 0, 0};
+	planes[i + 2].obj_type = PLANE;
+	planes[i + 2].material = MATTE;
+	planes[i + 2].color = (t_color){0.6, 0.9, 0.8, 1};
+	data()->obj_len += 3;
+
+}
 
 void	init_data()
 {
 	// double focus_dist = vec3_length(vec3_subtraction((t_vec3){3, 3, -2}, (t_vec3){0, 0, 1}));
 	// data()->cam_dist = 1;
+	data()->obj_len = 0;
 	init_spheres(data()->objects);
-	init_camera(&data()->camera, 40, (t_vec3){0, 0, -1}, (t_vec3){0, 1, 0}, (t_vec3){0, 0, 1}, 1, 0);
-	// init_vec3(&(data()->ray.origin), data()->camera.origin.x, data()->camera.origin.y, data()->camera.origin.z);
+	init_camera(&data()->camera, 70, (t_vec3){2, 3, -5}, (t_vec3){0, 1, 0}, (t_vec3){2, 0, 1}, 1, 0);
 	data()->ray.origin = data()->camera.origin;
 	init_lights(data()->lights);
-	// data()->cam_origin = (t_vec3){0, 0, 0};
-	// init_ray(&(data()->ray), data()->cam_origin, (t_vec3){0, 0, 1});
-	
+	init_planes(data()->objects);
 }

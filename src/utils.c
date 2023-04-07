@@ -16,7 +16,6 @@ t_vec3	random_in_usphere(void)
 
 	while (true)
 	{
-		// printf("random point x %f %f %f\n", random_point.x, random_point.y, random_point.z);
 		init_vec3(&random_point, random_min_max(-1, 1), random_min_max(-1, 1), random_min_max(-1, 1));
 		if (vec3_length_squared(random_point) >= 1)
 			continue;
@@ -30,7 +29,6 @@ t_vec3	random_in_udisk(void)
 
 	while (true)
 	{
-		// printf("random point x %f %f %f\n", random_point.x, random_point.y, random_point.z);
 		init_vec3(&random_point, random_min_max(-1, 1), random_min_max(-1, 1), 0);
 		if (vec3_length_squared(random_point) >= 1)
 			continue;
