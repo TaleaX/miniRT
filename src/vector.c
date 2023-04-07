@@ -6,7 +6,7 @@
 /*   By: dns <dns@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 16:17:08 by tdehne            #+#    #+#             */
-/*   Updated: 2023/04/04 17:47:41 by dns              ###   ########.fr       */
+/*   Updated: 2023/04/06 21:14:32 by dns              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,13 @@ double	vec3_length(t_vec3 v)
 	return (sqrt(vec3_length_squared(v)));
 }
 
-
 void	vec3_normalize(t_vec3 *v)
 {
 	double	length;
 
 	length = vec3_length(*v);
-	if (length != 0) {
+	if (length != 0)
+	{
 		v->x /= length;
 		v->y /= length;
 		v->z /= length;
@@ -47,55 +47,4 @@ t_vec3	get_hitpos(t_vec3 ray_origin, t_vec3 ray_direction, double t)
 	init_vec3(&hitpos, ray_origin.x + ray_direction.x * t, \
 		ray_origin.y + ray_direction.y * t, ray_origin.z + ray_direction.z * t);
 	return (hitpos);
-}
-
-t_vec3	vec3_subtraction(t_vec3 vec1, t_vec3 vec2)
-{
-	return ((t_vec3){vec2.x - vec1.x, vec2.y - vec1.y, vec2.z - vec1.z});
-}
-
-t_vec3	vec3_add(t_vec3 vec1, t_vec3 vec2)
-{
-	return ((t_vec3){vec1.x + vec2.x, vec1.y + vec2.y, vec1.z + vec2.z});
-}
-
-t_vec3	vec3_scalar(t_vec3 vec, double scalar)
-{
-	return ((t_vec3){vec.x * scalar, vec.y * scalar, vec.z * scalar});
-}
-
-t_vec3	vec3_get_normal(t_vec3 vec1, t_vec3 vec2)
-{
-	return ((t_vec3){vec1.y * vec2.z - vec1.z * vec2.y, vec1.z * vec2.x - vec1.x * vec2.z, vec1.x * vec2.y - vec1.y * vec2.x});
-}
-
-t_vec3	vec3_scalar_subtraction(t_vec3 vec, double scalar)
-{
-	return ((t_vec3){vec.x - scalar, vec.y - scalar, vec.z - scalar});
-}
-
-t_vec3	vec3_mult(t_vec3 vec1, t_vec3 vec2)
-{
-	return ((t_vec3){vec1.x * vec2.x, vec1.y * vec2.y, vec1.z * vec2.z});
-}
-
-
-t_color	color_add(t_color color1, t_color color2)
-{
-	return ((t_color){color1.r + color2.r, color1.g + color2.g, color1.b + color2.b, color2.a});
-}
-
-t_color color_scalar(t_color color, double scalar, double alpha)
-{
-	return ((t_color){color.r * scalar, color.g * scalar, color.b * scalar, color.a * alpha});
-}
-
-t_color color_add_vec(t_color color, t_vec3 vec)
-{
-	return ((t_color){color.r + vec.x, color.g + vec.y, color.b + vec.z, 1});
-}
-
-t_color	color_mult(t_color color1, t_color color2)
-{
-	return ((t_color){color1.r * color2.r, color1.g * color2.g, color1.b * color2.b, color1.a * color2.a});
 }
