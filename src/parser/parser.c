@@ -6,7 +6,7 @@
 /*   By: dns <dns@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 15:51:08 by dns               #+#    #+#             */
-/*   Updated: 2023/04/05 14:24:10 by dns              ###   ########.fr       */
+/*   Updated: 2023/04/06 22:11:40 by dns              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,31 +87,75 @@ int	skip_space(char *input)
 	return (offset);
 }
 
+t_color	color_parsed(void)
+{
+	return ((t_color){data()->parse_float[0] / 255, data()->parse_float[1] / 255, data()->parse_float[2] / 255, 1});
+}
+
 int	get_sphere(char *line)
 {
-	int	offset;
-	t_float	f;
-	float	value[3];
-
-	offset = skip_space(line);
-	value[0] = parse_float(line+offset, f);
-	value[1] = parse_float(line+offset, f);
-	value[2] = parse_float(line+offset, f);
-	data()->objects[data()->n_objs].center = (t_vec3){value[0], value[1], value[2]};
-	// printf("%s\n", line+offset);
+	line += skip_space(line);
+	parse_floats(line);
+	data()->objects[data()->n_objs].center = (t_vec3){data()->parse_float[0], data()->parse_float[1], data()->parse_float[2]};
+	while ((*line >= '0' && *line <= '9') || *line == '.' || *line == ',')
+		line++;
+	line += skip_space(line);
+	data()->objects[data()->n_objs].radius = (parse_float(line)) / 2;
+	while ((*line >= '0' && *line <= '9') || *line == '.')
+		line++;
+	line += skip_space(line);
+	parse_floats(line);
+	// data()->objects[data()->n_objs].color = (t_color){data()->parse_float[0], data()->parse_float[1], data()->parse_float[2], 1.0f};
+	data()->objects[data()->n_objs].color = color_parsed();
+	data()->objects[data()->n_objs].obj_type = SPHERE;
+	data()->n_objs++;
 	return(0);
+}
+
+int	get_light(char *line)
+{
+	line += skip_space(line);
+	parse_floats(line);
+	data()->lights[data()->n_lights].point = (t_vec3){data()->parse_float[0], data()->parse_float[1], data()->parse_float[2]};
+	while ((*line >= '0' && *line <= '9') || *line == '.' || *line == ',')
+		line++;
+	line += skip_space(line);
+	data()->lights[data()->n_lights].intensity = parse_float(line);
+	while ((*line >= '0' && *line <= '9') || *line == '.')
+		line++;
+	line += skip_space(line);
+	parse_floats(line);
+	// data()->objects[data()->n_objs].color = (t_color){data()->parse_float[0], data()->parse_float[1], data()->parse_float[2], 1.0f};
+	data()->lights[data()->n_lights].color = color_parsed();
+	data()->lights[data()->n_lights].type = POINT;
+	data()->n_lights++;
+	return(0);
+}
+
+int	get_ambientlight(char *line)
+{
+	line += skip_space(line);
+	data()->lights[data()->n_lights].intensity = parse_float(line);
+	while ((*line >= '0' && *line <= '9') || *line == '.')
+		line++;
+	line += skip_space(line);
+	parse_floats(line);
+	data()->lights[data()->n_lights].color = (t_color){data()->parse_float[0], data()->parse_float[1], data()->parse_float[2], 1};
+	data()->lights[data()->n_lights].type = AMBIENT;
+	data()->n_lights++;
+	return (0);
 }
 
 int	get_object(char *line)
 {
 	if (ft_strncmp(line, "sp", 2) == 0)
-			get_sphere(line+2);
+		get_sphere(line+2);
 	else if (ft_strncmp(line, "A", 1) == 0)
-		printf("Ambient light to be implemented..\n");
+		get_ambientlight(line+1);
 	else if (ft_strncmp(line, "C", 1) == 0)
 		printf("Camera to be implemented..\n");
 	else if (ft_strncmp(line, "L", 1) == 0)
-		printf("Light to be implemented..\n");
+		get_light(line+1);
 	else if (ft_strncmp(line, "pl", 2) == 0)
 		printf("Plane to be implemented..\n");
 	else if (ft_strncmp(line, "cy", 2) == 0)
@@ -139,6 +183,27 @@ static int	get_scene(const int fd)
 	return(0);
 }
 
+void	print_scene(void)
+{
+	for (size_t i = 0; i < data()->n_objs; i++)
+	{
+		printf("Obj %zu: center %f,%f,%f", data()->n_objs, data()->objects[i].center.x, data()->objects[i].center.y, data()->objects[i].center.z);
+		printf("\t%f",data()->objects[i].radius*2);
+		printf("\t%f,%f,%f\n", data()->objects[i].color.r, data()->objects[i].color.g, data()->objects[i].color.b);
+	}
+	for (size_t i = 0; i < data()->n_lights; i++)
+	{
+		if (data()->lights[i].type == AMBIENT)
+			printf("Ambient light: %f\t%f,%f,%f\n", data()->lights[i].intensity, data()->lights[i].color.r, data()->lights[i].color.g, data()->lights[i].color.b);
+		if (data()->lights[i].type == POINT)
+		{
+			printf("Point light: %f,%f,%f", data()->lights[i].point.x, data()->lights[i].point.y, data()->lights[i].point.z);
+			printf("\t%f", data()->lights[i].intensity);
+			printf("\t%f,%f,%f\n", data()->lights[i].color.r, data()->lights[i].color.g, data()->lights[i].color.b);
+		}
+	}
+}
+
 int	parser(int ac, char *av)
 {
 	int	fd;
@@ -152,6 +217,7 @@ int	parser(int ac, char *av)
 		error_handling(1);
 	data()->n_objs = 0;
 	get_scene(fd);
+	print_scene();
 	close (fd);
 	return(0);
 }

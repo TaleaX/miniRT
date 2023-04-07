@@ -6,7 +6,7 @@
 /*   By: dns <dns@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 16:16:51 by tdehne            #+#    #+#             */
-/*   Updated: 2023/03/30 16:21:00 by dns              ###   ########.fr       */
+/*   Updated: 2023/04/06 20:23:40 by dns              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -244,7 +244,7 @@ void	init_data()
 	init_camera(&data()->camera, 40, (t_vec3){0, 0, -1}, (t_vec3){0, 1, 0}, (t_vec3){0, 0, 1}, 1, 0);
 	// init_vec3(&(data()->ray.origin), data()->camera.origin.x, data()->camera.origin.y, data()->camera.origin.z);
 	data()->ray.origin = data()->camera.origin;
-	init_lights(&data()->lights);
+	init_lights(data()->lights);
 	// data()->cam_origin = (t_vec3){0, 0, 0};
 	// init_ray(&(data()->ray), data()->cam_origin, (t_vec3){0, 0, 1});
 	

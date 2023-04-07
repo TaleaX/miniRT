@@ -6,7 +6,7 @@
 /*   By: dns <dns@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 16:15:13 by tdehne            #+#    #+#             */
-/*   Updated: 2023/04/05 14:16:30 by dns              ###   ########.fr       */
+/*   Updated: 2023/04/06 21:34:52 by dns              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ typedef struct s_obj			t_obj;
 typedef struct s_v2		t_vec2;
 typedef struct s_v3		t_vec3;
 typedef struct s_color	t_color;
-typedef	t_vec3					t_v3;
+typedef	t_vec3			t_v3;
 
 enum e_obj_type {
 	SPHERE,
@@ -96,9 +96,10 @@ struct s_ray {
 struct s_light {
 	t_light_type	type;
 	t_ray			ray;
+	t_vec3			point;
 	double			intensity;
+	t_color			color;
 };
-
 
 struct	s_obj
 {
@@ -109,7 +110,7 @@ struct	s_obj
 	double			radius;
 	t_obj_type		obj_type;
 	t_color			color;
-	t_material_type material;
+	t_material_type	material;
 	double			fuzz;
 	double			specular;
 };
@@ -158,6 +159,7 @@ struct s_data
 	t_camera	camera;
 	t_obj		objects[1000];
 	size_t		n_objs;
+	size_t		n_lights;
 	t_ray		ray;
 	t_light		lights[10];
 	t_vec3		viewport_px;
@@ -168,6 +170,7 @@ struct s_data
 	int			obj_len;
 	int			lights_len;
 	double		scale;
+	float		parse_float[3];
 };
 
 // struct s_sphere {

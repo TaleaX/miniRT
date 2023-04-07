@@ -6,18 +6,11 @@
 /*   By: dns <dns@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 13:22:59 by dns               #+#    #+#             */
-/*   Updated: 2023/04/05 14:00:19 by dns              ###   ########.fr       */
+/*   Updated: 2023/04/06 22:04:43 by dns              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
-
-// typedef struct s_float
-// {
-// 	float	sign;			// 1.0f
-// 	float	value;			// 0.0f
-// 	float	decimal;		// 0.1f
-// }	t_float;
 
 t_float	init_float_struct(void)
 {
@@ -29,8 +22,10 @@ t_float	init_float_struct(void)
 	return (f);
 }
 
-float	parse_float(char *line, t_float f)
+float	parse_float(char *line)
 {
+	t_float	f;
+
 	f = init_float_struct();
 	if (*line == '-')
 	{
@@ -54,6 +49,23 @@ float	parse_float(char *line, t_float f)
 			line++;
 		}
 	}
-	f.value *= f.sign;
-	return (1.0f);
+	return (f.value *= f.sign);
+}
+
+int	parse_floats(char *line)
+{
+	data()->parse_float[0] = parse_float(line);
+	while ((*line >= '0' && *line <= '9') || *line == '.')
+		line++;
+	if (*line != ',')
+		return (-1);
+	line++;
+	data()->parse_float[1] = parse_float(line);
+	while ((*line >= '0' && *line <= '9') || *line == '.')
+		line++;
+	if (*line != ',')
+		return (-1);
+	line++;
+	data()->parse_float[2] = parse_float(line);
+	return (0);
 }
