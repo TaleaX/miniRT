@@ -15,7 +15,9 @@ LIBA = MLX42/build/libmlx42.a
 GNL_DIR = ./get_next_line/
 GNL = ./get_next_line/gnl.a
 
-SRC_NAME	=	main init vector hit light color_utils color_room utils create parser/parser error_handling
+SRC_NAME	=	main init vector vector_2 vector_3 hit light color_utils color_room utils \
+				create error_handling \
+				parser/parser parser/string_utils parser/parse_float
 INC_NAME	=	miniRT vector color calc structs parser
 
 SRC_FILES	=	$(addsuffix .c, $(addprefix $(SRC_DIR), $(SRC_NAME)))
