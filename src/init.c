@@ -6,7 +6,7 @@
 /*   By: dns <dns@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 16:16:51 by tdehne            #+#    #+#             */
-/*   Updated: 2023/04/06 20:23:40 by dns              ###   ########.fr       */
+/*   Updated: 2023/04/08 15:10:18 by dns              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,13 +119,6 @@ void	init_spheres(t_obj* spheres)
 	data()->obj_len = i;
 }
 
-void	init_plane(t_plane* plane)
-{
-	init_vec3(&plane->c, 0, 0, 0);
-	init_vec3(&plane->normal, 0, 1, 0);
-	init_color(&plane->color, 1, 0, 0);
-}
-
 void	init_ray(t_ray *ray, t_vec3 origin, t_vec3 direction)
 {
 	ray->origin = origin;
@@ -137,9 +130,6 @@ void	init_camera(t_camera *camera, double vfov, t_vec3 origin, t_vec3 vup, t_vec
 	double	vfov_rad;
 	double	viewport_width;
 	double	viewport_height;
-	// t_vec3	w;
-	// t_vec3	v;
-	// t_vec3	u;
 	t_vec3	negative_offset;
 
 	vfov_rad = degree_to_radian(vfov);

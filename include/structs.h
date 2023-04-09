@@ -6,7 +6,7 @@
 /*   By: dns <dns@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 16:15:13 by tdehne            #+#    #+#             */
-/*   Updated: 2023/04/06 21:34:52 by dns              ###   ########.fr       */
+/*   Updated: 2023/04/08 15:00:00 by dns              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ struct	s_obj
 	t_vec3			point2;
 	t_vec3			normal;
 	double			radius;
+	double			height;
 	t_obj_type		obj_type;
 	t_color			color;
 	t_material_type	material;
@@ -143,6 +144,7 @@ struct s_camera {
 	t_vec3	viewport_vertical;
 	t_vec3	viewport_horizontal;
 	double	vfov;
+	double	hfov;
 	t_vec3	lower_left_corner;
 	double		lens_radius;
 	double		aperture;
@@ -165,26 +167,11 @@ struct s_data
 	t_vec3		viewport_px;
 	double		v;
 	double		h;
-	t_vec3		cam_origin;
 	int			samples;
 	int			obj_len;
 	int			lights_len;
 	double		scale;
 	float		parse_float[3];
-};
-
-// struct s_sphere {
-// 	t_vec3			center;
-// 	double			radius;
-// 	t_color			color;
-// 	t_material_type material;
-// };
-
-struct s_plane {
-	t_vec3	p;
-	t_vec3	normal;
-	t_vec3	c;
-	t_color	color;
 };
 
 struct	s_hit_rec

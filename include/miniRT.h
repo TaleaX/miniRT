@@ -6,7 +6,7 @@
 /*   By: dns <dns@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 16:15:07 by tdehne            #+#    #+#             */
-/*   Updated: 2023/04/06 20:47:39 by dns              ###   ########.fr       */
+/*   Updated: 2023/04/08 14:44:54 by dns              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <memory.h>
-# include <parser.h>
 # define _USE_MATH_DEFINES
 # include <math.h>
 # include <time.h>
