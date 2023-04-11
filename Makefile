@@ -17,7 +17,9 @@ GNL = ./get_next_line/gnl.a
 
 SRC_NAME	=	main init vector vector_2 vector_3 hit light color_utils color_room utils \
 				create error_handling \
-				parser/parser parser/string_utils parser/parse_float
+				parser/parser parser/string_utils parser/parse_float parser/parse_skip \
+				parser/parse_get parser/parse_check parser/parse_print parser/parse_print2 \
+				parser/parse_get_obj
 INC_NAME	=	miniRT vector color calc structs parser
 
 SRC_FILES	=	$(addsuffix .c, $(addprefix $(SRC_DIR), $(SRC_NAME)))

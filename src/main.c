@@ -6,7 +6,7 @@
 /*   By: dns <dns@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 16:17:01 by tdehne            #+#    #+#             */
-/*   Updated: 2023/04/05 12:15:32 by dns              ###   ########.fr       */
+/*   Updated: 2023/04/11 15:42:38 by dns              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,39 +34,30 @@ t_data	*data(void)
 	return (&data);
 }
 
+void	multi_thread(int x, int y, int y_max)
+{
+	int		s;
+	t_color	color;
+	double samples = 10;
+	double	scale = 1.0 / samples;
 
-// double	map_y_rotationX(double y_start, double y, double radian)
-// {
-// 	double	factor;
-// 	factor = sinf(radian);
-// 	// printf("y %f\n", y);
-// 	return ((y * factor + y_start));
-// }
+	color = (t_color){0, 0, 0, 1};
+	data()->coord.x = x;
+	s = 0;
+	while (s < samples)
+	{					
+		data()->h = ((x + random_double()) / (double)(WIDTH -1));
+		data()->v = ((y + random_double()) / (double)(HEIGHT - 1));
+		data()->ray = get_ray();
+		color = color_add(color, color_room(data()->ray, data()->coord, 50));
+		++s;
+	}
+	color.r = sqrt(scale * color.r);
+	color.g = sqrt(scale * color.g);
+	color.b = sqrt(scale * color.b);
 
-// double	map_z_rotationX(double z_start, double z, double radian)
-// {
-// 	double	factor;
-// 	factor = cosf(radian);
-// 	return (z_start +  z * factor);
-// }
-
-// double	map_z_rotationY(double z_start, double z, double radian)
-// {
-// 	double	factor;
-
-// 	factor = sinf(radian);
-// 	// printf("factor %f %f\n", z * factor, z);
-// 	return (z_start +  z * factor);
-// }
-
-// double	map_x_rotationY(double x_start, double x, double radian)
-// {
-// 	double	factor;
-// 	factor = cosf(radian);
-// 	// printf("x %f\n", x);
-// 	return ((x * factor + x_start));
-// }
-
+	mlx_put_pixel(data()->g_img, x, y_max, get_rgba(color));
+}
 
 int32_t	main(int ac, char **av)
 {
@@ -80,18 +71,9 @@ int32_t	main(int ac, char **av)
 	memset(data()->g_img->pixels, 0, data()->g_img->width * data()->g_img->height * sizeof(int));
 	if (!data()->g_img || (mlx_image_to_window(mlx, data()->g_img, 0, 0) < 0))
 		ft_error();
-
-	// init_data();
-
-	double samples = 20;
-	double	scale = 1.0 / samples;
 	int	start = clock();
-	int s;
 	int	x;
 	int	y;
-	// double	base_verschiebung_y = -0.5;
-	// double	base_verschiebung_x = -0.5;
-
 	int	y_max = HEIGHT - 1;
 	y = 0;
 	while (y < HEIGHT - 1)
@@ -100,22 +82,7 @@ int32_t	main(int ac, char **av)
 		data()->coord.y = y;
 		while (x < WIDTH)
 		{
-			color = (t_color){0, 0, 0, 1};
-			data()->coord.x = x;
-			s = 0;
-			while (s < samples)
-			{					
-				data()->h = ((x + random_double()) / (double)(WIDTH -1));
-				data()->v = ((y + random_double()) / (double)(HEIGHT - 1));
-				data()->ray = get_ray();
-				color = color_add(color, color_room(data()->ray, data()->coord, 50));
-				++s;
-			}
-			color.r = sqrt(scale * color.r);
-			color.g = sqrt(scale * color.g);
-			color.b = sqrt(scale * color.b);
-
-			mlx_put_pixel(data()->g_img, x, y_max, get_rgba(color));
+			multi_thread(x, y, y_max);
 			++x;
 		}
 		++y;

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dns <dns@student.42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/04/11 14:48:46 by dns               #+#    #+#             */
+/*   Updated: 2023/04/11 14:49:01 by dns              ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "miniRT.h"
 
 double	random_double(void)
@@ -16,9 +28,10 @@ t_vec3	random_in_usphere(void)
 
 	while (true)
 	{
-		init_vec3(&random_point, random_min_max(-1, 1), random_min_max(-1, 1), random_min_max(-1, 1));
+		init_vec3(&random_point, random_min_max(-1, 1), \
+		random_min_max(-1, 1), random_min_max(-1, 1));
 		if (vec3_length_squared(random_point) >= 1)
-			continue;
+			continue ;
 		return (random_point);
 	}
 }
@@ -29,9 +42,10 @@ t_vec3	random_in_udisk(void)
 
 	while (true)
 	{
-		init_vec3(&random_point, random_min_max(-1, 1), random_min_max(-1, 1), 0);
+		init_vec3(&random_point, random_min_max(-1, 1), \
+		random_min_max(-1, 1), 0);
 		if (vec3_length_squared(random_point) >= 1)
-			continue;
+			continue ;
 		return (random_point);
 	}
 }
@@ -71,7 +85,8 @@ bool	near_zero(t_vec3 vec)
 	n_pos = 1e-8;
 	n_neg = -1e-8;
 
-	return (vec.x < n_pos && vec.x > n_neg && vec.y < n_pos && vec.y > n_neg && vec.z < n_pos && vec.z > n_neg);
+	return (vec.x < n_pos && vec.x > n_neg && vec.y < \
+	n_pos && vec.y > n_neg && vec.z < n_pos && vec.z > n_neg);
 }
 
 double	degree_to_radian(double degree)

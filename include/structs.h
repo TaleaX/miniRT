@@ -6,7 +6,7 @@
 /*   By: dns <dns@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 16:15:13 by tdehne            #+#    #+#             */
-/*   Updated: 2023/04/06 21:34:52 by dns              ###   ########.fr       */
+/*   Updated: 2023/04/11 15:57:46 by dns              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,10 @@ typedef struct s_ray			t_ray;
 typedef struct s_obj			t_obj;
 
 //vector structs
-typedef struct s_v2		t_vec2;
-typedef struct s_v3		t_vec3;
-typedef struct s_color	t_color;
-typedef	t_vec3			t_v3;
+typedef struct s_v2				t_vec2;
+typedef struct s_v3				t_vec3;
+typedef struct s_color			t_color;
+// typedef		   t_vec3			t_v3;
 
 enum e_obj_type {
 	SPHERE,
@@ -69,7 +69,6 @@ enum e_material_type
 	METAL
 };
 
-//vector + color structs
 struct s_v2 {
 	int		x;
 	int		y;
@@ -108,6 +107,7 @@ struct	s_obj
 	t_vec3			point2;
 	t_vec3			normal;
 	double			radius;
+	double			height;
 	t_obj_type		obj_type;
 	t_color			color;
 	t_material_type	material;
@@ -119,31 +119,26 @@ t_data	*data(void);
 
 struct s_pixel
 {
-	// double		v_x;
-	// double		v_y;
-
-	// bool        hit_anything;
-	int         hits_num;
-	t_color		color;
-	double		t;
-	t_vec3		hitpoint;
-	int			obj_id;
-	t_vec3      normal;
-	t_obj_type	type;
-	t_material_type material;
+	int				hits_num;
+	t_color			color;
+	double			t;
+	t_vec3			hitpoint;
+	int				obj_id;
+	t_vec3			normal;
+	t_obj_type		type;
+	t_material_type	material;
 	double			fuzz;
 	double			specular;
-	// int			sphere_id;
 };
 
 struct s_camera {
-	// t_ray	ray;
-	t_vec3	origin;
-	t_vec3	lookat;
-	t_vec3	viewport_vertical;
-	t_vec3	viewport_horizontal;
-	double	vfov;
-	t_vec3	lower_left_corner;
+	t_vec3		origin;
+	t_vec3		lookat;
+	t_vec3		viewport_vertical;
+	t_vec3		viewport_horizontal;
+	double		vfov;
+	double		hfov;
+	t_vec3		lower_left_corner;
 	double		lens_radius;
 	double		aperture;
 	t_vec3		w;
@@ -154,7 +149,7 @@ struct s_camera {
 struct s_data
 {
 	mlx_image_t	*g_img;
-	t_pixel     px[HEIGHT][WIDTH];
+	t_pixel		px[HEIGHT][WIDTH];
 	t_vec2		coord;
 	t_camera	camera;
 	t_obj		objects[1000];
@@ -165,7 +160,6 @@ struct s_data
 	t_vec3		viewport_px;
 	double		v;
 	double		h;
-	t_vec3		cam_origin;
 	int			samples;
 	int			obj_len;
 	int			lights_len;
@@ -173,30 +167,15 @@ struct s_data
 	float		parse_float[3];
 };
 
-// struct s_sphere {
-// 	t_vec3			center;
-// 	double			radius;
-// 	t_color			color;
-// 	t_material_type material;
-// };
-
-struct s_plane {
-	t_vec3	p;
-	t_vec3	normal;
-	t_vec3	c;
-	t_color	color;
-};
-
 struct	s_hit_rec
 {
 	t_vec3			hitpos;
 	t_vec3			normal;
-	t_material_type material;
+	t_material_type	material;
 	t_color			color;
 	double			radius;
 	t_vec3			center;
-	double	t;
+	double			t;
 };
-
 
 #endif
