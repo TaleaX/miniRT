@@ -65,7 +65,7 @@ t_color	color_room(t_ray ray, t_vec2 coord, int depth)
 	t_vec3	v;
 
 	px = &(data()->px[coord.y][coord.x]);
-	vec3_normalize(&ray.direction);
+	// vec3_normalize(&ray.direction);
 	if (!hit_obj(ray, px, 1000))
 	{
 		return (color_background(ray));

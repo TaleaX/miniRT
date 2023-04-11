@@ -66,7 +66,7 @@ void	init_spheres(t_obj* spheres)
 	spheres[3].radius = 1.0;
 
 	spheres[0].material = MIRROR;
-	spheres[1].material = MIRROR;
+	spheres[1].material = MATTE;
 	spheres[2].material = MATTE;
 	spheres[3].material = MATTE;
 
@@ -212,6 +212,56 @@ void	init_planes(t_obj *planes)
 	planes[i + 2].obj_type = PLANE;
 	planes[i + 2].material = MATTE;
 	planes[i + 2].color = (t_color){0.6, 0.9, 0.8, 1};
+
+	planes[i + 3].center = (t_vec3){1, 4, 1};
+	planes[i + 3].normal = (t_vec3){0, -1, 0};
+	planes[i + 3].obj_type = PLANE;
+	planes[i + 3].material = MATTE;
+	planes[i + 3].color = (t_color){0.6, 0.9, 0.8, 1};
+	data()->obj_len += 4;
+
+}
+
+void 	init_cylinder(t_obj *cylinder)
+{
+	int	i = data()->obj_len - 1;
+
+	cylinder[i].center = (t_vec3){5, 0,-1};
+	cylinder[i].radius = 0.5;
+	cylinder[i].color = (t_color){0.6, 0.9, 0.8, 1};
+	cylinder[i].obj_type = CYLINDER;
+	cylinder[i].material = MIRROR;
+	cylinder[i].axis = (t_vec3){0, 1, 0};
+	vec3_normalize(&cylinder[i].axis);
+	cylinder[i].height = 3;
+
+	cylinder[i + 1].center = (t_vec3){5, 0,1};
+	cylinder[i + 1].radius = 0.5;
+	cylinder[i + 1].color = (t_color){0.6, 0.9, 0.8, 1};
+	cylinder[i + 1].obj_type = CYLINDER;
+	cylinder[i + 1].material = MATTE;
+	cylinder[i + 1].axis = (t_vec3){0, 1, 0};
+	vec3_normalize(&cylinder[i + 1].axis);
+	cylinder[i + 1].height = 3;
+
+	cylinder[i + 2].center = (t_vec3){5, 0,3};
+	cylinder[i + 2].radius = 0.5;
+	cylinder[i + 2].color = (t_color){0.6, 0.9, 0.8, 1};
+	cylinder[i + 2].obj_type = CYLINDER;
+	cylinder[i + 2].material = MIRROR;
+	cylinder[i + 2].axis = (t_vec3){0, 1, 0};
+	vec3_normalize(&cylinder[i + 2].axis);
+	cylinder[i + 2].height = 3;
+
+	cylinder[i + 3].center = (t_vec3){5, 0,5};
+	cylinder[i + 3].radius = 0.5;
+	cylinder[i + 3].color = (t_color){0.6, 0.9, 0.8, 1};
+	cylinder[i + 3].obj_type = CYLINDER;
+	cylinder[i + 3].material = MATTE;
+	cylinder[i + 3].axis = (t_vec3){0, 1, 0};
+	vec3_normalize(&cylinder[i + 3].axis);
+	cylinder[i + 3].height = 3;
+
 	data()->obj_len += 3;
 
 }
@@ -222,8 +272,9 @@ void	init_data()
 	// data()->cam_dist = 1;
 	data()->obj_len = 0;
 	init_spheres(data()->objects);
-	init_camera(&data()->camera, 70, (t_vec3){2, 3, -5}, (t_vec3){0, 1, 0}, (t_vec3){2, 0, 1}, 1, 0);
+	init_camera(&data()->camera, 90, (t_vec3){0, 3, -3}, (t_vec3){0, 1, 0}, (t_vec3){1, 0, 1}, 1, 0);
 	data()->ray.origin = data()->camera.origin;
 	init_lights(data()->lights);
 	init_planes(data()->objects);
+	init_cylinder(data()->objects);
 }
