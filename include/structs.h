@@ -106,6 +106,7 @@ struct	s_obj
 	t_vec3			point;
 	t_vec3			point2;
 	t_vec3			normal;
+	t_vec3			axis;
 	double			radius;
 	double			height;
 	t_obj_type		obj_type;
