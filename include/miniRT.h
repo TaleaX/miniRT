@@ -6,7 +6,7 @@
 /*   By: dns <dns@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 16:15:07 by tdehne            #+#    #+#             */
-/*   Updated: 2023/04/08 14:44:54 by dns              ###   ########.fr       */
+/*   Updated: 2023/04/11 15:52:46 by dns              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <math.h>
 # include <time.h>
 # include <fcntl.h>
+# include <pthread.h>
 
 # include "../get_next_line/get_next_line.h"
 # include "vector.h"
@@ -30,28 +31,15 @@
 # include "tinux.h"
 
 # define RATIO 1.5f
-// # define VH 1.0f
 
-//(int) (HEIGHT * RATIO)
-// # define VW 1.0f
-//(double)(VH * RATIO)
-
-
-// void	color_spheres(t_window window, t_sphere spheres[4]);
-// void	color_plane(t_window window, t_room room, double t_min, double *t_closest, int i);
-
-// void	color_sphere(t_window window, t_room room, double t_min, double *t_closest, int i);
-// void	color_planeX(t_window window, t_plane plane);
-
-// void	init_window(t_window *window, mlx_image_t *g_img, double height, double width);
-void	init_hit_rec(t_hit_rec *hit_rec, t_vec3 hitpos, t_vec3 normal, double t);
+void	init_hit_rec(t_hit_rec *hit_rec, \
+t_vec3 hitpos, t_vec3 normal, double t);
 bool	hit_obj(t_ray ray, t_pixel *px, double t_max);
-// t_color	sampling(t_window window, t_room room);
 
 //init
-void	init_spheres(t_obj* spheres);
+void	init_spheres(t_obj *spheres);
 void	init_color(t_color *color, double r, double g, double b);
-void	init_plane(t_plane* plane);
+void	init_plane(t_plane *plane);
 void	init_room(t_room *room);
 void	init_ray(t_ray *ray, t_vec3 origin, t_vec3 direction);
 t_ray	new_ray(t_vec3 origin, t_vec3 direction);
