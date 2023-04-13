@@ -6,7 +6,7 @@
 /*   By: dns <dns@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 16:17:01 by tdehne            #+#    #+#             */
-/*   Updated: 2023/04/13 15:56:33 by dns              ###   ########.fr       */
+/*   Updated: 2023/04/13 17:09:50 by dns              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ typedef struct e_args
 
 void	*multi_thread(void *args)
 {
+	static pthread_mutex_t	put_pixel = PTHREAD_MUTEX_INITIALIZER;
 	t_args	*pargs;
 	int		s;
 	t_color	color;
@@ -67,7 +68,9 @@ void	*multi_thread(void *args)
 	color.g = sqrt(scale * color.g);
 	color.b = sqrt(scale * color.b);
 
+	pthread_mutex_lock(&put_pixel);
 	mlx_put_pixel(data()->g_img, pargs->x, pargs->y_max, get_rgba(color));
+	pthread_mutex_unlock(&put_pixel);
 	return (NULL);
 }
 
