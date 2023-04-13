@@ -6,7 +6,7 @@
 /*   By: dns <dns@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 16:15:13 by tdehne            #+#    #+#             */
-/*   Updated: 2023/04/11 15:57:46 by dns              ###   ########.fr       */
+/*   Updated: 2023/04/13 16:02:09 by dns              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 # include "../MLX42/include/MLX42/MLX42.h"
 # include "miniRT.h"
 # define ASPECT_RATIO (double)(3.0 / 2.0)
-# define HEIGHT 800
+# define HEIGHT 100
 # define WIDTH ((int)(HEIGHT * ASPECT_RATIO))
 # define VH 1.0
 # define VW ((double)(VH * ASPECT_RATIO))
