@@ -39,5 +39,6 @@ int	get_camera(char **line)
 	parse_skip_three(line, &data()->camera.origin);
 	parse_skip_three(line, &data()->camera.lookat);
 	parse_skip_one(line, &data()->camera.hfov);
+	init_camera(&data()->camera, (t_vec3){0, 1, 0});
 	return (0);
 }

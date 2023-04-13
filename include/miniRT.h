@@ -47,6 +47,7 @@ t_ray	get_ray(void);
 t_color	sampling(t_vec2 coord);
 void	init_data(void);
 t_vec3	reflected_direction(t_vec3 lightRay, t_vec3 normal);
+void	init_camera(t_camera *camera, t_vec3 vup);
 
 int		error_handling(int error);
 

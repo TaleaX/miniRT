@@ -116,7 +116,7 @@ void	init_spheres(t_obj* spheres)
 			}
 		}
 	}
-	data()->obj_len = i;
+	data()->n_objs = i;
 }
 
 void	init_ray(t_ray *ray, t_vec3 origin, t_vec3 direction)
@@ -125,25 +125,25 @@ void	init_ray(t_ray *ray, t_vec3 origin, t_vec3 direction)
 	ray->direction = direction;
 }
 
-void	init_camera(t_camera *camera, double vfov, t_vec3 origin, t_vec3 vup, t_vec3 lookat, double focus_dist, double aperture)
+void	init_camera(t_camera *camera, t_vec3 vup)
 {
-	double	vfov_rad;
+	double	hfov_rad;
 	double	viewport_width;
 	double	viewport_height;
 	t_vec3	negative_offset;
 
-	vfov_rad = degree_to_radian(vfov);
-	camera->origin = origin;
-	camera->lookat = lookat;
+	hfov_rad = degree_to_radian(camera->hfov);
+	// camera->origin = origin;
+	// camera->lookat = lookat;
 
-	camera->w = vec3_subtraction(origin, lookat);
+	camera->w = vec3_subtraction(camera->origin, camera->lookat);
 	vec3_normalize(&camera->w);
 	camera->u = vec3_get_normal(vup, camera->w);
 	vec3_normalize(&camera->u);
 	camera->v = vec3_get_normal(camera->w, camera->u);
 
-	viewport_height = 2 * tanf(vfov_rad / 2.0) * VIEWPORT_DIST;
-	viewport_width = ASPECT_RATIO * viewport_height;
+	viewport_width = 2 * tanf(hfov_rad / 2.0) * VIEWPORT_DIST;
+	viewport_height = viewport_width / ASPECT_RATIO;
 
 	// init_vec3(&(camera->viewport_vertical), 0, viewport_height, 0);
 	// init_vec3(&(camera->viewport_horizontal), viewport_width, 0, 0);
@@ -160,7 +160,7 @@ void	init_camera(t_camera *camera, double vfov, t_vec3 origin, t_vec3 vup, t_vec
 	// camera->lower_left_corner.x -= w.x;
 	// camera->lower_left_corner.y -= w.y;
 	// camera->lower_left_corner.z -= w.z;
-	camera->lens_radius = aperture / 2.0;
+	// camera->lens_radius = aperture / 2.0;
 }
 
 void	init_lights(t_light *lights)
@@ -178,13 +178,13 @@ void	init_lights(t_light *lights)
 	lights[2].type = SUN;
 	init_ray(&lights[2].ray, (t_vec3){0.0, 0.0, 0.0},  (t_vec3){1, 4.0, 4.0});
 
-	data()->lights_len = 3;
+	data()->n_lights = 3;
 }
 void	init_planes(t_obj *planes)
 {
 	int i;
 
-	i = data()->obj_len - 1;
+	i = data()->n_objs - 1;
 	planes[i].center = (t_vec3){1, 1, 8};
 	planes[i].normal = (t_vec3){0, 0, -1};
 	planes[i].obj_type = PLANE;
@@ -208,13 +208,13 @@ void	init_planes(t_obj *planes)
 	planes[i + 3].obj_type = PLANE;
 	planes[i + 3].material = MATTE;
 	planes[i + 3].color = (t_color){0.6, 0.9, 0.8, 1};
-	data()->obj_len += 4;
+	data()->n_objs += 4;
 
 }
 
 void 	init_cylinder(t_obj *cylinder)
 {
-	int	i = data()->obj_len - 1;
+	int	i = data()->n_objs - 1;
 
 	cylinder[i].center = (t_vec3){5, 0,-1};
 	cylinder[i].radius = 0.5;
@@ -252,19 +252,34 @@ void 	init_cylinder(t_obj *cylinder)
 	vec3_normalize(&cylinder[i + 3].axis);
 	cylinder[i + 3].height = 3;
 
-	data()->obj_len += 3;
+	data()->n_objs += 3;
 
 }
 
+
 void	init_data()
 {
-	// double focus_dist = vec3_length(vec3_subtraction((t_vec3){3, 3, -2}, (t_vec3){0, 0, 1}));
-	// data()->cam_dist = 1;
-	data()->obj_len = 0;
-	init_spheres(data()->objects);
-	init_camera(&data()->camera, 90, (t_vec3){0, 3, -3}, (t_vec3){0, 1, 0}, (t_vec3){1, 0, 1}, 1, 0);
-	data()->ray.origin = data()->camera.origin;
+	data()->n_objs = 0;
+	data()->camera.origin = (t_vec3){-50, 0.1, 20};
+	data()->camera.lookat = (t_vec3){0, 0, 0};
+	data()->camera.hfov = 90;
+	init_camera(&data()->camera,(t_vec3){0, 1, 0});
+	// data()->ray.origin = data()->camera.origin;
 	init_lights(data()->lights);
-	init_planes(data()->objects);
-	init_cylinder(data()->objects);
+	// init_spheres(data()->objects);
+	// init_planes(data()->objects);
+	data()->objects[0].center = (t_vec3){0, 0, 20};
+	data()->objects[0].radius = 20;
+	data()->objects[0].color = (t_color){1, 0, 0, 1};
+	data()->objects[0].obj_type = SPHERE;
+	data()->objects[0].material = MATTE;
+
+
+	data()->objects[1].center = (t_vec3){1, 0, 0};
+	data()->objects[1].normal = (t_vec3){0, 1, 0};
+	data()->objects[1].color = (t_color){1, 0, 1, 1};
+	data()->objects[1].obj_type = PLANE;
+	data()->objects[1].material = MATTE;
+	data()->n_objs = 3;
+	// init_cylinder(data()->objects);
 }

@@ -32,7 +32,7 @@ double calc_light(t_light *lights, t_vec3 v, t_pixel px)
 	int		i;
 
 	i = 0;
-	while (i < data()->lights_len)
+	while (i < data()->n_lights)
 	{
 		if (lights[i].type == AMBIENT)
 			light_var += lights[i].intensity;
