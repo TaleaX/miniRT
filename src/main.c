@@ -6,7 +6,7 @@
 /*   By: dns <dns@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 16:17:01 by tdehne            #+#    #+#             */
-/*   Updated: 2023/04/13 17:09:50 by dns              ###   ########.fr       */
+/*   Updated: 2023/04/14 18:04:17 by dns              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,85 +41,178 @@ typedef struct e_args
 	int	y_max;
 }	t_args;
 
-
 void	*multi_thread(void *args)
 {
-	static pthread_mutex_t	put_pixel = PTHREAD_MUTEX_INITIALIZER;
-	t_args	*pargs;
 	int		s;
-	t_color	color;
-	double samples = 10;
-	double	scale = 1.0 / samples;
+	double	scale = 1.0 / SAMPLES;
+	t_ray	ray;
 
-	pargs = (t_args *)args;
-	printf("%i -- %i %i\n", (pargs->y * WIDTH) + pargs->x, pargs->y, pargs->x);
-	color = (t_color){0, 0, 0, 1};
-	data()->coord.x = pargs->x;
-	s = 0;
-	while (s < samples)
-	{					
-		data()->h = ((pargs->x + random_double()) / (double)(WIDTH -1));
-		data()->v = ((pargs->y + random_double()) / (double)(HEIGHT - 1));
-		data()->ray = get_ray();
-		color = color_add(color, color_room(data()->ray, data()->coord, 50));
-		++s;
+	int	x;
+	int	y;
+	int	y_max = HEIGHT - 1;
+	y = 0;
+
+	while (y < HEIGHT - 1)
+	{
+		x = 0;
+		while (x < WIDTH)
+		{
+			s = 0;
+			while (s < SAMPLES)
+			{
+				ray = get_ray((x + random_double()) / (double)(WIDTH -1), (y + random_double()) / (double)(HEIGHT - 1));
+				pthread_mutex_lock(&data()->px[y][x].m_color);
+				data()->px[y][x].c = color_add(data()->px[y][x].c, color_room(ray, (t_vec2){x, y}, 50));
+				pthread_mutex_unlock(&data()->px[y][x].m_color);
+				++s;
+			}
+			data()->px[y][x].c.r = sqrt(scale * data()->px[y][x].c.r);
+			data()->px[y][x].c.g = sqrt(scale * data()->px[y][x].c.g);
+			data()->px[y][x].c.b = sqrt(scale * data()->px[y][x].c.b);
+			++x;
+		}
+		++y;
+		y_max--;
 	}
-	color.r = sqrt(scale * color.r);
-	color.g = sqrt(scale * color.g);
-	color.b = sqrt(scale * color.b);
-
-	pthread_mutex_lock(&put_pixel);
-	mlx_put_pixel(data()->g_img, pargs->x, pargs->y_max, get_rgba(color));
-	pthread_mutex_unlock(&put_pixel);
+	ZEIT("Ende Thread")
 	return (NULL);
+}
+
+void	multi_threaded(void)
+{
+	pthread_t	*threads;
+	int			i;
+	int			j;
+
+	threads = (pthread_t *)malloc(THREADS * sizeof(pthread_t));
+	// if (pthread_mutex_init(&data()->put_pixel, NULL) != 0)
+	// 	printf("mutex init error!\n");
+	i = 0;
+	while (i < HEIGHT)
+	{
+		j = 0;
+		while (j < WIDTH)
+		{
+			if (pthread_mutex_init(&data()->px[i][j].m_color, NULL) != 0)
+				printf("mutex init error!\n");
+			j++;
+		}
+		i++;
+	}
+	i = 0;
+	while (i < THREADS)
+	{
+		pthread_create(&threads[i], NULL, multi_thread, NULL);
+		i++;
+	}
+	ZEIT("Multi Threaded after init/create:")
+	i = 0;
+	while (i < THREADS)
+	{
+		pthread_join(threads[i], NULL);
+		// pthread_detach(threads[i]);
+		i++;
+	}
+	ZEIT("Multi Threaded after join:")
+	i = 0;
+	while (i < HEIGHT)
+	{
+		j = 0;
+		while (j < WIDTH)
+		{
+			pthread_mutex_destroy(&data()->px[i][j].m_color);
+			j++;
+		}
+		i++;
+	}
+	free(threads);
+}
+
+void	one_threaded(void)
+{
+	double	scale = 1.0 / SAMPLES;
+	t_ray	ray;
+	int s;
+	int	x;
+	int	y;
+	double h;
+	double v;
+	t_color color = (t_color){0, 0, 0, 1};
+
+	int	y_max = HEIGHT - 1;
+	y = 0;
+	while (y < HEIGHT - 1)
+	{
+		x = 0;
+		while (x < WIDTH)
+		{
+			data()->coord.x = x;
+			data()->coord.y = y;
+			s = 0;
+			while (s < SAMPLES)
+			{
+				ray = get_ray((x + random_double()) / (double)(WIDTH -1), (y + random_double()) / (double)(HEIGHT - 1));
+				data()->px[y][x].c = color_add(data()->px[y][x].c, color_room(ray, (t_vec2){x, y}, 50));
+				++s;
+			}
+			data()->px[y][x].c.r = sqrt(scale * data()->px[y][x].c.r);
+			data()->px[y][x].c.g = sqrt(scale * data()->px[y][x].c.g);
+			data()->px[y][x].c.b = sqrt(scale * data()->px[y][x].c.b);
+			++x;
+		}
+		++y;
+		y_max--;
+	};
 }
 
 int32_t	main(int ac, char **av)
 {
 	mlx_t		*mlx;
 	t_color		color;
-	pthread_t	*threads;
-	t_args		args;
-	int	start = clock();
-	int	x;
-	int	y;
-	int	y_max = HEIGHT - 1;
+	int			i;
+	int			j;
 
-	threads = (pthread_t *)malloc((WIDTH * HEIGHT) * sizeof(pthread_t));
+	printf("Threads: %i Samples: %i Total Samples: %i\n", THREADS, SAMPLES, THREADS * SAMPLES);
+	printf("PIXEL: %i\n\n", WIDTH * HEIGHT);
+	data()->start_clock = clock();
 	parser(ac, av[1]);
+	ZEIT("Main function after parser:")
 	if (!(mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true)))
 		return (EXIT_FAILURE);
 	data()->g_img = mlx_new_image(mlx, WIDTH, HEIGHT);
+	ZEIT("MLX inited:")
 	memset(data()->g_img->pixels, 0, data()->g_img->width * data()->g_img->height * sizeof(int));
 	if (!data()->g_img || (mlx_image_to_window(mlx, data()->g_img, 0, 0) < 0))
 		ft_error();
-	y = 0;
-	while (y < HEIGHT - 1)
+	i = 0;
+	while (i < HEIGHT)
 	{
-		x = 0;
-		data()->coord.y = y;
-		while (x < WIDTH)
+		j = 0;
+		while (j < WIDTH)
 		{
-			args.x = x;
-			args.y = y;
-			args.y_max = y_max;
-			pthread_create(&threads[(y * WIDTH) + x], NULL, multi_thread, (void *)&args);
-			// multi_thread((t_args){x, y, y_max});
-			printf("%i\n", x);
-			++x;
+			data()->px[i][j].color = (t_color){0, 0, 0, 1};
+			j++;
 		}
-		++y;
-		y_max--;
+		i++;
 	}
-	x = 0;
-	while (x < (WIDTH * HEIGHT))
+	ZEIT("Color inited:")
+	if (THREADS > 1)
+		multi_threaded();
+	else
+		one_threaded();
+	i = 0;
+	ZEIT("Main function after threaded:")
+	while (i < HEIGHT)
 	{
-		pthread_join(threads[x], NULL);
-		x++;
+		j = 0;
+		while (j < WIDTH)
+		{
+			mlx_put_pixel(data()->g_img, j, HEIGHT - 1 - i, get_rgba(data()->px[i][j].c));
+			j++;
+		}
+		i++;
 	}
-	free(threads);
-	int end = clock();
-	printf("%f\n", (float)(end - start) / CLOCKS_PER_SEC);
+	ZEIT("End main function:")
 	mlx_loop_hook(mlx, &hook, mlx);
 	mlx_loop(mlx);
 	mlx_terminate(mlx);

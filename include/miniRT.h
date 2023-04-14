@@ -6,7 +6,7 @@
 /*   By: dns <dns@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 16:15:07 by tdehne            #+#    #+#             */
-/*   Updated: 2023/04/11 15:52:46 by dns              ###   ########.fr       */
+/*   Updated: 2023/04/13 17:43:13 by dns              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	init_plane(t_plane *plane);
 void	init_room(t_room *room);
 void	init_ray(t_ray *ray, t_vec3 origin, t_vec3 direction);
 t_ray	new_ray(t_vec3 origin, t_vec3 direction);
-t_ray	get_ray(void);
+t_ray	get_ray(double h, double v);
 t_color	sampling(t_vec2 coord);
 void	init_data(void);
 t_vec3	reflected_direction(t_vec3 lightRay, t_vec3 normal);

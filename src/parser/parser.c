@@ -6,7 +6,7 @@
 /*   By: dns <dns@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 15:51:08 by dns               #+#    #+#             */
-/*   Updated: 2023/04/11 14:51:13 by dns              ###   ########.fr       */
+/*   Updated: 2023/04/13 20:37:29 by dns              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ int	get_object(char *line)
 		get_plane(&line);
 	else if (ft_strncmp(line, "cy", 2) == 0)
 		get_cylinder(&line);
+	else if (ft_strncmp(line, "S", 1) == 0)
+		get_sun(&line);
 	else
 		return (1);
 	return (0);

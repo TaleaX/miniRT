@@ -6,7 +6,7 @@
 /*   By: dns <dns@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 15:53:15 by dns               #+#    #+#             */
-/*   Updated: 2023/04/11 15:51:24 by dns              ###   ########.fr       */
+/*   Updated: 2023/04/14 14:16:41 by dns              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int		parse_floats(char **line);
 int		get_light(char **line);
 int		get_ambientlight(char **line);
 int		get_camera(char **line);
+int		get_sun(char **line);
 
 int		get_material(char **line, t_obj *object);
 int		get_sphere(char **line);
