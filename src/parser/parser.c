@@ -93,6 +93,5 @@ int	parser(int ac, char *av)
 	get_scene(fd);
 	print_scene(0, 0);
 	close (fd);
-	exit(0);
 	return (0);
 }

@@ -16,7 +16,6 @@ int	get_light(char **line)
 {
 	(*line)++;
 	parse_skip_three(line, &data()->lights[data()->n_lights].ray.origin);
-	
 	parse_skip_one(line, &data()->lights[data()->n_lights].intensity);
 	parse_skip_color(line, &data()->lights[data()->n_lights].color);
 	data()->lights[data()->n_lights].type = POINT;
@@ -40,6 +39,7 @@ int	get_camera(char **line)
 	parse_skip_three(line, &data()->camera.origin);
 	parse_skip_three(line, &data()->camera.lookat);
 	parse_skip_one(line, &data()->camera.hfov);
+	init_camera(&data()->camera, (t_vec3){0, 1, 0});
 	return (0);
 }
 

@@ -141,6 +141,11 @@ void	one_threaded(void)
 
 	int	y_max = HEIGHT - 1;
 	y = 0;
+	// init_data();
+	printf("sphere center %f %f %f radius %f\n",data()->objects[0].center.x, data()->objects[0].center.y, data()->objects[0].center.z, data()->objects[0].radius);
+	printf("camera origin %f %f %f hvov %f\n",data()->camera.origin.x, data()->camera.origin.y, data()->camera.origin.z, data()->camera.hfov);
+	printf("camera lookat %f %f %f\n",data()->camera.lookat.x, data()->camera.lookat.y, data()->camera.lookat.z);
+
 	while (y < HEIGHT - 1)
 	{
 		x = 0;
