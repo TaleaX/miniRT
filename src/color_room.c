@@ -6,7 +6,7 @@
 /*   By: dns <dns@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 17:01:58 by tdehne            #+#    #+#             */
-/*   Updated: 2023/03/30 15:43:37 by dns              ###   ########.fr       */
+/*   Updated: 2023/04/14 17:31:22 by dns              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,5 +90,4 @@ t_color	color_room(t_ray ray, t_vec2 coord, int depth)
 		return (color_add(color_scalar(color, 0.0, 1), color_scalar(reflected_color, 1, 1)));
 	}
 	return (color);
-    
 }
