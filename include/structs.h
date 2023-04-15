@@ -6,7 +6,7 @@
 /*   By: dns <dns@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 16:15:13 by tdehne            #+#    #+#             */
-/*   Updated: 2023/04/14 18:05:23 by dns              ###   ########.fr       */
+/*   Updated: 2023/04/15 11:54:34 by dns              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "miniRT.h"
 # define ASPECT_RATIO (double)(3.0 / 2.0)
 # define HEIGHT 200
-# define THREADS 10
+# define THREADS 1
 # define SAMPLES 1
 # define WIDTH ((int)(HEIGHT * ASPECT_RATIO))
 # define VH 1.0
