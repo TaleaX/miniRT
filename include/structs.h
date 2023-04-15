@@ -63,10 +63,8 @@ enum e_light_type
 enum e_material_type
 {
 	MATTE,
-	SHINY,
 	MIRROR,
-	GLAS,
-	METAL
+	GLAS
 };
 
 struct s_v2 {

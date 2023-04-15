@@ -38,7 +38,7 @@ void	multi_thread(int x, int y, int y_max)
 {
 	int		s;
 	t_color	color;
-	double samples = 1;
+	double samples = 10;
 	double	scale = 1.0 / samples;
 
 	color = (t_color){0, 0, 0, 1};

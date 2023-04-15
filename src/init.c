@@ -260,26 +260,26 @@ void 	init_cylinder(t_obj *cylinder)
 void	init_data()
 {
 	data()->n_objs = 0;
-	data()->camera.origin = (t_vec3){-50, 0.1, 20};
-	data()->camera.lookat = (t_vec3){0, 0, 0};
+	data()->camera.origin = (t_vec3){0,3,-3};
+	data()->camera.lookat = (t_vec3){1, 0, 1};
 	data()->camera.hfov = 90;
 	init_camera(&data()->camera,(t_vec3){0, 1, 0});
 	// data()->ray.origin = data()->camera.origin;
 	init_lights(data()->lights);
-	// init_spheres(data()->objects);
-	// init_planes(data()->objects);
-	data()->objects[0].center = (t_vec3){0, 0, 20};
-	data()->objects[0].radius = 20;
-	data()->objects[0].color = (t_color){1, 0, 0, 1};
-	data()->objects[0].obj_type = SPHERE;
-	data()->objects[0].material = MATTE;
+	init_spheres(data()->objects);
+	init_planes(data()->objects);
+	// data()->objects[0].center = (t_vec3){0, 0, 20};
+	// data()->objects[0].radius = 20;
+	// data()->objects[0].color = (t_color){1, 0, 0, 1};
+	// data()->objects[0].obj_type = SPHERE;
+	// data()->objects[0].material = MATTE;
 
 
-	data()->objects[1].center = (t_vec3){1, 0, 0};
-	data()->objects[1].normal = (t_vec3){0, 1, 0};
-	data()->objects[1].color = (t_color){1, 0, 1, 1};
-	data()->objects[1].obj_type = PLANE;
-	data()->objects[1].material = MATTE;
-	data()->n_objs = 3;
-	// init_cylinder(data()->objects);
+	// data()->objects[1].center = (t_vec3){1, 0, 0};
+	// data()->objects[1].normal = (t_vec3){0, 1, 0};
+	// data()->objects[1].color = (t_color){1, 0, 1, 1};
+	// data()->objects[1].obj_type = PLANE;
+	// data()->objects[1].material = MATTE;
+	// data()->n_objs = 3;
+	init_cylinder(data()->objects);
 }

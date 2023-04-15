@@ -57,12 +57,13 @@ int	get_cylinder(char **line)
 {
 	(*line) += 2;
 	parse_skip_three(line, &data()->objects[data()->n_objs].center);
-	parse_skip_three(line, &data()->objects[data()->n_objs].normal);
+	parse_skip_three(line, &data()->objects[data()->n_objs].axis);
 	parse_skip_one(line, &data()->objects[data()->n_objs].radius);
 	parse_skip_one(line, &data()->objects[data()->n_objs].height);
 	parse_skip_color(line, &data()->objects[data()->n_objs].color);
 	get_material(line, &data()->objects[data()->n_objs]);
 	data()->objects[data()->n_objs].obj_type = CYLINDER;
+	vec3_normalize(&data()->objects[data()->n_objs].axis);
 	data()->n_objs++;
 	return (0);
 }

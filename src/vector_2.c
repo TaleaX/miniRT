@@ -37,3 +37,8 @@ t_vec3	vec3_scalar_subtraction(t_vec3 vec, double scalar)
 {
 	return ((t_vec3){vec.x - scalar, vec.y - scalar, vec.z - scalar});
 }
+
+t_vec3	vec3_pow(t_vec3 vec, double n)
+{
+	return ((t_vec3){pow(vec.x, n), pow(vec.y, n), pow(vec.z, n)});
+}

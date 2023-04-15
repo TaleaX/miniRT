@@ -73,7 +73,7 @@ t_color	color_room(t_ray ray, t_vec2 coord, int depth)
 
 	v = vec3_scalar(ray.direction, -1);
 	color = get_color(calc_light(data()->lights, v, *px), px->color);
-
+	// color = color_mult(color_light(data()->lights, v, *px), px->color);
 	if (depth <= 0.0)
 		return (color);
 	

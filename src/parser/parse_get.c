@@ -15,7 +15,7 @@
 int	get_light(char **line)
 {
 	(*line)++;
-	parse_skip_three(line, &data()->lights[data()->n_lights].point);
+	parse_skip_three(line, &data()->lights[data()->n_lights].ray.origin);
 	parse_skip_one(line, &data()->lights[data()->n_lights].intensity);
 	parse_skip_color(line, &data()->lights[data()->n_lights].color);
 	data()->lights[data()->n_lights].type = POINT;

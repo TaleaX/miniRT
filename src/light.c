@@ -76,3 +76,128 @@ double calc_light(t_light *lights, t_vec3 v, t_pixel px)
 
 	return (light_var);
 }
+
+
+t_color	color_light(t_light *lights, t_vec3 v, t_pixel px)
+{
+	int	i;
+	double	t_max;
+	t_color	color;
+	t_ray	ray;
+	t_vec3	light_dir;
+	t_vec3	reflected_dir;
+	double	n_dot_l;
+	double	r_dot_v;
+	double	rv_n;
+	t_color color_factor = (t_color){0,0,0,1};
+	t_vec3	spec_color_factor = (t_vec3){0,0,0};
+	double	k;
+	double	diffuse_value = 0;
+	double	specular_value = 0;
+	// t_color	color_tmp;
+
+	t_color	color_diffuse = (t_color){0,0,0,1};
+	t_color	color_specular;
+	double	specular_constant;
+	double	normalising_factor;
+	double	total_color_value;
+
+	i = 0;
+	t_max = 0;
+	color = (t_color){0, 0, 0, 1};
+	specular_constant = 0;
+	normalising_factor = (px.specular + 2.0) / (2.0 * M_PI);
+	while (i < data()->n_lights)
+	{
+		if (lights[i].type == AMBIENT)
+		{
+			color = color_add(color, color_scalar(lights[i].color, lights[i].intensity, 1));
+		}
+		else
+		{
+			if (lights[i].type == POINT)
+				t_max = 1;
+			else if (lights[i].type == SUN)
+				t_max = INFINITY;
+			
+			light_dir = get_lightDir(lights[i], px.hitpoint);
+			init_ray(&ray, px.hitpoint, light_dir);
+
+			//shadow
+			if (hit_obj(ray, &px, t_max))
+			{
+				continue;
+			}
+
+			vec3_normalize(&light_dir);
+			n_dot_l = vec3_dot(px.normal, light_dir);
+			if (px.specular > 0)
+			{
+				specular_constant = 1;
+			}
+			if (n_dot_l > 0)
+			{
+				//diffuse
+				// color_diffuse = color_scalar(lights[i].color, lights[i].intensity * n_dot_l, 1 - specular_constant);
+				// color = color_add(color, color_diffuse);
+
+				diffuse_value = n_dot_l * (1 - specular_constant);
+
+				reflected_dir = vec3_subtraction(light_dir, vec3_scalar(px.normal, n_dot_l * 2));
+				r_dot_v = vec3_dot(reflected_dir, v);
+
+				if (r_dot_v > 0)
+				{
+
+					rv_n = pow(r_dot_v, px.specular);
+					specular_value = rv_n * normalising_factor * specular_constant;
+					// rv_n *= normalising_factor;
+					// rv_n *= specular_constant;
+				}
+				// color_diffuse.r += rv_n;
+				// color_diffuse.g += rv_n;
+				// color_diffuse.b += rv_n;
+				total_color_value = diffuse_value + specular_value;
+				color_diffuse = color_scalar(lights[i].color, lights[i].intensity * total_color_value, 1);
+				color = color_add(color, color_diffuse);
+				//specular
+				// reflected_dir = vec3_subtraction(light_dir, vec3_scalar(px.normal, n_dot_l * 2));
+				// rv_n = pow(vec3_dot(reflected_dir, v), px.specular);
+				// t_vec3	spec_color_factor = vec3_scalar(reflected_dir, rv_n);
+
+
+				// t_color color_factor = color_add_vec(color_diffuse, spec_color_factor);
+				// color = color_add(color, color_factor);
+
+			}
+			// color_scalar()
+			
+
+			// printf("color %f %f %f\n", color.r, color.g, color.b);
+			// if (px.specular > 0)
+			// {
+				
+				// printf("%f\n", rv_n);
+				// spec_color_factor = vec3_scalar(reflected_dir, rv_n);
+
+
+				
+			// 	color_tmp = color_scalar(lights[i].color, lights[i].intensity, 1);
+			// 	color_tmp.r *= rv_n.x;
+			// 	color_tmp.g	*= rv_n.y;
+			// 	color_tmp.b *= rv_n.z;
+			// 	color = color_add(color, color_tmp);
+			// 		//color_scalar(lights[i].color, lights[i].intensity, 1), rv_n));
+			// }
+			// color_factor = color_add_vec(color_diffuse, spec_color_factor);
+			
+			// color_diffuse.r += rv_n;
+			// color_diffuse.g += rv_n;
+			// color_diffuse.b += rv_n;
+			// color = color_add(color, color_diffuse);
+
+		}
+		++i;
+	}
+	return(color);
+}
