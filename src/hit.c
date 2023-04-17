@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hit.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dns <dns@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: tdehne <tdehne@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 16:14:53 by tdehne            #+#    #+#             */
-/*   Updated: 2023/03/30 15:43:03 by dns              ###   ########.fr       */
+/*   Updated: 2023/04/17 15:51:38 by tdehne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,11 +127,15 @@ bool	hit_obj(t_ray ray, t_pixel *px, double t_max)
 	double	t;
 	double	t_closest;
 	double m;
+	int	s = 0;
 
 	i = 0;
 	hit = false;
 	t = 0;
 	t_closest = __DBL_MAX__;
+	px->obj_id = 0;
+	px->t = 0;
+	px->color = (t_color){0,0,0,1};
 	while (i < data()->n_objs)
 	{
 		if (data()->objects[i].obj_type == SPHERE)
@@ -153,7 +157,9 @@ bool	hit_obj(t_ray ray, t_pixel *px, double t_max)
 				px->normal = vec3_subtraction(vec3_scalar(data()->objects[i].axis, m), vec3_subtraction(data()->objects[i].center, px->hitpoint));
 			}
 			else if (data()->objects[i].obj_type == PLANE)
+			{
 				px->normal = data()->objects[i].normal;
+			}
 			vec3_normalize(&px->normal);
 			set_face_normal(ray, &px->normal);
 			px->t = t;
@@ -164,12 +170,16 @@ bool	hit_obj(t_ray ray, t_pixel *px, double t_max)
 			// data()->objects[px->obj_id] = room.spheres[i].center;
 			px->obj_id = i;
 			// rec->radius = room.spheres[i].radius;
-			// s = i;
+			s = i;
 			hit = true;
 			t_closest = t;
 		}
 		++i;
 
 	}
+	// if (data()->objects[px->obj_id].obj_type == PLANE)
+	// {
+	// 	printf("in heeeere color %f %f %f ob id %d\n", px->color.r, px->color.g, px->color.b, px->obj_id);
+	// }
 	return (hit);
 }

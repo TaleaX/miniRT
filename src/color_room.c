@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   color_room.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dns <dns@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: tdehne <tdehne@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 17:01:58 by tdehne            #+#    #+#             */
-/*   Updated: 2023/04/14 17:31:22 by dns              ###   ########.fr       */
+/*   Updated: 2023/04/17 16:03:57 by tdehne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,19 @@ t_color	color_room(t_ray ray, t_vec2 coord, int depth)
 	// vec3_normalize(&ray.direction);
 	if (!hit_obj(ray, px, 1000))
 	{
+		// printf("obj id %d\n", px->obj_id);
+		// if (data()->objects[px->obj_id].obj_type == PLANE)
+		// {
+		// 	printf("COLOR ROOM color %f %f %f \n", px->color.r, px->color.g, px->color.b);
+		// }
 		return (color_background(ray));
 	}
-
+	if (px->obj_id != 0)
+		printf("obj id %d\n", px->obj_id);
+	// if (data()->objects[px->obj_id].obj_type == PLANE)
+	// {
+	// 	printf("COLOR ROOOM okaaz %f %f %f\n", px->color.r, px->color.g, px->color.b);
+	// }
 	v = vec3_scalar(ray.direction, -1);
 	color = get_color(calc_light(data()->lights, v, *px), px->color);
 	// color = color_mult(color_light(data()->lights, v, *px), px->color);
@@ -84,9 +94,6 @@ t_color	color_room(t_ray ray, t_vec2 coord, int depth)
 	else if (scatter(ray, &scattered, &attenuation, px))
 	{	
 		reflected_color = color_mult(attenuation, color_room(scattered, coord, depth - 1));
-		// color = color_mult(attenuation, color_room(scattered, coord, depth - 1));
-		// return (color_mult(attenuation, color_room(scattered, coord, depth - 1)));
-		// return (get_color(calc_light(data()->lights, v, *px), color));
 		return (color_add(color_scalar(color, 0.0, 1), color_scalar(reflected_color, 1, 1)));
 	}
 	return (color);

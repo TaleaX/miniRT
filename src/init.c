@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dns <dns@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: tdehne <tdehne@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 16:16:51 by tdehne            #+#    #+#             */
-/*   Updated: 2023/04/08 15:10:18 by dns              ###   ########.fr       */
+/*   Updated: 2023/04/17 15:16:36 by tdehne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,8 +133,6 @@ void	init_camera(t_camera *camera, t_vec3 vup)
 	t_vec3	negative_offset;
 
 	hfov_rad = degree_to_radian(camera->hfov);
-	// camera->origin = origin;
-	// camera->lookat = lookat;
 
 	camera->w = vec3_subtraction(camera->origin, camera->lookat);
 	vec3_normalize(&camera->w);
@@ -148,19 +146,11 @@ void	init_camera(t_camera *camera, t_vec3 vup)
 	// init_vec3(&(camera->viewport_vertical), 0, viewport_height, 0);
 	// init_vec3(&(camera->viewport_horizontal), viewport_width, 0, 0);
 
-	camera->viewport_vertical = vec3_scalar(camera->v, viewport_height); //* focus_dist);//viewport_height * v;//vec3_mult(camera->viewport_vertical, v);
-	camera->viewport_horizontal = vec3_scalar(camera->u, viewport_width);// * focus_dist);// * u;//vec3_mult(camera->viewport_horizontal, u);
-
+	camera->viewport_vertical = vec3_scalar(camera->v, viewport_height);
+	camera->viewport_horizontal = vec3_scalar(camera->u, viewport_width);
 	camera->lower_left_corner = vec3_subtraction(vec3_scalar(camera->viewport_horizontal,  0.5), camera->origin);
 	camera->lower_left_corner = vec3_subtraction(vec3_scalar(camera->viewport_vertical,  0.5), camera->lower_left_corner);
-	// negative_offset = vec3_subtraction(vec3_scalar(camera->viewport_vertical,  0.5), vec3_scalar(camera->viewport_horizontal,  0.5));
-	// negative_offset = vec3_add(negative_offset, w);
 	camera->lower_left_corner = vec3_add(camera->w, camera->lower_left_corner);
-	//vec3_scalar(camera->w, focus_dist)
-	// camera->lower_left_corner.x -= w.x;
-	// camera->lower_left_corner.y -= w.y;
-	// camera->lower_left_corner.z -= w.z;
-	// camera->lens_radius = aperture / 2.0;
 }
 
 void	init_lights(t_light *lights)
@@ -268,18 +258,5 @@ void	init_data()
 	init_lights(data()->lights);
 	init_spheres(data()->objects);
 	init_planes(data()->objects);
-	// data()->objects[0].center = (t_vec3){0, 0, 20};
-	// data()->objects[0].radius = 20;
-	// data()->objects[0].color = (t_color){1, 0, 0, 1};
-	// data()->objects[0].obj_type = SPHERE;
-	// data()->objects[0].material = MATTE;
-
-
-	// data()->objects[1].center = (t_vec3){1, 0, 0};
-	// data()->objects[1].normal = (t_vec3){0, 1, 0};
-	// data()->objects[1].color = (t_color){1, 0, 1, 1};
-	// data()->objects[1].obj_type = PLANE;
-	// data()->objects[1].material = MATTE;
-	// data()->n_objs = 3;
 	init_cylinder(data()->objects);
 }
