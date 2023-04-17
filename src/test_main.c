@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: dantonik <dantonik@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/26 16:17:01 by tdehne            #+#    #+#             */
-/*   Updated: 2023/04/17 21:54:29 by dantonik         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "miniRT.h"
 
 static void	ft_error(void)
@@ -196,8 +184,6 @@ int32_t	main(int ac, char **av)
 	int			i;
 	int			j;
 
-	printf("Threads: %i Samples: %i Total Samples: %i\n", THREADS, SAMPLES, THREADS * SAMPLES);
-	printf("PIXEL: %i\n\n", WIDTH * HEIGHT);
 	data()->start_clock = clock();
 	parser(ac, av[1]);
 	if (!(mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true)))

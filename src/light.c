@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   light.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tdehne <tdehne@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: dantonik <dantonik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 16:02:00 by tdehne            #+#    #+#             */
-/*   Updated: 2023/04/17 15:15:14 by tdehne           ###   ########.fr       */
+/*   Updated: 2023/04/17 20:18:56 by dantonik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,18 +30,14 @@ double calc_light(t_light *lights, t_vec3 v, t_pixel px)
 	double	t_max;
 	t_vec3	lp;
 	int		i;
-	// t_color	color = (t_color){0,0,0,1};
 
 	i = 0;
 	while (i < data()->n_lights)
 	{
 		if (lights[i].type == AMBIENT)
-		{
 			light_var += lights[i].intensity;
-		}
 		else
 		{
-
 			light_dir = get_lightDir(lights[i], px.hitpoint);
 			// printf("light dir %f\n", light_dir.z);
 			// vec3_normalize(&light_dir);
@@ -53,9 +49,7 @@ double calc_light(t_light *lights, t_vec3 v, t_pixel px)
 
 			//shadow
 			if (hit_obj(ray, &px, t_max))
-			{
 				continue;
-			}
 
 			//diffuse
 			n_dot_l = vec3_dot(px.normal, light_dir);
@@ -104,7 +98,6 @@ t_color	color_light(t_light *lights, t_vec3 v, t_pixel px)
 		}
 		else
 		{
-
 			light_dir = get_lightDir(lights[i], px.hitpoint);
 			if (lights[i].type == POINT)
 				t_max = 1;
@@ -113,10 +106,12 @@ t_color	color_light(t_light *lights, t_vec3 v, t_pixel px)
 
 			init_ray(&ray, px.hitpoint, light_dir);
 			//shadow
-			if (hit_obj(ray, &px, t_max))
-			{
+			// if (hit_obj(ray, &px, t_max))
+			// 	continue;
+			if (pre_hit(ray, &px, t_max))
 				continue;
-			}
+			// if (px.obj_id != -1)
+			// 	continue;
 
 			//diffuse
 			vec3_normalize(&light_dir);

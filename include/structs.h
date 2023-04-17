@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tdehne <tdehne@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: dantonik <dantonik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 16:15:13 by tdehne            #+#    #+#             */
-/*   Updated: 2023/04/17 14:56:06 by tdehne           ###   ########.fr       */
+/*   Updated: 2023/04/17 20:55:53 by dantonik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,10 @@
 # include "../MLX42/include/MLX42/MLX42.h"
 # include "miniRT.h"
 # define ASPECT_RATIO (double)(3.0 / 2.0)
-# define HEIGHT 800
+# define HEIGHT 500
 # define THREADS 1
-# define SAMPLES 1
+# define SAMPLES 4
+# define MAX_T 1000
 # define WIDTH ((int)(HEIGHT * ASPECT_RATIO))
 # define VH 1.0
 # define VW ((double)(VH * ASPECT_RATIO))

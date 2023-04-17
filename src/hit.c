@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   hit.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tdehne <tdehne@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: dantonik <dantonik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 16:14:53 by tdehne            #+#    #+#             */
-/*   Updated: 2023/04/17 15:51:38 by tdehne           ###   ########.fr       */
+/*   Updated: 2023/04/17 19:36:16 by dantonik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-double	hit_sphere(t_obj sphere, t_ray ray)//vec3 ray_origin, t_vec3 ray_direction)
+double	hit_sphere(t_obj sphere, t_ray ray)
 {
 	double	a;
 	double	b;
@@ -119,23 +119,16 @@ t_vec3	get_hitpos2(t_vec3 ray_origin, t_vec3 ray_direction, double t)
 	return ((t_vec3){ray_origin.x + ray_direction.x * t, ray_origin.y + ray_direction.y * t, 0});
 }
 
-
 bool	hit_obj(t_ray ray, t_pixel *px, double t_max)
 {
 	int		i;
-	bool	hit;
 	double	t;
-	double	t_closest;
 	double m;
-	int	s = 0;
 
 	i = 0;
-	hit = false;
 	t = 0;
-	t_closest = __DBL_MAX__;
-	px->obj_id = 0;
-	px->t = 0;
-	px->color = (t_color){0,0,0,1};
+	px->t = __DBL_MAX__;
+	px->obj_id = -1;
 	while (i < data()->n_objs)
 	{
 		if (data()->objects[i].obj_type == SPHERE)
@@ -143,43 +136,34 @@ bool	hit_obj(t_ray ray, t_pixel *px, double t_max)
 		else if (data()->objects[i].obj_type == PLANE)
 			t = hit_plane(data()->objects[i], ray);
 		else
-		{
 			t = hit_cylinder(data()->objects[i], ray);
-		}
-		if (t > 0.001 && t < t_closest && t <= t_max)
+		if (t > 0.001 && t < px->t && t <= t_max)
 		{
-			px->hitpoint = get_hitpos(ray.origin, ray.direction, t);
-			if (data()->objects[i].obj_type == SPHERE)
-				px->normal = vec3_subtraction(data()->objects[i].center, px->hitpoint);
-			else if (data()->objects[i].obj_type == CYLINDER)
-			{
-				m = vec3_dot(vec3_subtraction(data()->objects[i].center, px->hitpoint),data()->objects[i].axis);
-				px->normal = vec3_subtraction(vec3_scalar(data()->objects[i].axis, m), vec3_subtraction(data()->objects[i].center, px->hitpoint));
-			}
-			else if (data()->objects[i].obj_type == PLANE)
-			{
-				px->normal = data()->objects[i].normal;
-			}
-			vec3_normalize(&px->normal);
-			set_face_normal(ray, &px->normal);
-			px->t = t;
-			px->material = data()->objects[i].material;
-			px->color = data()->objects[i].color;
-			px->fuzz = data()->objects[i].fuzz;
-			px->specular = data()->objects[i].specular;
-			// data()->objects[px->obj_id] = room.spheres[i].center;
 			px->obj_id = i;
-			// rec->radius = room.spheres[i].radius;
-			s = i;
-			hit = true;
-			t_closest = t;
+			px->t = t;
 		}
 		++i;
-
 	}
-	// if (data()->objects[px->obj_id].obj_type == PLANE)
-	// {
-	// 	printf("in heeeere color %f %f %f ob id %d\n", px->color.r, px->color.g, px->color.b, px->obj_id);
-	// }
-	return (hit);
+	if (px->obj_id == -1)
+		return (false);
+	i = px->obj_id;
+	px->hitpoint = get_hitpos(ray.origin, ray.direction, px->t);
+	if (data()->objects[i].obj_type == SPHERE)
+		px->normal = vec3_subtraction(data()->objects[i].center, px->hitpoint);
+	else if (data()->objects[i].obj_type == CYLINDER)
+	{
+		m = vec3_dot(vec3_subtraction(data()->objects[i].center, px->hitpoint),data()->objects[i].axis);
+		px->normal = vec3_subtraction(vec3_scalar(data()->objects[i].axis, m), vec3_subtraction(data()->objects[i].center, px->hitpoint));
+	}
+	else if (data()->objects[i].obj_type == PLANE)
+	{
+		px->normal = data()->objects[i].normal;
+	}
+	vec3_normalize(&px->normal);
+	set_face_normal(ray, &px->normal);
+	px->material = data()->objects[i].material;
+	px->color = data()->objects[i].color;
+	px->fuzz = data()->objects[i].fuzz;
+	px->specular = data()->objects[i].specular;
+	return (true);
 }

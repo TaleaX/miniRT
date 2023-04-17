@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dns <dns@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: dantonik <dantonik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 15:53:15 by dns               #+#    #+#             */
-/*   Updated: 2023/04/14 14:16:41 by dns              ###   ########.fr       */
+/*   Updated: 2023/04/17 19:22:14 by dantonik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,5 +69,15 @@ void	print_sphere(t_obj sphere);
 void	print_plane(t_obj plane);
 void	print_cylinder(t_obj cylinder);
 void	print_scene(int i, int j);
+
+void	pre_hit_loop(void);
+bool	pre_hit(t_ray ray, t_pixel *px, double t_max);
+void	pre_hit_obj(t_ray ray, t_pixel *px, double t_max);
+
+double	hit_sphere(t_obj sphere, t_ray ray);
+bool	hit_finite(t_ray ray, t_obj cylinder, double t);
+double	hit_cylinder(t_obj cylinder, t_ray ray);
+double	hit_plane(t_obj plane, t_ray ray);
+t_vec3	get_hitpos2(t_vec3 ray_origin, t_vec3 ray_direction, double t);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   color_room.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tdehne <tdehne@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: dantonik <dantonik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 17:01:58 by tdehne            #+#    #+#             */
-/*   Updated: 2023/04/17 16:03:57 by tdehne           ###   ########.fr       */
+/*   Updated: 2023/04/17 20:45:12 by dantonik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,31 +66,18 @@ t_color	color_room(t_ray ray, t_vec2 coord, int depth)
 
 	px = &(data()->px[coord.y][coord.x]);
 	// vec3_normalize(&ray.direction);
-	if (!hit_obj(ray, px, 1000))
-	{
-		// printf("obj id %d\n", px->obj_id);
-		// if (data()->objects[px->obj_id].obj_type == PLANE)
-		// {
-		// 	printf("COLOR ROOM color %f %f %f \n", px->color.r, px->color.g, px->color.b);
-		// }
+	// if (!hit_obj(ray, px, 1000))
+	if (px->obj_id == -1)
 		return (color_background(ray));
-	}
-	if (px->obj_id != 0)
-		printf("obj id %d\n", px->obj_id);
-	// if (data()->objects[px->obj_id].obj_type == PLANE)
-	// {
-	// 	printf("COLOR ROOOM okaaz %f %f %f\n", px->color.r, px->color.g, px->color.b);
-	// }
+	hit_obj(ray, px, 1000);
+	// pre_hit_obj(ray, px, 1000);
 	v = vec3_scalar(ray.direction, -1);
 	color = get_color(calc_light(data()->lights, v, *px), px->color);
 	// color = color_mult(color_light(data()->lights, v, *px), px->color);
 	if (depth <= 0.0)
 		return (color);
-	
 	if (px->material == MATTE)
-	{
 		return (color);
-	}
 	else if (scatter(ray, &scattered, &attenuation, px))
 	{	
 		reflected_color = color_mult(attenuation, color_room(scattered, coord, depth - 1));
