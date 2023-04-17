@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dns <dns@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: tdehne <tdehne@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 16:15:07 by tdehne            #+#    #+#             */
-/*   Updated: 2023/04/13 17:43:13 by dns              ###   ########.fr       */
+/*   Updated: 2023/04/16 13:31:46 by tdehne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 # include "color.h"
 # include "calc.h"
 # include "parser.h"
-# include "tinux.h"
+// # include "tinux.h"
 
 # define RATIO 1.5f
 

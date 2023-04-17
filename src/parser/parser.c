@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dns <dns@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: tdehne <tdehne@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 15:51:08 by dns               #+#    #+#             */
-/*   Updated: 2023/04/13 20:37:29 by dns              ###   ########.fr       */
+/*   Updated: 2023/04/17 14:40:49 by tdehne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,11 +82,14 @@ int	parser(int ac, char *av)
 {
 	int	fd;
 
-	if (ac != 2)
-		return (init_data(), 0);
-	if (!(cmp_filename(av)))
-		error_handling(0);
-	fd = open(av, O_RDONLY);
+	if (ac == 2)
+	{
+		if (!(cmp_filename(av)))
+			error_handling(0);
+		fd = open(av, O_RDONLY);
+	}
+	else
+		fd = open("scenes/cool_room.rt", O_RDONLY);
 	if (fd < 0)
 		error_handling(1);
 	data()->n_objs = 0;
