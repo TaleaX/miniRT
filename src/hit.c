@@ -132,7 +132,7 @@ bool	hit_obj(t_ray ray, t_pixel *px, double t_max)
 	hit = false;
 	t = 0;
 	t_closest = __DBL_MAX__;
-	while (i < data()->obj_len)
+	while (i < data()->n_objs)
 	{
 		if (data()->objects[i].obj_type == SPHERE)
 			t = hit_sphere(data()->objects[i], ray);
