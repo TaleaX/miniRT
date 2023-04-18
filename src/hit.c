@@ -6,7 +6,7 @@
 /*   By: tdehne <tdehne@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 16:14:53 by tdehne            #+#    #+#             */
-/*   Updated: 2023/04/17 15:51:38 by tdehne           ###   ########.fr       */
+/*   Updated: 2023/04/18 17:24:30 by tdehne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,9 +177,5 @@ bool	hit_obj(t_ray ray, t_pixel *px, double t_max)
 		++i;
 
 	}
-	// if (data()->objects[px->obj_id].obj_type == PLANE)
-	// {
-	// 	printf("in heeeere color %f %f %f ob id %d\n", px->color.r, px->color.g, px->color.b, px->obj_id);
-	// }
 	return (hit);
 }
