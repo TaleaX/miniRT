@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dns <dns@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: tdehne <tdehne@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 16:17:01 by tdehne            #+#    #+#             */
-/*   Updated: 2023/04/14 18:04:17 by dns              ###   ########.fr       */
+/*   Updated: 2023/04/18 18:48:06 by tdehne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,7 @@ void	one_threaded(void)
 	// init_data();
 	printf("sphere center %f %f %f radius %f\n",data()->objects[0].center.x, data()->objects[0].center.y, data()->objects[0].center.z, data()->objects[0].radius);
 	printf("camera origin %f %f %f hvov %f\n",data()->camera.origin.x, data()->camera.origin.y, data()->camera.origin.z, data()->camera.hfov);
-	printf("camera lookat %f %f %f\n",data()->camera.lookat.x, data()->camera.lookat.y, data()->camera.lookat.z);
+	printf("camera lookat %f %f %f\n",data()->camera.orientation.x, data()->camera.orientation.y, data()->camera.orientation.z);
 
 	while (y < HEIGHT - 1)
 	{

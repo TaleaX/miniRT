@@ -6,7 +6,7 @@
 /*   By: tdehne <tdehne@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 16:16:51 by tdehne            #+#    #+#             */
-/*   Updated: 2023/04/17 15:16:36 by tdehne           ###   ########.fr       */
+/*   Updated: 2023/04/18 18:48:31 by tdehne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,11 @@ void	init_camera(t_camera *camera, t_vec3 vup)
 
 	hfov_rad = degree_to_radian(camera->hfov);
 
-	camera->w = vec3_subtraction(camera->origin, camera->lookat);
+	// camera->w = vec3_subtraction(camera->origin, camera->lookat);
+	// printf("camera origin %f %f %f\n", camera->origin.x, camera->origin.y, camera->origin.z);
+	// printf("camera lookat %f %f %f\n", camera->lookat.x, camera->lookat.y, camera->lookat.z);
+	// printf("camera orientation %f %f %f\n", camera->w.x, camera->w.y, camera->w.z);
+	camera->w = camera->orientation;
 	vec3_normalize(&camera->w);
 	camera->u = vec3_get_normal(vup, camera->w);
 	vec3_normalize(&camera->u);
@@ -251,7 +255,7 @@ void	init_data()
 {
 	data()->n_objs = 0;
 	data()->camera.origin = (t_vec3){0,3,-3};
-	data()->camera.lookat = (t_vec3){1, 0, 1};
+	data()->camera.orientation = (t_vec3){1, -3, 4};
 	data()->camera.hfov = 90;
 	init_camera(&data()->camera,(t_vec3){0, 1, 0});
 	// data()->ray.origin = data()->camera.origin;

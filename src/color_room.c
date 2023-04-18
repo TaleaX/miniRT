@@ -6,7 +6,7 @@
 /*   By: tdehne <tdehne@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 17:01:58 by tdehne            #+#    #+#             */
-/*   Updated: 2023/04/17 16:03:57 by tdehne           ###   ########.fr       */
+/*   Updated: 2023/04/18 17:40:01 by tdehne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,14 @@ double	power(double num)
 
 t_color	color_background(t_ray ray)
 {
-	double	t;
-	t_color	color_start;
+	// double	t;
+	// t_color	color_start;
 
-	t = 0.5*(ray.direction.y + 1.0);
-	color_start = (t_color){1, 1, 1, 1};
-	color_start = color_scalar(color_start, 1.0 - t , 1);
-	return (color_add(color_start, color_scalar((t_color){0.5, 0.7, 1.0, 1.0}, t, 1)));
+	// t = 0.5*(ray.direction.y + 1.0);
+	// color_start = (t_color){1, 1, 1, 1};
+	// color_start = color_scalar(color_start, 1.0 - t , 1);
+	// return (color_add(color_start, color_scalar((t_color){0.5, 0.7, 1.0, 1.0}, t, 1)));
+	return ((t_color){0,0,0,1});
 }
 
 bool	scatter(t_ray ray, t_ray *scattered, t_color *attenuation, t_pixel *px)
@@ -68,22 +69,11 @@ t_color	color_room(t_ray ray, t_vec2 coord, int depth)
 	// vec3_normalize(&ray.direction);
 	if (!hit_obj(ray, px, 1000))
 	{
-		// printf("obj id %d\n", px->obj_id);
-		// if (data()->objects[px->obj_id].obj_type == PLANE)
-		// {
-		// 	printf("COLOR ROOM color %f %f %f \n", px->color.r, px->color.g, px->color.b);
-		// }
 		return (color_background(ray));
 	}
-	if (px->obj_id != 0)
-		printf("obj id %d\n", px->obj_id);
-	// if (data()->objects[px->obj_id].obj_type == PLANE)
-	// {
-	// 	printf("COLOR ROOOM okaaz %f %f %f\n", px->color.r, px->color.g, px->color.b);
-	// }
 	v = vec3_scalar(ray.direction, -1);
-	color = get_color(calc_light(data()->lights, v, *px), px->color);
-	// color = color_mult(color_light(data()->lights, v, *px), px->color);
+	// color = get_color(calc_light(data()->lights, v, *px), px->color);
+	color = color_mult(color_light(data()->lights, v, *px), px->color);
 	if (depth <= 0.0)
 		return (color);
 	

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_get.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dns <dns@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: tdehne <tdehne@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 15:19:27 by dns               #+#    #+#             */
-/*   Updated: 2023/04/13 20:42:17 by dns              ###   ########.fr       */
+/*   Updated: 2023/04/18 18:46:57 by tdehne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	get_camera(char **line)
 {
 	(*line)++;
 	parse_skip_three(line, &data()->camera.origin);
-	parse_skip_three(line, &data()->camera.lookat);
+	parse_skip_three(line, &data()->camera.orientation);
 	parse_skip_one(line, &data()->camera.hfov);
 	init_camera(&data()->camera, (t_vec3){0, 1, 0});
 	return (0);
