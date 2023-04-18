@@ -6,7 +6,7 @@
 /*   By: tdehne <tdehne@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 16:15:13 by tdehne            #+#    #+#             */
-/*   Updated: 2023/04/17 14:56:06 by tdehne           ###   ########.fr       */
+/*   Updated: 2023/04/18 18:47:39 by tdehne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,7 @@ struct s_pixel
 
 struct s_camera {
 	t_vec3		origin;
-	t_vec3		lookat;
+	t_vec3		orientation;
 	t_vec3		viewport_vertical;
 	t_vec3		viewport_horizontal;
 	double		vfov;

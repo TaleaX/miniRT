@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_print.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dns <dns@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: tdehne <tdehne@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/09 19:00:18 by dns               #+#    #+#             */
-/*   Updated: 2023/04/10 19:14:31 by dns              ###   ########.fr       */
+/*   Updated: 2023/04/18 18:48:46 by tdehne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	print_mfs(t_obj object)
 void	print_camera(t_camera cam)
 {
 	print_vec3("C:\t\t", cam.origin, "\t");
-	print_vec3("", cam.lookat, "");
+	print_vec3("", cam.orientation, "");
 	printf("\t\t\t\t\t%f\n", cam.hfov);
 }
 
