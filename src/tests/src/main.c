@@ -6,6 +6,25 @@ void	init_ray(t_ray *ray, t_vec3 origin, t_vec3 direction)
 	ray->direction = direction;
 }
 
+t_vec3	at(double t, t_ray ray)
+{
+	return (vec3_add(ray.origin, vec3_scalar(ray.origin, t)));
+}
+
+void	at_px(double t, t_ray ray, t_pixel *px)
+{
+	px->hitpoint = vec3_add(ray.origin, vec3_scalar(ray.origin, t));
+	px->normal = px->hitpoint;
+	vec3_normalize(&px->normal);
+	return;
+}
+
+// void	init_ray(t_ray *ray, t_vec3 origin, t_vec3 direction)
+// {
+// 	ray->origin = origin;
+// 	ray->direction = direction;
+// }
+
 double	random_double(void)
 {
 	return ((double)rand() / (double)((double)RAND_MAX + 1.0));
@@ -83,14 +102,14 @@ t_vec3	CanvasToViewport(int x, int y)
 
 t_vec3	CanvasToViewportRandom(double x, double y)
 {
-	x += random_min_max(0,2);
-	x -= random_min_max(0,2);
-	y += random_min_max(0,2);
-	y -= random_min_max(0,2);
-	// x += random_double();
-	// x -= random_double();
-	// y += random_double();
-	// y -= random_double();
+	// x += random_min_max(0,2);
+	// x -= random_min_max(0,2);
+	// y += random_min_max(0,2);
+	// y -= random_min_max(0,2);
+	x += random_double();
+	x -= random_double();
+	y += random_double();
+	y -= random_double();
 	return ((t_vec3){x * VW / WIDTH, y * VH / HEIGHT, 1});
 }
 
@@ -174,6 +193,24 @@ void	samples(int y, int x)
 	}
 }
 
+t_color	ray_color(t_ray ray, t_pixel *px, int depth)
+{
+	t_vec3	target;
+	// t_ray	scattered;
+	t_color	attentuate;
+
+	if (depth <= 0)
+		return ((t_color){0,0,0,1});
+	if (hit_obj(ray, px))
+	{
+		at_px(px->t, ray, px);
+		target = vec3_add(vec3_add(px->hitpoint, px->normal), random_in_usphere());
+		init_ray(&ray,px->hitpoint, vec3_subtraction(px->hitpoint, target));
+		return (ray_color(ray, px, depth - 1));
+	}
+	return ((t_color){0,0,0,1});
+}
+
 void	set_color(void)
 {
 	int		y;
@@ -189,7 +226,8 @@ void	set_color(void)
 		{
 			ray.origin = (t_vec3){0,0,0};
 			ray.direction = CanvasToViewport(x, y);
-			data()->px[y + (HEIGHT/2)][x + (WIDTH/2)].c = TraceRay(ray, &data()->px[y + (HEIGHT/2)][x + (WIDTH/2)], 10);
+			data()->px[y + (HEIGHT/2)][x + (WIDTH/2)].c = color_add(data()->px[y + (HEIGHT/2)][x + (WIDTH/2)].c, ray_color(ray, &data()->px[y + (HEIGHT/2)][x + (WIDTH/2)], 50));
+			// data()->px[y + (HEIGHT/2)][x + (WIDTH/2)].c = TraceRay(ray, &data()->px[y + (HEIGHT/2)][x + (WIDTH/2)], 10);
 			if (SAMPLES > 1)
 				samples(y, x);
 			y++;
@@ -248,19 +286,19 @@ void	render(void)
 	int		x;
 	double	scale;
 
-	scale = 1.0f / SAMPLES;
+	scale = 1.0f / 50;
 	y = 0;
 	while (y < HEIGHT)
 	{
 		x = 0;
 		while (x < WIDTH)
 		{
-			// data()->px[y][x].c.r = sqrt(scale * data()->px[y][x].c.r);
-			// data()->px[y][x].c.g = sqrt(scale * data()->px[y][x].c.g);
-			// data()->px[y][x].c.b = sqrt(scale * data()->px[y][x].c.b);
-			data()->px[y][x].c.r *= scale;
-			data()->px[y][x].c.g *= scale;
-			data()->px[y][x].c.b *= scale;
+			data()->px[y][x].c.r = sqrt(scale * data()->px[y][x].c.r);
+			data()->px[y][x].c.g = sqrt(scale * data()->px[y][x].c.g);
+			data()->px[y][x].c.b = sqrt(scale * data()->px[y][x].c.b);
+			// data()->px[y][x].c.r *= scale;
+			// data()->px[y][x].c.g *= scale;
+			// data()->px[y][x].c.b *= scale;
 			mlx_put_pixel(data()->g_img, x, HEIGHT - 1 - y, get_rgba(data()->px[y][x].c));
 			x++;
 		}

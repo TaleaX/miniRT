@@ -16,7 +16,7 @@
 # define ASPECT_RATIO (double)(3.0 / 2.0)
 # define HEIGHT 500
 # define THREADS 1
-# define SAMPLES 10
+# define SAMPLES 1
 # define MAX_T 1000
 # define WIDTH ((int)(HEIGHT * ASPECT_RATIO))
 # define VH 1.0
@@ -152,5 +152,8 @@ double	vec3_dot(t_vec3 v1, t_vec3 v2);
 t_vec3	vec3_mult(t_vec3 vec1, t_vec3 vec2);
 t_color	color_add(t_color color1, t_color color2);
 double	vec3_length_squared(t_vec3 v);
+
+double	vec3_length(t_vec3 v);
+void	vec3_normalize(t_vec3 *v);
 
 #endif
