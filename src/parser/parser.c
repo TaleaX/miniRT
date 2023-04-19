@@ -94,6 +94,7 @@ int	parser(int ac, char *av)
 		error_handling(1);
 	data()->n_objs = 0;
 	get_scene(fd);
+	printf("sun light %f %f %f\n", data()->lights[1].ray.direction.x, data()->lights[1].ray.direction.y, data()->lights[1].ray.direction.z);
 	print_scene(0, 0);
 	close (fd);
 	return (0);

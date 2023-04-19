@@ -208,6 +208,7 @@ int32_t	main(int ac, char **av)
 		multi_threaded();
 	else
 		one_threaded();
+	printf("sun light start %f %f %f\n", data()->lights[1].ray.direction.x, data()->lights[1].ray.direction.y, data()->lights[1].ray.direction.z);
 	i = 0;
 	ZEIT("Main function after threaded:")
 	while (i < HEIGHT)

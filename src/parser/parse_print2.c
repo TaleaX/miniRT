@@ -14,7 +14,7 @@
 
 void	print_point_light(t_light light)
 {
-	print_vec3("L:\t\t", light.point, "");
+	print_vec3("L:\t\t", light.ray.origin, "");
 	printf("\t%f\t\t", light.intensity);
 	printf("\t");
 	print_color(light.color);

@@ -17,7 +17,7 @@
 # define ASPECT_RATIO (double)(3.0 / 2.0)
 # define HEIGHT 800
 # define THREADS 1
-# define SAMPLES 10
+# define SAMPLES 1
 # define WIDTH ((int)(HEIGHT * ASPECT_RATIO))
 # define VH 1.0
 # define VW ((double)(VH * ASPECT_RATIO))
@@ -98,7 +98,7 @@ struct s_ray {
 struct s_light {
 	t_light_type	type;
 	t_ray			ray;
-	t_vec3			point;
+	// t_vec3			point;
 	double			intensity;
 	t_color			color;
 };
