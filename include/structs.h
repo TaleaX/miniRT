@@ -98,7 +98,7 @@ struct s_ray {
 struct s_light {
 	t_light_type	type;
 	t_ray			ray;
-	t_vec3			point;
+	// t_vec3			point;
 	double			intensity;
 	t_color			color;
 };
@@ -125,6 +125,7 @@ struct s_pixel
 {
 	int				hits_num;
 	t_color			color;
+	t_vec3			reverse_ray;
 	t_color			c;
 	double			t;
 	t_vec3			hitpoint;

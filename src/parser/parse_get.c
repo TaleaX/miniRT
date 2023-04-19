@@ -16,6 +16,7 @@ int	get_light(char **line)
 {
 	(*line)++;
 	parse_skip_three(line, &data()->lights[data()->n_lights].ray.origin);
+	// printf("point light %f %f %f\n", data()->lights[1].ray.origin.x, data()->lights[1].ray.origin.y, data()->lights[1].ray.origin.z);
 	parse_skip_one(line, &data()->lights[data()->n_lights].intensity);
 	parse_skip_color(line, &data()->lights[data()->n_lights].color);
 	data()->lights[data()->n_lights].type = POINT;
@@ -48,6 +49,7 @@ int get_sun(char **line)
 	(*line)++;
 	parse_skip_three(line, &data()->lights[data()->n_lights].ray.direction);
 	parse_skip_one(line, &data()->lights[data()->n_lights].intensity);
+	parse_skip_color(line, &data()->lights[data()->n_lights].color);
 	data()->lights[data()->n_lights].type = SUN;
 	data()->n_lights++;
 	return (0);

@@ -160,9 +160,12 @@ void	one_threaded(void)
 				data()->px[y][x].c = color_add(data()->px[y][x].c, color_room(ray, (t_vec2){x, y}, 50));
 				++s;
 			}
-			data()->px[y][x].c.r = sqrt(scale * data()->px[y][x].c.r);
-			data()->px[y][x].c.g = sqrt(scale * data()->px[y][x].c.g);
-			data()->px[y][x].c.b = sqrt(scale * data()->px[y][x].c.b);
+			// data()->px[y][x].c.r = sqrt(scale * data()->px[y][x].c.r);
+			// data()->px[y][x].c.g = sqrt(scale * data()->px[y][x].c.g);
+			// data()->px[y][x].c.b = sqrt(scale * data()->px[y][x].c.b);
+			data()->px[y][x].c.r *= scale;
+			data()->px[y][x].c.g *= scale;
+			data()->px[y][x].c.b *= scale;
 			++x;
 		}
 		++y;
@@ -205,6 +208,7 @@ int32_t	main(int ac, char **av)
 		multi_threaded();
 	else
 		one_threaded();
+	printf("sun light start %f %f %f\n", data()->lights[1].ray.direction.x, data()->lights[1].ray.direction.y, data()->lights[1].ray.direction.z);
 	i = 0;
 	ZEIT("Main function after threaded:")
 	while (i < HEIGHT)

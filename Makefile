@@ -16,7 +16,7 @@ GNL_DIR = ./get_next_line/
 GNL = ./get_next_line/gnl.a
 
 SRC_NAME	=	main init vector/vector vector/vector_2 vector/vector_3 hit light color_utils color_room \
-				utils/utils utils/create utils/error_handling \
+				utils/utils utils/utils_2 utils/create utils/error_handling \
 				parser/parser parser/string_utils parser/parse_float parser/parse_skip \
 				parser/parse_get parser/parse_check parser/parse_print parser/parse_print2 \
 				parser/parse_get_obj
