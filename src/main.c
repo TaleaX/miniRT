@@ -160,9 +160,12 @@ void	one_threaded(void)
 				data()->px[y][x].c = color_add(data()->px[y][x].c, color_room(ray, (t_vec2){x, y}, 50));
 				++s;
 			}
-			data()->px[y][x].c.r = sqrt(scale * data()->px[y][x].c.r);
-			data()->px[y][x].c.g = sqrt(scale * data()->px[y][x].c.g);
-			data()->px[y][x].c.b = sqrt(scale * data()->px[y][x].c.b);
+			// data()->px[y][x].c.r = sqrt(scale * data()->px[y][x].c.r);
+			// data()->px[y][x].c.g = sqrt(scale * data()->px[y][x].c.g);
+			// data()->px[y][x].c.b = sqrt(scale * data()->px[y][x].c.b);
+			data()->px[y][x].c.r *= scale;
+			data()->px[y][x].c.g *= scale;
+			data()->px[y][x].c.b *= scale;
 			++x;
 		}
 		++y;

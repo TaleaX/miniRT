@@ -20,7 +20,6 @@ t_vec3	reflected_direction(t_vec3 lightRay, t_vec3 normal)
 	return (vec3_subtraction(vec3_scalar(normal, scalar), lightRay));
 }
 
-
 void	set_face_normal(t_ray ray, t_vec3 *outward_normal)
 {
 	bool	front_face;
@@ -32,14 +31,10 @@ void	set_face_normal(t_ray ray, t_vec3 *outward_normal)
 
 bool	near_zero(t_vec3 vec)
 {
-	double	n_pos;
-	double	n_neg;
+	double	n;
 
-	n_pos = 1e-8;
-	n_neg = -1e-8;
-
-	return (vec.x < n_pos && vec.x > n_neg && vec.y < \
-	n_pos && vec.y > n_neg && vec.z < n_pos && vec.z > n_neg);
+	n = 1e-8;
+	return (abs(vec.x) < n && abs(vec.y) < n && abs(vec.z) < n);
 }
 
 double	degree_to_radian(double degree)
@@ -53,12 +48,10 @@ t_ray	get_ray(double h, double v)
 	t_vec3	x;
 	t_vec3	y;
 	t_vec3	viewport_px;
-	t_vec3	rd;
 
 	x = vec3_scalar(data()->camera.viewport_horizontal, h);
 	y = vec3_scalar(data()->camera.viewport_vertical, v);
 	viewport_px = vec3_add(data()->camera.lower_left_corner, vec3_add(x, y));
-
 	ray.origin = data()->camera.origin;
 	ray.direction = vec3_subtraction(ray.origin, viewport_px);
 	return (ray);

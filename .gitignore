@@ -9,6 +9,10 @@ tinux.h
 MLX42/
 miniRT
 
+ignore/
+.vscode
+test*
+
 ### C ###
 # Prerequisites
 *.d
