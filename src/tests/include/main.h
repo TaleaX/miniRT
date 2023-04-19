@@ -16,7 +16,7 @@
 # define ASPECT_RATIO (double)(3.0 / 2.0)
 # define HEIGHT 500
 # define THREADS 1
-# define SAMPLES 1
+# define SAMPLES 10
 # define MAX_T 1000
 # define WIDTH ((int)(HEIGHT * ASPECT_RATIO))
 # define VH 1.0

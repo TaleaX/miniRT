@@ -83,14 +83,14 @@ t_vec3	CanvasToViewport(int x, int y)
 
 t_vec3	CanvasToViewportRandom(double x, double y)
 {
-	// x += random_min_max(0,2);
-	// x -= random_min_max(0,2);
-	// y += random_min_max(0,2);
-	// y -= random_min_max(0,2);
-	x += random_double();
-	x -= random_double();
-	y += random_double();
-	y -= random_double();
+	x += random_min_max(0,2);
+	x -= random_min_max(0,2);
+	y += random_min_max(0,2);
+	y -= random_min_max(0,2);
+	// x += random_double();
+	// x -= random_double();
+	// y += random_double();
+	// y -= random_double();
 	return ((t_vec3){x * VW / WIDTH, y * VH / HEIGHT, 1});
 }
 
@@ -149,13 +149,14 @@ t_color	TraceRay(t_ray ray, t_pixel *px, int depth)
 {
 	t_vec3	target;
 
-	if (depth <= 0)
-		return ((t_color){0,0,0,1});
+	// if (depth <= 0)
+	// 	return ((t_color){0,0,0,1});
 	if (hit_obj(ray, px))
 	{
-		target = vec3_add(px, )
+		return(data()->objects[px->obj_id].color);
+		// target = vec3_add(px, )
 	}
-	return (color);
+	return ((t_color){0,0,0,1});
 }
 
 void	samples(int y, int x)
@@ -168,7 +169,7 @@ void	samples(int y, int x)
 	{
 		ray.origin = (t_vec3){0,0,0};
 		ray.direction = CanvasToViewportRandom(x, y);
-		data()->px[y + (HEIGHT/2)][x + (WIDTH/2)].c = color_add(data()->px[y + (HEIGHT/2)][x + (WIDTH/2)].c, TraceRay(ray, &data()->px[y + (HEIGHT/2)][x + (WIDTH/2)]));
+		data()->px[y + (HEIGHT/2)][x + (WIDTH/2)].c = color_add(data()->px[y + (HEIGHT/2)][x + (WIDTH/2)].c, TraceRay(ray, &data()->px[y + (HEIGHT/2)][x + (WIDTH/2)], 1));
 		s++;
 	}
 }
