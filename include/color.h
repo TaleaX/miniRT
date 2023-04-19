@@ -21,6 +21,6 @@ uint32_t	get_color_t(double t);
 t_color		get_color(double light, t_color color_obj);
 t_color		color_add_vec(t_color color, t_vec3 vec);
 t_color		color_scalar(t_color color, double scalar, double alpha);
-t_color		color_light(t_light *lights, t_vec3 v, t_pixel px);
+t_color		color_light(t_light *lights, t_pixel px);
 
 #endif

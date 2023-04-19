@@ -125,6 +125,7 @@ struct s_pixel
 {
 	int				hits_num;
 	t_color			color;
+	t_vec3			reverse_ray;
 	t_color			c;
 	double			t;
 	t_vec3			hitpoint;
