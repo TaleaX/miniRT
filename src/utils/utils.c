@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dns <dns@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: dantonik <dantonik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 14:48:46 by dns               #+#    #+#             */
-/*   Updated: 2023/04/13 17:42:30 by dns              ###   ########.fr       */
+/*   Updated: 2023/04/18 22:08:49 by dantonik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ double	degree_to_radian(double degree)
 	return (degree * 2 * M_PI / 360.0);
 }
 
+// The Ray Equation
 t_ray	get_ray(double h, double v)
 {
 	t_ray	ray;
@@ -102,9 +103,6 @@ t_ray	get_ray(double h, double v)
 	t_vec3	viewport_px;
 	t_vec3	rd;
 	t_vec3	offset;
-
-	// rd = vec3_scalar(random_in_udisk(), data()->camera.lens_radius);
-	// offset = vec3_add(vec3_scalar(data()->camera.u, rd.x), vec3_scalar(data()->camera.v, rd.y));
 
 	x = vec3_scalar(data()->camera.viewport_horizontal, h);
 	y = vec3_scalar(data()->camera.viewport_vertical, v);

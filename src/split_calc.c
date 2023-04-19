@@ -6,7 +6,7 @@
 /*   By: dantonik <dantonik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 18:36:47 by dantonik          #+#    #+#             */
-/*   Updated: 2023/04/17 20:33:12 by dantonik         ###   ########.fr       */
+/*   Updated: 2023/04/18 19:13:41 by dantonik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,9 @@ void	pre_hit_loop(void)
 		while (x < WIDTH)
 		{
 			ray = get_ray(x / (double)(WIDTH -1), y / (double)(HEIGHT - 1));
-			pre_hit(ray, &(data()->px[y][x]), 1000);
-			pre_hit_obj(ray, &(data()->px[y][x]), 1000);
+			if (pre_hit(ray, &(data()->px[y][x]), 1000))
+				pre_hit_obj(ray, &(data()->px[y][x]), 1000);
+			// hit_obj(ray, &data()->px[y][x], 1000);
 			++x;
 		}
 		++y;

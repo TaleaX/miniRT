@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_get.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dns <dns@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: dantonik <dantonik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 15:19:27 by dns               #+#    #+#             */
-/*   Updated: 2023/04/13 20:42:17 by dns              ###   ########.fr       */
+/*   Updated: 2023/04/18 18:46:43 by dantonik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	get_camera(char **line)
 	return (0);
 }
 
-int get_sun(char **line)
+int	get_sun(char **line)
 {
 	(*line)++;
 	parse_skip_three(line, &data()->lights[data()->n_lights].ray.direction);

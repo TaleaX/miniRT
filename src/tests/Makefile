@@ -10,17 +10,13 @@ NAME 		=	miniRT
 OBJ_DIR		=	obj/
 SRC_DIR		=	src/
 INC_DIR		=	include/
-LIBA = MLX42/build/libmlx42.a
+LIBA = ../../MLX42/build/libmlx42.a
 
-GNL_DIR = ./get_next_line/
-GNL = ./get_next_line/gnl.a
+GNL_DIR = ../../get_next_line/
+GNL = ../../get_next_line/gnl.a
 
-SRC_NAME	=	test_main init vector/vector vector/vector_2 vector/vector_3 hit light color_utils color_room \
-				utils/utils utils/create utils/error_handling \
-				parser/parser parser/string_utils parser/parse_float parser/parse_skip \
-				parser/parse_get parser/parse_check parser/parse_print parser/parse_print2 \
-				parser/parse_get_obj split_calc
-INC_NAME	=	miniRT vector color calc structs parser
+SRC_NAME	=	main vector
+INC_NAME	=	main
 
 SRC_FILES	=	$(addsuffix .c, $(addprefix $(SRC_DIR), $(SRC_NAME)))
 OBJ_FILES	=	$(addsuffix .o, $(addprefix $(OBJ_DIR), $(SRC_NAME)))
@@ -48,9 +44,6 @@ all : $(NAME)
 
 $(OBJ_DIR):
 	@mkdir -p $(OBJ_DIR)
-	@mkdir -p $(OBJ_DIR)/parser
-	@mkdir -p $(OBJ_DIR)/vector
-	@mkdir -p $(OBJ_DIR)/utils
 
 $(GNL):
 	@make -C $(GNL_DIR)
@@ -70,4 +63,3 @@ fclean: clean
 	@make fclean -C $(GNL_DIR)
 
 re: fclean all
-

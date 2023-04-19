@@ -13,91 +13,12 @@ void hook(void *param) {
 	if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE)) {
 		mlx_close_window(mlx);
 	}
-
 }
 
 t_data	*data(void)
 {
 	static t_data data;
 	return (&data);
-}
-
-void	*multi_thread(void *args)
-{
-	int		s;
-	t_ray	ray;
-
-	int	x;
-	int	y;
-	int	y_max = HEIGHT - 1;
-	y = 0;
-
-	while (y < HEIGHT - 1)
-	{
-		x = 0;
-		while (x < WIDTH)
-		{
-			s = 0;
-			while (s < SAMPLES)
-			{
-				ray = get_ray((x + random_double()) / (double)(WIDTH -1), (y + random_double()) / (double)(HEIGHT - 1));
-				pthread_mutex_lock(&data()->px[y][x].m_color);
-				data()->px[y][x].c = color_add(data()->px[y][x].c, color_room(ray, (t_vec2){x, y}, 50));
-				pthread_mutex_unlock(&data()->px[y][x].m_color);
-				++s;
-			}
-			++x;
-		}
-		++y;
-		y_max--;
-	}
-	return (NULL);
-}
-
-void	multi_threaded(void)
-{
-	pthread_t	*threads;
-	int			i;
-	int			j;
-
-	threads = (pthread_t *)malloc(THREADS * sizeof(pthread_t));
-	i = 0;
-	while (i < HEIGHT)
-	{
-		j = 0;
-		while (j < WIDTH)
-		{
-			if (pthread_mutex_init(&data()->px[i][j].m_color, NULL) != 0)
-				printf("mutex init error!\n");
-			j++;
-		}
-		i++;
-	}
-	i = 0;
-	while (i < THREADS)
-	{
-		pthread_create(&threads[i], NULL, multi_thread, NULL);
-		i++;
-	}
-	i = 0;
-	while (i < THREADS)
-	{
-		pthread_join(threads[i], NULL);
-		// pthread_detach(threads[i]);
-		i++;
-	}
-	i = 0;
-	while (i < HEIGHT)
-	{
-		j = 0;
-		while (j < WIDTH)
-		{
-			pthread_mutex_destroy(&data()->px[i][j].m_color);
-			j++;
-		}
-		i++;
-	}
-	free(threads);
 }
 
 void	print_render(void)
@@ -153,7 +74,7 @@ void	one_threaded(void)
 	while (y < HEIGHT - 1)
 	{
 		x = 0;
-		while (x < WIDTH)
+		while (x < WIDTH - 1)
 		{
 			ray = get_ray(x / (double)(WIDTH -1), y / (double)(HEIGHT - 1));
 			data()->px[y][x].c = color_room(ray, (t_vec2){x, y}, 5);
@@ -161,20 +82,20 @@ void	one_threaded(void)
 		}
 		++y;
 	}
-	y = 0;
-	while (y < HEIGHT - 1)
-	{
-		x = 0;
-		while (x < WIDTH)
-		{
-			if (y >= 0 && x >= 0 && y+5 < HEIGHT - 5 && x+5 < WIDTH - 5 && data()->px[y][x].obj_id != data()->px[y+5][x+5].obj_id)
-				data()->px[y][x].c = (t_color){0, 0, 0, 1};
-			if (y <= HEIGHT && x <= WIDTH && y-5 > HEIGHT && x-5 > WIDTH && data()->px[y][x].obj_id != data()->px[y-5][x-5].obj_id)
-				data()->px[y][x].c = (t_color){0, 0, 0, 1};
-			++x;
-		}
-		++y;
-	}
+	// y = 0;
+	// while (y < HEIGHT - 1)
+	// {
+	// 	x = 0;
+	// 	while (x < WIDTH)
+	// 	{
+	// 		if (y >= 0 && x >= 0 && y+5 < HEIGHT - 5 && x+5 < WIDTH - 5 && data()->px[y][x].obj_id != data()->px[y+5][x+5].obj_id)
+	// 			data()->px[y][x].c = (t_color){0, 0, 0, 1};
+	// 		if (y <= HEIGHT && x <= WIDTH && y-5 > HEIGHT && x-5 > WIDTH && data()->px[y][x].obj_id != data()->px[y-5][x-5].obj_id)
+	// 			data()->px[y][x].c = (t_color){0, 0, 0, 1};
+	// 		++x;
+	// 	}
+	// 	++y;
+	// }
 }
 
 int32_t	main(int ac, char **av)
@@ -204,10 +125,7 @@ int32_t	main(int ac, char **av)
 		i++;
 	}
 	pre_hit_loop();
-	if (THREADS > 1)
-		multi_threaded();
-	else
-		one_threaded();
+	one_threaded();
 	print_render();
 	ZEIT("End main function:")
 	mlx_loop_hook(mlx, &hook, mlx);

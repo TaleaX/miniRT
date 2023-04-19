@@ -6,12 +6,13 @@
 /*   By: dantonik <dantonik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 16:14:53 by tdehne            #+#    #+#             */
-/*   Updated: 2023/04/17 19:36:16 by dantonik         ###   ########.fr       */
+/*   Updated: 2023/04/18 22:10:16 by dantonik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
+// The Sphere Equation
 double	hit_sphere(t_obj sphere, t_ray ray)
 {
 	double	a;
@@ -119,11 +120,36 @@ t_vec3	get_hitpos2(t_vec3 ray_origin, t_vec3 ray_direction, double t)
 	return ((t_vec3){ray_origin.x + ray_direction.x * t, ray_origin.y + ray_direction.y * t, 0});
 }
 
+//
+bool	hit_obj2(t_ray ray, t_pixel *px, double t_max, int i)
+{
+	double	m;
+
+	i = px->obj_id;
+	px->hitpoint = get_hitpos(ray.origin, ray.direction, px->t);
+	if (data()->objects[i].obj_type == SPHERE)
+		px->normal = vec3_subtraction(data()->objects[i].center, px->hitpoint);
+	else if (data()->objects[i].obj_type == CYLINDER)
+	{
+		m = vec3_dot(vec3_subtraction(data()->objects[i].center, px->hitpoint),data()->objects[i].axis);
+		px->normal = vec3_subtraction(vec3_scalar(data()->objects[i].axis, m), vec3_subtraction(data()->objects[i].center, px->hitpoint));
+	}
+	else if (data()->objects[i].obj_type == PLANE)
+		px->normal = data()->objects[i].normal;
+	vec3_normalize(&px->normal);
+	set_face_normal(ray, &px->normal);
+	px->material = data()->objects[i].material;
+	px->color = data()->objects[i].color;
+	px->fuzz = data()->objects[i].fuzz;
+	px->specular = data()->objects[i].specular;
+	return (true);
+}
+
+// Berechnet ob es ein Objekt trifft und speichert die geringste Enterfnung auf dem Ray vom Ursprung
 bool	hit_obj(t_ray ray, t_pixel *px, double t_max)
 {
 	int		i;
 	double	t;
-	double m;
 
 	i = 0;
 	t = 0;
@@ -146,24 +172,5 @@ bool	hit_obj(t_ray ray, t_pixel *px, double t_max)
 	}
 	if (px->obj_id == -1)
 		return (false);
-	i = px->obj_id;
-	px->hitpoint = get_hitpos(ray.origin, ray.direction, px->t);
-	if (data()->objects[i].obj_type == SPHERE)
-		px->normal = vec3_subtraction(data()->objects[i].center, px->hitpoint);
-	else if (data()->objects[i].obj_type == CYLINDER)
-	{
-		m = vec3_dot(vec3_subtraction(data()->objects[i].center, px->hitpoint),data()->objects[i].axis);
-		px->normal = vec3_subtraction(vec3_scalar(data()->objects[i].axis, m), vec3_subtraction(data()->objects[i].center, px->hitpoint));
-	}
-	else if (data()->objects[i].obj_type == PLANE)
-	{
-		px->normal = data()->objects[i].normal;
-	}
-	vec3_normalize(&px->normal);
-	set_face_normal(ray, &px->normal);
-	px->material = data()->objects[i].material;
-	px->color = data()->objects[i].color;
-	px->fuzz = data()->objects[i].fuzz;
-	px->specular = data()->objects[i].specular;
-	return (true);
+	return (hit_obj2(ray, px, t_max, i));
 }
