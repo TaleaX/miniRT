@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dns <dns@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: dantonik <dantonik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 15:53:15 by dns               #+#    #+#             */
-/*   Updated: 2023/04/14 14:16:41 by dns              ###   ########.fr       */
+/*   Updated: 2023/04/20 18:01:14 by dantonik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int		check_float(char *line);
 int		check_floats(char *line);
 
 // PARSE FLOAT
-t_float	init_float_struct(void);
+// t_float	init_float_struct(void);
 float	parse_float(char *line);
 int		parse_floats(char **line);
 

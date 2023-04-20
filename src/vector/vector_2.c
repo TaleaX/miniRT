@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector_2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dns <dns@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: dantonik <dantonik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 21:10:36 by dns               #+#    #+#             */
-/*   Updated: 2023/04/11 14:45:49 by dns              ###   ########.fr       */
+/*   Updated: 2023/04/20 18:05:13 by dantonik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,4 @@ t_vec3	vec3_get_normal(t_vec3 vec1, t_vec3 vec2)
 t_vec3	vec3_scalar_subtraction(t_vec3 vec, double scalar)
 {
 	return ((t_vec3){vec.x - scalar, vec.y - scalar, vec.z - scalar});
-}
-
-t_vec3	vec3_pow(t_vec3 vec, double n)
-{
-	return ((t_vec3){pow(vec.x, n), pow(vec.y, n), pow(vec.z, n)});
 }

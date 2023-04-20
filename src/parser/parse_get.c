@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_get.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tdehne <tdehne@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: dantonik <dantonik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 15:19:27 by dns               #+#    #+#             */
-/*   Updated: 2023/04/18 18:46:57 by tdehne           ###   ########.fr       */
+/*   Updated: 2023/04/20 17:50:18 by dantonik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ int	get_light(char **line)
 {
 	(*line)++;
 	parse_skip_three(line, &data()->lights[data()->n_lights].ray.origin);
-	// printf("point light %f %f %f\n", data()->lights[1].ray.origin.x, data()->lights[1].ray.origin.y, data()->lights[1].ray.origin.z);
 	parse_skip_one(line, &data()->lights[data()->n_lights].intensity);
 	parse_skip_color(line, &data()->lights[data()->n_lights].color);
 	data()->lights[data()->n_lights].type = POINT;
@@ -44,7 +43,7 @@ int	get_camera(char **line)
 	return (0);
 }
 
-int get_sun(char **line)
+int	get_sun(char **line)
 {
 	(*line)++;
 	parse_skip_three(line, &data()->lights[data()->n_lights].ray.direction);

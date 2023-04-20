@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tdehne <tdehne@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: dantonik <dantonik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 15:51:08 by dns               #+#    #+#             */
-/*   Updated: 2023/04/17 14:40:49 by tdehne           ###   ########.fr       */
+/*   Updated: 2023/04/20 17:47:23 by dantonik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,6 @@ int	parser(int ac, char *av)
 		error_handling(1);
 	data()->n_objs = 0;
 	get_scene(fd);
-	printf("sun light %f %f %f\n", data()->lights[1].ray.direction.x, data()->lights[1].ray.direction.y, data()->lights[1].ray.direction.z);
-	print_scene(0, 0);
 	close (fd);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: dantonik <dantonik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 15:12:22 by dantonik          #+#    #+#             */
-/*   Updated: 2023/04/17 15:18:51 by dantonik         ###   ########.fr       */
+/*   Updated: 2023/04/20 17:49:16 by dantonik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ bool	near_zero(t_vec3 vec)
 	double	n;
 
 	n = 1e-8;
-	return (abs(vec.x) < n && abs(vec.y) < n && abs(vec.z) < n);
+	return (fabs(vec.x) < n && fabs(vec.y) < n && fabs(vec.z) < n);
 }
 
 double	degree_to_radian(double degree)

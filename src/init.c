@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tdehne <tdehne@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: dantonik <dantonik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 16:16:51 by tdehne            #+#    #+#             */
-/*   Updated: 2023/04/18 18:48:31 by tdehne           ###   ########.fr       */
+/*   Updated: 2023/04/20 17:48:11 by dantonik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,97 +27,97 @@ void	init_color(t_color *color, double r, double g, double b)
 	color->a = 1; 
 }
 
-void	init_spheres(t_obj* spheres)
-{
-	// init_vec3(&spheres[0].center, 0, 0, 1);
-	// init_vec3(&spheres[1].center, 1, 0, 1);
-	// init_vec3(&spheres[2].center, -1, 0, 1);
-	// init_vec3(&spheres[3].center, 0, -100.5, 0);
+// void	init_spheres(t_obj* spheres)
+// {
+// 	// init_vec3(&spheres[0].center, 0, 0, 1);
+// 	// init_vec3(&spheres[1].center, 1, 0, 1);
+// 	// init_vec3(&spheres[2].center, -1, 0, 1);
+// 	// init_vec3(&spheres[3].center, 0, -100.5, 0);
 
-	// init_color(&spheres[0].color, 0.7, 0.3, 0.3);
-	// init_color(&spheres[1].color, 0.8, 0.6, 0.2);
-	// init_color(&spheres[2].color, 0.8, 0.8, 0.8);
-	// init_color(&spheres[3].color, 0.8, 0.8, 0.0);
+// 	// init_color(&spheres[0].color, 0.7, 0.3, 0.3);
+// 	// init_color(&spheres[1].color, 0.8, 0.6, 0.2);
+// 	// init_color(&spheres[2].color, 0.8, 0.8, 0.8);
+// 	// init_color(&spheres[3].color, 0.8, 0.8, 0.0);
 
-	// spheres[0].radius = 0.5;
-	// spheres[1].radius = 0.5;
-	// spheres[2].radius = 0.5;
-	// spheres[3].radius = 100;
+// 	// spheres[0].radius = 0.5;
+// 	// spheres[1].radius = 0.5;
+// 	// spheres[2].radius = 0.5;
+// 	// spheres[3].radius = 100;
 
-	// spheres[0].material = MIRROR;
-	// spheres[1].material = MIRROR;
-	// spheres[2].material = MIRROR;
-	// spheres[3].material = MATTE;
-	//double r = cos(M_PI / 4.0);
-	init_vec3(&spheres[0].center, 0.5, 1, 2);
-	init_vec3(&spheres[1].center, 0, -5001, 1);
-	init_vec3(&spheres[2].center, -2,   0, 2);
-	init_vec3(&spheres[3].center, 2,    0, 4);
-	// init_vec3(&spheres[3].center, 0,    0.0, 1);
+// 	// spheres[0].material = MIRROR;
+// 	// spheres[1].material = MIRROR;
+// 	// spheres[2].material = MIRROR;
+// 	// spheres[3].material = MATTE;
+// 	//double r = cos(M_PI / 4.0);
+// 	init_vec3(&spheres[0].center, 0.5, 1, 2);
+// 	init_vec3(&spheres[1].center, 0, -5001, 1);
+// 	init_vec3(&spheres[2].center, -2,   0, 2);
+// 	init_vec3(&spheres[3].center, 2,    0, 4);
+// 	// init_vec3(&spheres[3].center, 0,    0.0, 1);
 
-	init_color(&spheres[0].color, 0.7, 0.3, 0.3);
-	init_color(&spheres[1].color, 0.5, 0.5, 0.5);
-	init_color(&spheres[2].color, 0.8, 0.55, 1);
-	init_color(&spheres[3].color, 0.8, 0.8, 0.8);
+// 	init_color(&spheres[0].color, 0.7, 0.3, 0.3);
+// 	init_color(&spheres[1].color, 0.5, 0.5, 0.5);
+// 	init_color(&spheres[2].color, 0.8, 0.55, 1);
+// 	init_color(&spheres[3].color, 0.8, 0.8, 0.8);
 
-	spheres[0].radius = 1.0;
-	spheres[1].radius = 5000;
-	spheres[2].radius = 1.0;
-	spheres[3].radius = 1.0;
+// 	spheres[0].radius = 1.0;
+// 	spheres[1].radius = 5000;
+// 	spheres[2].radius = 1.0;
+// 	spheres[3].radius = 1.0;
 
-	spheres[0].material = MIRROR;
-	spheres[1].material = MATTE;
-	spheres[2].material = MATTE;
-	spheres[3].material = MATTE;
+// 	spheres[0].material = MIRROR;
+// 	spheres[1].material = MATTE;
+// 	spheres[2].material = MATTE;
+// 	spheres[3].material = MATTE;
 
-	spheres[0].specular = -1;
-	spheres[1].specular = 1000;
-	spheres[2].specular =  10;
-	spheres[3].specular =  500;
+// 	spheres[0].specular = -1;
+// 	spheres[1].specular = 1000;
+// 	spheres[2].specular =  10;
+// 	spheres[3].specular =  500;
 
-	spheres[0].fuzz = 0;
-	spheres[1].fuzz = 0.0;
-	spheres[2].fuzz = 0.0;
-	spheres[3].fuzz = 0.0;
+// 	spheres[0].fuzz = 0;
+// 	spheres[1].fuzz = 0.0;
+// 	spheres[2].fuzz = 0.0;
+// 	spheres[3].fuzz = 0.0;
 
-	spheres[0].obj_type = SPHERE;
-	spheres[1].obj_type = SPHERE;
-	spheres[2].obj_type = SPHERE;
-	spheres[3].obj_type = SPHERE;
+// 	spheres[0].obj_type = SPHERE;
+// 	spheres[1].obj_type = SPHERE;
+// 	spheres[2].obj_type = SPHERE;
+// 	spheres[3].obj_type = SPHERE;
 
-	int i = 4;
-	for (int a = -2; a < 3; a++)
-	{
-		for (int b = -2; b < 3; b++)
-		{
-			double	rand_matterial = random_double();
-			t_vec3	center = {a + 0.9*random_double(), -0.8, b + 0.9 * random_double()};
-			// t_vec3	lol = vec3_scalar_subtraction(center, vec3_length((t_vec3){4, -0.4, 0}));
-			if (vec3_length(vec3_subtraction((t_vec3){4, -0.8, 0}, center)) > 0.9)
-			{
-				spheres[i].center = center;
-				spheres[i].radius = 0.2;
-				if (rand_matterial < 0.01) {
-					spheres[i].color = (t_color){random_double(), random_double(), random_double(), 1};
-					spheres[i].material = MATTE;
-					spheres[i].fuzz = 0;
-					spheres[i].specular = -1;
-					spheres[i].obj_type = SPHERE;
-				}
-				else {
-					spheres[i].color = (t_color){random_min_max(0.5, 1), random_min_max(0.5, 1), random_min_max(0.5, 1), 1};
-					spheres[i].material = MIRROR;
-					spheres[i].fuzz = random_min_max(0, 0.1);
-					spheres[i].specular = -1;
-					spheres[i].obj_type = SPHERE;
+// 	int i = 4;
+// 	for (int a = -2; a < 3; a++)
+// 	{
+// 		for (int b = -2; b < 3; b++)
+// 		{
+// 			double	rand_matterial = random_double();
+// 			t_vec3	center = {a + 0.9*random_double(), -0.8, b + 0.9 * random_double()};
+// 			// t_vec3	lol = vec3_scalar_subtraction(center, vec3_length((t_vec3){4, -0.4, 0}));
+// 			if (vec3_length(vec3_subtraction((t_vec3){4, -0.8, 0}, center)) > 0.9)
+// 			{
+// 				spheres[i].center = center;
+// 				spheres[i].radius = 0.2;
+// 				if (rand_matterial < 0.01) {
+// 					spheres[i].color = (t_color){random_double(), random_double(), random_double(), 1};
+// 					spheres[i].material = MATTE;
+// 					spheres[i].fuzz = 0;
+// 					spheres[i].specular = -1;
+// 					spheres[i].obj_type = SPHERE;
+// 				}
+// 				else {
+// 					spheres[i].color = (t_color){random_min_max(0.5, 1), random_min_max(0.5, 1), random_min_max(0.5, 1), 1};
+// 					spheres[i].material = MIRROR;
+// 					spheres[i].fuzz = random_min_max(0, 0.1);
+// 					spheres[i].specular = -1;
+// 					spheres[i].obj_type = SPHERE;
 
-				}
-				++i;
-			}
-		}
-	}
-	data()->n_objs = i;
-}
+// 				}
+// 				++i;
+// 			}
+// 		}
+// 	}
+// 	data()->n_objs = i;
+// }
 
 void	init_ray(t_ray *ray, t_vec3 origin, t_vec3 direction)
 {
@@ -206,61 +206,60 @@ void	init_planes(t_obj *planes)
 
 }
 
-void 	init_cylinder(t_obj *cylinder)
-{
-	int	i = data()->n_objs - 1;
+// void 	init_cylinder(t_obj *cylinder)
+// {
+// 	int	i = data()->n_objs - 1;
 
-	cylinder[i].center = (t_vec3){5, 0,-1};
-	cylinder[i].radius = 0.5;
-	cylinder[i].color = (t_color){0.6, 0.9, 0.8, 1};
-	cylinder[i].obj_type = CYLINDER;
-	cylinder[i].material = MIRROR;
-	cylinder[i].axis = (t_vec3){0, 1, 0};
-	vec3_normalize(&cylinder[i].axis);
-	cylinder[i].height = 3;
+// 	cylinder[i].center = (t_vec3){5, 0,-1};
+// 	cylinder[i].radius = 0.5;
+// 	cylinder[i].color = (t_color){0.6, 0.9, 0.8, 1};
+// 	cylinder[i].obj_type = CYLINDER;
+// 	cylinder[i].material = MIRROR;
+// 	cylinder[i].axis = (t_vec3){0, 1, 0};
+// 	vec3_normalize(&cylinder[i].axis);
+// 	cylinder[i].height = 3;
 
-	cylinder[i + 1].center = (t_vec3){5, 0,1};
-	cylinder[i + 1].radius = 0.5;
-	cylinder[i + 1].color = (t_color){0.6, 0.9, 0.8, 1};
-	cylinder[i + 1].obj_type = CYLINDER;
-	cylinder[i + 1].material = MATTE;
-	cylinder[i + 1].axis = (t_vec3){0, 1, 0};
-	vec3_normalize(&cylinder[i + 1].axis);
-	cylinder[i + 1].height = 3;
+// 	cylinder[i + 1].center = (t_vec3){5, 0,1};
+// 	cylinder[i + 1].radius = 0.5;
+// 	cylinder[i + 1].color = (t_color){0.6, 0.9, 0.8, 1};
+// 	cylinder[i + 1].obj_type = CYLINDER;
+// 	cylinder[i + 1].material = MATTE;
+// 	cylinder[i + 1].axis = (t_vec3){0, 1, 0};
+// 	vec3_normalize(&cylinder[i + 1].axis);
+// 	cylinder[i + 1].height = 3;
 
-	cylinder[i + 2].center = (t_vec3){5, 0,3};
-	cylinder[i + 2].radius = 0.5;
-	cylinder[i + 2].color = (t_color){0.6, 0.9, 0.8, 1};
-	cylinder[i + 2].obj_type = CYLINDER;
-	cylinder[i + 2].material = MIRROR;
-	cylinder[i + 2].axis = (t_vec3){0, 1, 0};
-	vec3_normalize(&cylinder[i + 2].axis);
-	cylinder[i + 2].height = 3;
+// 	cylinder[i + 2].center = (t_vec3){5, 0,3};
+// 	cylinder[i + 2].radius = 0.5;
+// 	cylinder[i + 2].color = (t_color){0.6, 0.9, 0.8, 1};
+// 	cylinder[i + 2].obj_type = CYLINDER;
+// 	cylinder[i + 2].material = MIRROR;
+// 	cylinder[i + 2].axis = (t_vec3){0, 1, 0};
+// 	vec3_normalize(&cylinder[i + 2].axis);
+// 	cylinder[i + 2].height = 3;
 
-	cylinder[i + 3].center = (t_vec3){5, 0,5};
-	cylinder[i + 3].radius = 0.5;
-	cylinder[i + 3].color = (t_color){0.6, 0.9, 0.8, 1};
-	cylinder[i + 3].obj_type = CYLINDER;
-	cylinder[i + 3].material = MATTE;
-	cylinder[i + 3].axis = (t_vec3){0, 1, 0};
-	vec3_normalize(&cylinder[i + 3].axis);
-	cylinder[i + 3].height = 3;
+// 	cylinder[i + 3].center = (t_vec3){5, 0,5};
+// 	cylinder[i + 3].radius = 0.5;
+// 	cylinder[i + 3].color = (t_color){0.6, 0.9, 0.8, 1};
+// 	cylinder[i + 3].obj_type = CYLINDER;
+// 	cylinder[i + 3].material = MATTE;
+// 	cylinder[i + 3].axis = (t_vec3){0, 1, 0};
+// 	vec3_normalize(&cylinder[i + 3].axis);
+// 	cylinder[i + 3].height = 3;
 
-	data()->n_objs += 3;
+// 	data()->n_objs += 3;
 
-}
+// }
 
-
-void	init_data()
-{
-	data()->n_objs = 0;
-	data()->camera.origin = (t_vec3){0,3,-3};
-	data()->camera.orientation = (t_vec3){1, -3, 4};
-	data()->camera.hfov = 90;
-	init_camera(&data()->camera,(t_vec3){0, 1, 0});
-	// data()->ray.origin = data()->camera.origin;
-	init_lights(data()->lights);
-	init_spheres(data()->objects);
-	init_planes(data()->objects);
-	init_cylinder(data()->objects);
-}
+// void	init_data()
+// {
+// 	data()->n_objs = 0;
+// 	data()->camera.origin = (t_vec3){0,3,-3};
+// 	data()->camera.orientation = (t_vec3){1, -3, 4};
+// 	data()->camera.hfov = 90;
+// 	init_camera(&data()->camera,(t_vec3){0, 1, 0});
+// 	// data()->ray.origin = data()->camera.origin;
+// 	init_lights(data()->lights);
+// 	init_spheres(data()->objects);
+// 	init_planes(data()->objects);
+// 	init_cylinder(data()->objects);
+// }
