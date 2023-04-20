@@ -52,6 +52,7 @@ t_vec3	random_in_usphere(void)
 		random_min_max(-1, 1), random_min_max(-1, 1));
 		if (vec3_length_squared(random_point) >= 1)
 			continue ;
+		vec3_normalize(&random_point);
 		return (random_point);
 	}
 }
@@ -193,11 +194,16 @@ void	samples(int y, int x)
 	}
 }
 
+t_color	color_scalar(t_color color, double x)
+{
+	return ((t_color){color.r * x, color.g * x, color.b * x, 1});
+}
+
 t_color	ray_color(t_ray ray, t_pixel *px, int depth)
 {
 	t_vec3	target;
-	// t_ray	scattered;
 	t_color	attentuate;
+	static int i = 0;
 
 	if (depth <= 0)
 		return ((t_color){0,0,0,1});
@@ -206,9 +212,10 @@ t_color	ray_color(t_ray ray, t_pixel *px, int depth)
 		at_px(px->t, ray, px);
 		target = vec3_add(vec3_add(px->hitpoint, px->normal), random_in_usphere());
 		init_ray(&ray,px->hitpoint, vec3_subtraction(px->hitpoint, target));
-		return (ray_color(ray, px, depth - 1));
+		return (color_scalar(ray_color(ray, px, depth - 1), 0.5));
 	}
-	return ((t_color){0,0,0,1});
+	// return ((t_color){0,0,0,1});
+	return ((t_color){100,100,100,1});
 }
 
 void	set_color(void)
