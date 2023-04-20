@@ -65,6 +65,7 @@ t_color	color_room(t_ray ray, t_vec2 coord, int depth)
 	px = &(data()->px[coord.y][coord.x]);
 	if (!hit_obj(ray, px, 1000))
 		return (color_background(ray));
+	px->ray = ray;
 	color = color_mult(color_light(data()->lights, *px), px->color);
 	if (depth <= 0.0)
 		return (color);
