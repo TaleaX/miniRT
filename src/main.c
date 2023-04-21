@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tdehne <tdehne@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: dantonik <dantonik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 16:17:01 by tdehne            #+#    #+#             */
-/*   Updated: 2023/04/18 19:03:01 by tdehne           ###   ########.fr       */
+/*   Updated: 2023/04/20 18:07:38 by dantonik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,15 +180,13 @@ int32_t	main(int ac, char **av)
 	int			i;
 	int			j;
 
-	printf("Threads: %i Samples: %i Total Samples: %i\n", THREADS, SAMPLES, THREADS * SAMPLES);
-	printf("PIXEL: %i\n\n", WIDTH * HEIGHT);
+	// printf("Threads: %i Samples: %i Total Samples: %i\n", THREADS, SAMPLES, THREADS * SAMPLES);
+	// printf("PIXEL: %i\n\n", WIDTH * HEIGHT);
 	data()->start_clock = clock();
 	parser(ac, av[1]);
-	ZEIT("Main function after parser:")
 	if (!(mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true)))
 		return (EXIT_FAILURE);
 	data()->g_img = mlx_new_image(mlx, WIDTH, HEIGHT);
-	ZEIT("MLX inited:")
 	memset(data()->g_img->pixels, 0, data()->g_img->width * data()->g_img->height * sizeof(int));
 	if (!data()->g_img || (mlx_image_to_window(mlx, data()->g_img, 0, 0) < 0))
 		ft_error();
@@ -203,14 +201,12 @@ int32_t	main(int ac, char **av)
 		}
 		i++;
 	}
-	ZEIT("Color inited:")
 	if (THREADS > 1)
 		multi_threaded();
 	else
 		one_threaded();
 	printf("sun light start %f %f %f\n", data()->lights[1].ray.direction.x, data()->lights[1].ray.direction.y, data()->lights[1].ray.direction.z);
 	i = 0;
-	ZEIT("Main function after threaded:")
 	while (i < HEIGHT)
 	{
 		j = 0;

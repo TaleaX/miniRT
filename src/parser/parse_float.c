@@ -3,22 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   parse_float.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dns <dns@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: dantonik <dantonik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 13:22:59 by dns               #+#    #+#             */
-/*   Updated: 2023/04/09 18:15:02 by dns              ###   ########.fr       */
+/*   Updated: 2023/04/20 18:02:51 by dantonik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-t_float	init_float_struct(void)
+t_float	init_float_struct(char *line)
 {
 	t_float	f;
 
 	f.sign = 1.0f;
 	f.value = 0.0f;
 	f.decimal = 0.1f;
+	if (*line == '-')
+		f.sign *= -1;
 	return (f);
 }
 
@@ -26,13 +28,8 @@ float	parse_float(char *line)
 {
 	t_float	f;
 
-	f = init_float_struct();
-	if (*line == '-')
-	{
-		f.sign *= -1;
-		line++;
-	}
-	else if (*line == '+')
+	f = init_float_struct(line);
+	if (*line == '-' || *line == '+')
 		line++;
 	while (*line >= '0' && *line <= '9')
 	{
