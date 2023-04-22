@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tdehne <tdehne@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: dantonik <dantonik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 16:17:01 by tdehne            #+#    #+#             */
-/*   Updated: 2023/04/22 15:45:32 by tdehne           ###   ########.fr       */
+/*   Updated: 2023/04/22 16:17:42 by dantonik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,11 @@ void	one_sample(int x, int y)
 {
 	t_ray	ray;
 	t_color	c[2];
+	double	xy[2];
 
-	ray = get_ray(x / (double)(data()->width -1), y / (double)(data()->height - 1));
+	xy[0] = x / (double)(data()->width -1);
+	xy[1] = y / (double)(data()->height - 1);
+	ray = get_ray(xy[0], xy[1]);
 	c[0] = color_room(ray, (t_vec2){x, y}, 50);
 	c[1] = color_add(data()->px[y][x].c, c[0]);
 	data()->px[y][x].c = c[1];
@@ -77,8 +80,6 @@ int	setup(mlx_t **mlx)
 	t_color		color;
 	mlx_image_t	*g_img;
 
-	data()->height = 800;
-	data()->width = 800;
 	*mlx = mlx_init(data()->width, data()->height, "MLX42", true);
 	if (!(*mlx))
 		return (EXIT_FAILURE);
@@ -108,6 +109,7 @@ int32_t	main(int ac, char **av)
 	int			j;
 	uint32_t	rgba;
 
+	init_ratios();
 	parser(ac, av[1]);
 	if (setup(&mlx) == EXIT_FAILURE)
 		return (EXIT_FAILURE);

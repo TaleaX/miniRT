@@ -6,7 +6,7 @@
 /*   By: dantonik <dantonik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 15:19:27 by dns               #+#    #+#             */
-/*   Updated: 2023/04/20 17:50:18 by dantonik         ###   ########.fr       */
+/*   Updated: 2023/04/22 16:14:00 by dantonik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ int	get_camera(char **line)
 	parse_skip_three(line, &data()->camera.origin);
 	parse_skip_three(line, &data()->camera.orientation);
 	parse_skip_one(line, &data()->camera.hfov);
-	init_camera(&data()->camera, (t_vec3){0, 1, 0});
 	return (0);
 }
 
@@ -51,5 +50,15 @@ int	get_sun(char **line)
 	parse_skip_color(line, &data()->lights[data()->n_lights].color);
 	data()->lights[data()->n_lights].type = SUN;
 	data()->n_lights++;
+	return (0);
+}
+
+int	get_resolution(char **line)
+{
+	(*line)++;
+	parse_skip_one(line, &data()->parse_float[0]);
+	data()->width = data()->parse_float[0];
+	parse_skip_one(line, &data()->parse_float[1]);
+	data()->height = data()->parse_float[1];
 	return (0);
 }

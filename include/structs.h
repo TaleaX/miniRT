@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tdehne <tdehne@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: dantonik <dantonik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 16:15:13 by tdehne            #+#    #+#             */
-/*   Updated: 2023/04/22 15:48:01 by tdehne           ###   ########.fr       */
+/*   Updated: 2023/04/22 16:15:32 by dantonik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,7 @@
 # define STRUCTS_H
 # include "../MLX42/include/MLX42/MLX42.h"
 # include "miniRT.h"
-# define ASPECT_RATIO (double)(3.0 / 2.0)
-# define HEIGHT 600
-# define THREADS 1
 # define SAMPLES 1
-# define WIDTH ((int)(HEIGHT * ASPECT_RATIO))
-// # define VH 1.0
-// # define VW ((double)(VH * ASPECT_RATIO))
 # define VIEWPORT_DIST 1.0
 
 //enums
@@ -170,10 +164,12 @@ struct s_data
 	int			obj_len;
 	int			lights_len;
 	double		scale;
-	float		parse_float[3];
+	double		parse_float[3];
 	int			width;
 	int			height;
 	double		aspect_ratio;
+	double		vh;
+	double		vw;
 	int			start_clock;
 	int			end_clock;
 };

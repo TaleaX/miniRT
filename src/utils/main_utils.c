@@ -6,7 +6,7 @@
 /*   By: dantonik <dantonik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/22 14:32:39 by dantonik          #+#    #+#             */
-/*   Updated: 2023/04/22 14:35:13 by dantonik         ###   ########.fr       */
+/*   Updated: 2023/04/22 16:16:37 by dantonik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,13 @@ int	finish_program(mlx_t *mlx)
 {
 	mlx_terminate(mlx);
 	return (EXIT_SUCCESS);
+}
+
+void	init_ratios(void)
+{
+	data()->height = 600;
+	data()->aspect_ratio = (double)(3.0 / 2.0);
+	data()->width = (int)(data()->height * data()->aspect_ratio);
+	data()->vh = 1.0f;
+	data()->vw = (double)(data()->vh * data()->aspect_ratio);
 }
