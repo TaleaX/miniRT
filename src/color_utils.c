@@ -28,7 +28,6 @@ uint32_t	get_rgba(t_color color)
 	uint8_t	b;
 	uint8_t	a;
 
-
 	r = (uint8_t)(255.0 * clamp(color.r, 0.0, 1.0));
 	g = (uint8_t)(255.0 * clamp(color.g, 0.0, 1.0));
 	b = (uint8_t)(255.0 * clamp(color.b, 0.0, 1.0));

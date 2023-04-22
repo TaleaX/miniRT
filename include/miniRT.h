@@ -48,7 +48,10 @@ t_color	sampling(t_vec2 coord);
 void	init_data(void);
 t_vec3	reflected_direction(t_vec3 lightRay, t_vec3 normal);
 void	init_camera(t_camera *camera, t_vec3 vup);
-
+bool	hit_finite(t_ray ray, t_obj cylinder, double t);
+double	hit_sphere(t_obj sphere, t_ray ray);
+double	hit_cylinder(t_obj cylinder, t_ray ray);
+double	hit_plane(t_obj plane, t_ray ray);
 int		error_handling(int error);
 
 #endif

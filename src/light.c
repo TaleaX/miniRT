@@ -41,7 +41,6 @@ double	get_t_max(t_light light)
 	return (0);
 }
 
-//diffuse only -> if (n_dot_l > 0)
 //specular
 t_color	diffuse_light(t_light l, t_pixel px, t_color d, t_vec3 ld)
 {
@@ -100,6 +99,5 @@ t_color	color_light(t_light *lights, t_pixel px)
 		}
 		++i;
 	}
-	color = color_add(color, diffuse);
-	return (color);
+	return (color_add(color, diffuse));
 }

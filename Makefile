@@ -20,7 +20,7 @@ SRC_NAME	=	main init vector/vector vector/vector_2 vector/vector_3 vector/vector
 				utils/utils utils/utils_2 utils/create utils/error_handling \
 				parser/parser parser/string_utils parser/parse_float parser/parse_skip \
 				parser/parse_get parser/parse_check parser/parse_print parser/parse_print2 \
-				parser/parse_get_obj
+				parser/parse_get_obj hit_quadratic
 INC_NAME	=	miniRT vector color calc structs parser
 
 SRC_FILES	=	$(addsuffix .c, $(addprefix $(SRC_DIR), $(SRC_NAME)))
