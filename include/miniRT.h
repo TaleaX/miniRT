@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tdehne <tdehne@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: dantonik <dantonik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 16:15:07 by tdehne            #+#    #+#             */
-/*   Updated: 2023/04/16 13:31:46 by tdehne           ###   ########.fr       */
+/*   Updated: 2023/04/22 14:35:23 by dantonik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,5 +53,9 @@ double	hit_sphere(t_obj sphere, t_ray ray);
 double	hit_cylinder(t_obj cylinder, t_ray ray);
 double	hit_plane(t_obj plane, t_ray ray);
 int		error_handling(int error);
+
+void	ft_error(void);
+void	hook(void *param);
+int		finish_program(mlx_t *mlx);
 
 #endif
