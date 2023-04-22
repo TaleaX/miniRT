@@ -3,60 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   light.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dantonik <dantonik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tdehne <tdehne@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 16:02:00 by tdehne            #+#    #+#             */
-/*   Updated: 2023/04/20 17:44:43 by dantonik         ###   ########.fr       */
+/*   Updated: 2023/04/22 14:35:31 by tdehne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-static t_vec3	get_lightdir(t_light light, t_vec3 hit_pos)
+double	specular_light(t_light l, t_pixel px, double n_dot_l, t_vec3 ld)
 {
-	if (light.type == SUN)
-	{
-		return (light.ray.direction);
-	}
-	return (vec3_subtraction(hit_pos, light.ray.origin));
-}
-
-bool	check_shadow(t_pixel px, t_vec3	light_dir, double t_max)
-{
-	t_pixel	px_cpy;
-
-	if (hit_obj(new_ray(px.hitpoint, light_dir), &px_cpy, t_max))
-	{
-		return (true);
-	}
-	return (false);
-}
-
-double	get_t_max(t_light light)
-{
-	if (light.type == POINT)
-		return (1);
-	else if (light.type == SUN)
-		return (INFINITY);
-	return (0);
-}
-
-//specular
-t_color	diffuse_light(t_light l, t_pixel px, t_color d, t_vec3 ld)
-{
-	double	n_dot_l;
-	double	light_var;
-	double	r_dot_v;
-	t_vec3	reflected_dir;
 	t_vec3	v;
+	t_vec3	reflected_dir;
+	double	r_dot_v;
+	double	light_var;
 
-	n_dot_l = vec3_dot(px.normal, ld);
-	if (n_dot_l > 0)
-	{
-		light_var = l.intensity * n_dot_l / \
-		(vec3_length(px.normal) * vec3_length(ld));
-		d = color_add(d, color_scalar(l.color, light_var, 1));
-	}
+	light_var = -1;
 	if (px.specular > 0)
 	{
 		reflected_dir = vec3_subtraction(ld, \
@@ -67,9 +30,29 @@ t_color	diffuse_light(t_light l, t_pixel px, t_color d, t_vec3 ld)
 		{
 			light_var = l.intensity * pow(r_dot_v / \
 			(vec3_length(reflected_dir) * vec3_length(v)), px.specular);
-			d = color_add(d, color_scalar(l.color, light_var, 1));
+			return (light_var);
 		}
 	}
+	return (light_var);
+}
+
+//specular
+t_color	diffuse_light(t_light l, t_pixel px, t_color d, t_vec3 ld)
+{
+	double	n_dot_l;
+	double	light_var;
+	double	r_dot_v;
+
+	n_dot_l = vec3_dot(px.normal, ld);
+	if (n_dot_l > 0)
+	{
+		light_var = l.intensity * n_dot_l / \
+		(vec3_length(px.normal) * vec3_length(ld));
+		d = color_add(d, color_scalar(l.color, light_var, 1));
+	}
+	light_var = specular_light(l, px, n_dot_l, ld);
+	if (light_var != -1)
+		d = color_add(d, color_scalar(l.color, light_var, 1));
 	return (d);
 }
 
