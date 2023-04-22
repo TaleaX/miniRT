@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   light.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tdehne <tdehne@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: dantonik <dantonik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 16:02:00 by tdehne            #+#    #+#             */
-/*   Updated: 2023/04/22 14:35:31 by tdehne           ###   ########.fr       */
+/*   Updated: 2023/04/22 15:22:32 by dantonik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ t_color	diffuse_light(t_light l, t_pixel px, t_color d, t_vec3 ld)
 {
 	double	n_dot_l;
 	double	light_var;
-	double	r_dot_v;
 
 	n_dot_l = vec3_dot(px.normal, ld);
 	if (n_dot_l > 0)
@@ -66,7 +65,7 @@ t_color	color_light(t_light *lights, t_pixel px)
 	diffuse = (t_color){0, 0, 0, 1};
 	color = (t_color){0, 0, 0, 1};
 	i = 0;
-	while (i < data()->n_lights)
+	while ((size_t)i < data()->n_lights)
 	{
 		if (lights[i].type == AMBIENT)
 			color = color_scalar(lights[i].color, lights[i].intensity, 1);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_print2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dns <dns@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: dantonik <dantonik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 19:13:50 by dns               #+#    #+#             */
-/*   Updated: 2023/04/11 14:24:34 by dns              ###   ########.fr       */
+/*   Updated: 2023/04/22 15:23:25 by dantonik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	print_cylinder(t_obj cylinder)
 void	print_scene(int i, int j)
 {
 	print_camera(data()->camera);
-	while (i < data()->n_lights)
+	while ((size_t)i < data()->n_lights)
 	{
 		if (data()->lights[i].type == AMBIENT)
 			print_ambient(data()->lights[i]);
@@ -58,7 +58,7 @@ void	print_scene(int i, int j)
 			print_point_light(data()->lights[i]);
 		i++;
 	}
-	while (j < data()->n_objs)
+	while ((size_t)j < data()->n_objs)
 	{
 		if (data()->objects[j].obj_type == SPHERE)
 			print_sphere(data()->objects[j]);
