@@ -6,7 +6,7 @@
 /*   By: dantonik <dantonik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 15:51:08 by dns               #+#    #+#             */
-/*   Updated: 2023/04/20 17:47:23 by dantonik         ###   ########.fr       */
+/*   Updated: 2023/04/22 16:08:57 by dantonik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ int	get_object(char *line)
 {
 	if (*line == '#')
 		return (0);
+	else if (ft_strncmp(line, "R", 1) == 0)
+		get_resolution(&line);
 	else if (ft_strncmp(line, "sp", 2) == 0)
 		get_sphere(&line);
 	else if (ft_strncmp(line, "A", 1) == 0)
@@ -94,6 +96,8 @@ int	parser(int ac, char *av)
 		error_handling(1);
 	data()->n_objs = 0;
 	get_scene(fd);
+	data()->aspect_ratio = (double)data()->width / (double)data()->height;
+	init_camera(&data()->camera, (t_vec3){0, 1, 0});
 	close (fd);
 	return (0);
 }

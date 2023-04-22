@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tdehne <tdehne@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: dantonik <dantonik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 16:16:51 by tdehne            #+#    #+#             */
-/*   Updated: 2023/04/22 15:45:03 by tdehne           ###   ########.fr       */
+/*   Updated: 2023/04/22 16:05:03 by dantonik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	init_camera(t_camera *camera, t_vec3 vup)
 	vec3_normalize(&camera->u);
 	camera->v = vec3_get_normal(camera->w, camera->u);
 	viewport_width = 2 * tanf(hfov_rad / 2.0) * VIEWPORT_DIST;
-	viewport_height = viewport_width / ASPECT_RATIO;
+	viewport_height = viewport_width / data()->aspect_ratio;
 	camera->viewport_vertical = vec3_scalar(camera->v, viewport_height);
 	camera->viewport_horizontal = vec3_scalar(camera->u, viewport_width);
 	camera->lower_left_corner = vec3_subtraction(\

@@ -6,7 +6,7 @@
 /*   By: dantonik <dantonik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 15:53:15 by dns               #+#    #+#             */
-/*   Updated: 2023/04/20 18:01:14 by dantonik         ###   ########.fr       */
+/*   Updated: 2023/04/22 16:12:22 by dantonik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ int		get_light(char **line);
 int		get_ambientlight(char **line);
 int		get_camera(char **line);
 int		get_sun(char **line);
+int		get_resolution(char **line);
 
 int		get_material(char **line, t_obj *object);
 int		get_sphere(char **line);
