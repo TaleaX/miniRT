@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dns <dns@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: tdehne <tdehne@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 16:17:21 by tdehne            #+#    #+#             */
-/*   Updated: 2023/04/11 15:53:17 by dns              ###   ########.fr       */
+/*   Updated: 2023/04/22 14:42:20 by tdehne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,8 @@ t_color	color_mult(t_color color1, t_color color2);
 t_vec3	vec3_get_normal(t_vec3 vec1, t_vec3 vec2);
 t_vec3	vec3_mult(t_vec3 vec1, t_vec3 vec2);
 t_vec3	vec3_pow(t_vec3 vec, double n);
+t_color	color_add_vec(t_color color, t_vec3 vec);
+t_color	color_scalar(t_color color, double scalar, double alpha);
+t_vec3	vec3_scalar_subtraction(t_vec3 vec, double scalar);
 
 #endif
