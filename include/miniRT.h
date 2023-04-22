@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dantonik <dantonik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tdehne <tdehne@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 16:15:07 by tdehne            #+#    #+#             */
-/*   Updated: 2023/04/22 14:35:23 by dantonik         ###   ########.fr       */
+/*   Updated: 2023/04/22 15:28:18 by tdehne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,6 @@
 # include "structs.h"
 # include "parser.h"
 // # include "tinux.h"
-
-# define RATIO 1.5f
 
 bool		hit_obj(t_ray ray, t_pixel *px, double t_max);
 
@@ -83,8 +81,8 @@ double		get_t_max(t_light light);
 
 int			error_handling(int error);
 
-void	ft_error(void);
-void	hook(void *param);
-int		finish_program(mlx_t *mlx);
+void		ft_error(void);
+void		hook(void *param);
+int			finish_program(mlx_t *mlx);
 
 #endif

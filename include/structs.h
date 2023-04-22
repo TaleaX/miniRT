@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dantonik <dantonik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tdehne <tdehne@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 16:15:13 by tdehne            #+#    #+#             */
-/*   Updated: 2023/04/22 15:13:22 by dantonik         ###   ########.fr       */
+/*   Updated: 2023/04/22 15:48:01 by tdehne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@
 # define THREADS 1
 # define SAMPLES 1
 # define WIDTH ((int)(HEIGHT * ASPECT_RATIO))
-# define VH 1.0
-# define VW ((double)(VH * ASPECT_RATIO))
+// # define VH 1.0
+// # define VW ((double)(VH * ASPECT_RATIO))
 # define VIEWPORT_DIST 1.0
 
 //enums
@@ -155,7 +155,7 @@ struct s_camera {
 struct s_data
 {
 	mlx_image_t	*g_img;
-	t_pixel		px[HEIGHT][WIDTH];
+	t_pixel		px[2880][5120];
 	t_vec2		coord;
 	t_camera	camera;
 	t_obj		objects[1000];
@@ -171,6 +171,9 @@ struct s_data
 	int			lights_len;
 	double		scale;
 	float		parse_float[3];
+	int			width;
+	int			height;
+	double		aspect_ratio;
 	int			start_clock;
 	int			end_clock;
 };

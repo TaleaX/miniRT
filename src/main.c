@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dantonik <dantonik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tdehne <tdehne@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 16:17:01 by tdehne            #+#    #+#             */
-/*   Updated: 2023/04/22 15:13:12 by dantonik         ###   ########.fr       */
+/*   Updated: 2023/04/22 15:45:32 by tdehne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ void	samples(int x, int y)
 	s = 0;
 	while (s < SAMPLES)
 	{
-		xy[0] = (x + random_double()) / (double)(WIDTH -1);
-		xy[1] = (y + random_double()) / (double)(HEIGHT - 1);
+		xy[0] = (x + random_double()) / (double)(data()->width -1);
+		xy[1] = (y + random_double()) / (double)(data()->height - 1);
 		ray = get_ray(xy[0], xy[1]);
 		c[0] = color_room(ray, (t_vec2){x, y}, 50);
 		c[1] = color_add(data()->px[y][x].c, c[0]);
@@ -43,7 +43,7 @@ void	one_sample(int x, int y)
 	t_ray	ray;
 	t_color	c[2];
 
-	ray = get_ray(x / (double)(WIDTH -1), y / (double)(HEIGHT - 1));
+	ray = get_ray(x / (double)(data()->width -1), y / (double)(data()->height - 1));
 	c[0] = color_room(ray, (t_vec2){x, y}, 50);
 	c[1] = color_add(data()->px[y][x].c, c[0]);
 	data()->px[y][x].c = c[1];
@@ -55,10 +55,10 @@ void	calc(void)
 	int		y;
 
 	y = 0;
-	while (y < HEIGHT - 1)
+	while (y < data()->height - 1)
 	{
 		x = 0;
-		while (x < WIDTH)
+		while (x < data()->width)
 		{
 			if (SAMPLES <= 1)
 				one_sample(x, y);
@@ -77,18 +77,20 @@ int	setup(mlx_t **mlx)
 	t_color		color;
 	mlx_image_t	*g_img;
 
-	*mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true);
+	data()->height = 800;
+	data()->width = 800;
+	*mlx = mlx_init(data()->width, data()->height, "MLX42", true);
 	if (!(*mlx))
 		return (EXIT_FAILURE);
-	g_img = mlx_new_image(*mlx, WIDTH, HEIGHT);
+	g_img = mlx_new_image(*mlx, data()->width, data()->height);
 	data()->g_img = g_img;
 	if (!data()->g_img || (mlx_image_to_window(*mlx, data()->g_img, 0, 0) < 0))
 		ft_error();
 	i = 0;
-	while (i < HEIGHT)
+	while (i < data()->height)
 	{
 		j = 0;
-		while (j < WIDTH)
+		while (j < data()->width)
 		{
 			color = (t_color){0, 0, 0, 1};
 			data()->px[i][j].color = color;
@@ -111,13 +113,13 @@ int32_t	main(int ac, char **av)
 		return (EXIT_FAILURE);
 	calc();
 	i = 0;
-	while (i < HEIGHT)
+	while (i < data()->height)
 	{
 		j = 0;
-		while (j < WIDTH)
+		while (j < data()->width)
 		{
 			rgba = get_rgba(data()->px[i][j].c);
-			mlx_put_pixel(data()->g_img, j, HEIGHT - 1 - i, rgba);
+			mlx_put_pixel(data()->g_img, j, data()->height - 1 - i, rgba);
 			j++;
 		}
 		i++;
