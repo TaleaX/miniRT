@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tdehne <tdehne@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: dantonik <dantonik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 16:16:51 by tdehne            #+#    #+#             */
-/*   Updated: 2023/04/22 14:49:04 by tdehne           ###   ########.fr       */
+/*   Updated: 2023/04/22 15:21:34 by dantonik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ void	init_camera(t_camera *camera, t_vec3 vup)
 	double	hfov_rad;
 	double	viewport_width;
 	double	viewport_height;
-	t_vec3	negative_offset;
 
 	hfov_rad = degree_to_radian(camera->hfov);
 	camera->w = camera->orientation;

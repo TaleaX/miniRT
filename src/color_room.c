@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   color_room.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tdehne <tdehne@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: dantonik <dantonik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 17:01:58 by tdehne            #+#    #+#             */
-/*   Updated: 2023/04/18 17:40:01 by tdehne           ###   ########.fr       */
+/*   Updated: 2023/04/22 15:22:58 by dantonik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,7 @@ t_color	color_background(t_ray ray)
 // }
 bool	scatter(t_ray ray, t_ray *scattered, t_color *attenuation, t_pixel *px)
 {
-	t_vec3	target;
 	t_vec3	reflected_dir;
-	t_vec3	scattered_dir;
 	bool	ref;
 
 	ref = false;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hit.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tdehne <tdehne@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: dantonik <dantonik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 16:14:53 by tdehne            #+#    #+#             */
-/*   Updated: 2023/04/18 17:24:30 by tdehne           ###   ########.fr       */
+/*   Updated: 2023/04/22 15:22:09 by dantonik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ bool	hit_obj(t_ray ray, t_pixel *px, double t_max)
 	i = 0;
 	hit = false;
 	t_closest = __DBL_MAX__;
-	while (i < data()->n_objs)
+	while ((size_t)i < data()->n_objs)
 	{
 		t = calc_t(ray, i);
 		if (t > 0.001 && t < t_closest && t <= t_max)
