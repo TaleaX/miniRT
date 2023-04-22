@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tdehne <tdehne@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: dantonik <dantonik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 16:15:07 by tdehne            #+#    #+#             */
-/*   Updated: 2023/04/22 14:45:44 by tdehne           ###   ########.fr       */
+/*   Updated: 2023/04/22 14:35:23 by dantonik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,5 +82,9 @@ bool		check_shadow(t_pixel px, t_vec3	light_dir, double t_max);
 double		get_t_max(t_light light);
 
 int			error_handling(int error);
+
+void	ft_error(void);
+void	hook(void *param);
+int		finish_program(mlx_t *mlx);
 
 #endif

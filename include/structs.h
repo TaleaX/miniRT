@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tdehne <tdehne@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: dantonik <dantonik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 16:15:13 by tdehne            #+#    #+#             */
-/*   Updated: 2023/04/18 18:47:39 by tdehne           ###   ########.fr       */
+/*   Updated: 2023/04/22 15:13:22 by dantonik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,13 @@
 # include "../MLX42/include/MLX42/MLX42.h"
 # include "miniRT.h"
 # define ASPECT_RATIO (double)(3.0 / 2.0)
-# define HEIGHT 800
+# define HEIGHT 600
 # define THREADS 1
 # define SAMPLES 1
 # define WIDTH ((int)(HEIGHT * ASPECT_RATIO))
 # define VH 1.0
 # define VW ((double)(VH * ASPECT_RATIO))
 # define VIEWPORT_DIST 1.0
-
-# define ZEIT(s) data()->end_clock = clock(); printf("%s\t\t%f\n", s, (float)(data()->end_clock - data()->start_clock) / CLOCKS_PER_SEC);
-# define ZEITX(s, x) data()->end_clock = clock(); printf("%s:%i\t\t%f\n", s, x, (float)(data()->end_clock - data()->start_clock) / CLOCKS_PER_SEC);
 
 //enums
 typedef enum e_light_type		t_light_type;
@@ -98,7 +95,6 @@ struct s_ray {
 struct s_light {
 	t_light_type	type;
 	t_ray			ray;
-	// t_vec3			point;
 	double			intensity;
 	t_color			color;
 };
@@ -175,8 +171,6 @@ struct s_data
 	int			lights_len;
 	double		scale;
 	float		parse_float[3];
-	pthread_mutex_t	put_pixel;
-	pthread_mutex_t	add_color;
 	int			start_clock;
 	int			end_clock;
 };
