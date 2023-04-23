@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_get_obj.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tdehne <tdehne@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: dns <dns@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 13:10:00 by dns               #+#    #+#             */
-/*   Updated: 2023/04/22 15:47:30 by tdehne           ###   ########.fr       */
+/*   Updated: 2023/04/23 15:35:51 by dns              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,39 +29,45 @@ int	get_material(char **line, t_obj *object)
 	return (0);
 }
 
-int	get_sphere(char **line)
+int	get_sphere(char **line, int i)
 {
 	(*line) += 2;
-	parse_skip_three(line, &data()->objects[data()->n_objs].center);
-	parse_skip_one(line, &data()->objects[data()->n_objs].radius);
-	parse_skip_color(line, &data()->objects[data()->n_objs].color);
+	i += parse_skip_three_err(line, &data()->objects[data()->n_objs].center);
+	i += parse_skip_one_err(line, &data()->objects[data()->n_objs].radius);
+	i += parse_skip_color_err(line, &data()->objects[data()->n_objs].color);
 	get_material(line, &data()->objects[data()->n_objs]);
+	if (i > 0)
+		return (-1);
 	data()->objects[data()->n_objs].obj_type = SPHERE;
 	data()->n_objs++;
 	return (0);
 }
 
-int	get_plane(char **line)
+int	get_plane(char **line, int i)
 {
 	(*line) += 2;
-	parse_skip_three(line, &data()->objects[data()->n_objs].center);
-	parse_skip_three(line, &data()->objects[data()->n_objs].normal);
-	parse_skip_color(line, &data()->objects[data()->n_objs].color);
+	i += parse_skip_three_err(line, &data()->objects[data()->n_objs].center);
+	i += parse_skip_three_err(line, &data()->objects[data()->n_objs].normal);
+	i += parse_skip_color_err(line, &data()->objects[data()->n_objs].color);
 	get_material(line, &data()->objects[data()->n_objs]);
+	if (i > 0)
+		return (-1);
 	data()->objects[data()->n_objs].obj_type = PLANE;
 	data()->n_objs++;
 	return (0);
 }
 
-int	get_cylinder(char **line)
+int	get_cylinder(char **line, int i)
 {
 	(*line) += 2;
-	parse_skip_three(line, &data()->objects[data()->n_objs].center);
-	parse_skip_three(line, &data()->objects[data()->n_objs].axis);
-	parse_skip_one(line, &data()->objects[data()->n_objs].radius);
-	parse_skip_one(line, &data()->objects[data()->n_objs].height);
-	parse_skip_color(line, &data()->objects[data()->n_objs].color);
+	i += parse_skip_three_err(line, &data()->objects[data()->n_objs].center);
+	i += parse_skip_three_err(line, &data()->objects[data()->n_objs].axis);
+	i += parse_skip_one_err(line, &data()->objects[data()->n_objs].radius);
+	i += parse_skip_one_err(line, &data()->objects[data()->n_objs].height);
+	i += parse_skip_color_err(line, &data()->objects[data()->n_objs].color);
 	get_material(line, &data()->objects[data()->n_objs]);
+	if (i > 0)
+		return (-1);
 	data()->objects[data()->n_objs].obj_type = CYLINDER;
 	vec3_normalize(&data()->objects[data()->n_objs].axis);
 	data()->n_objs++;

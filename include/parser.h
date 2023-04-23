@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dantonik <dantonik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dns <dns@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 15:53:15 by dns               #+#    #+#             */
-/*   Updated: 2023/04/23 03:50:49 by dantonik         ###   ########.fr       */
+/*   Updated: 2023/04/23 15:36:28 by dns              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,16 +37,16 @@ float	parse_float(char *line);
 int		parse_floats(char **line);
 
 // PARSE GET
-int		get_light(char **line);
-int		get_ambientlight(char **line);
+int		get_light(char **line, int i);
+int		get_ambientlight(char **line, int i);
 int		get_camera(char **line, int i);
-int		get_sun(char **line);
-int		get_resolution(char **line);
+int		get_sun(char **line, int i);
+int		get_resolution(char **line, int i);
 
 int		get_material(char **line, t_obj *object);
-int		get_sphere(char **line);
-int		get_plane(char **line);
-int		get_cylinder(char **line);
+int		get_sphere(char **line, int i);
+int		get_plane(char **line, int i);
+int		get_cylinder(char **line, int i);
 
 // PARSE SKIP
 int		is_space(int x);
@@ -72,6 +72,7 @@ void	print_cylinder(t_obj cylinder);
 void	print_scene(int i, int j);
 
 int		parse_skip_three_err(char **line, t_vec3 *point);
-int	parse_skip_one_err(char **line, double *f);
+int		parse_skip_one_err(char **line, double *f);
+int		parse_skip_color_err(char **line, t_color *color);
 
 #endif
