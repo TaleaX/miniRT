@@ -6,7 +6,7 @@
 /*   By: dantonik <dantonik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 15:51:08 by dns               #+#    #+#             */
-/*   Updated: 2023/04/22 16:08:57 by dantonik         ###   ########.fr       */
+/*   Updated: 2023/04/23 04:01:47 by dantonik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static int	cmp_filename(const char *s1)
 	return (true);
 }
 
-int	get_object(char *line)
+int	get_object(char *line, int i)
 {
 	if (*line == '#')
 		return (0);
@@ -48,7 +48,7 @@ int	get_object(char *line)
 	else if (ft_strncmp(line, "A", 1) == 0)
 		get_ambientlight(&line);
 	else if (ft_strncmp(line, "C", 1) == 0)
-		get_camera(&line);
+		i = get_camera(&line, i);
 	else if (ft_strncmp(line, "L", 1) == 0)
 		get_light(&line);
 	else if (ft_strncmp(line, "pl", 2) == 0)
@@ -59,6 +59,8 @@ int	get_object(char *line)
 		get_sun(&line);
 	else
 		return (1);
+	if (i == -1)
+		return (-1);
 	return (0);
 }
 
@@ -66,23 +68,31 @@ int	get_scene(const int fd)
 {
 	char	*line;
 	int		offset;
+	int		i;
 
+	i = 0;
 	line = get_next_line(fd);
 	while (line != NULL)
 	{
 		offset = skip_space(line);
-		get_object(line + offset);
+		i = get_object(line + offset, 0);
+		if (i == -1)
+		{
+			printf("Error on line: %s\n", line);
+			break ;
+		}
 		free(line);
 		line = get_next_line(fd);
 	}
 	if (line)
 		free(line);
-	return (0);
+	return (i);
 }
 
 int	parser(int ac, char *av)
 {
 	int	fd;
+	int	i;
 
 	if (ac == 2)
 	{
@@ -95,9 +105,12 @@ int	parser(int ac, char *av)
 	if (fd < 0)
 		error_handling(1);
 	data()->n_objs = 0;
-	get_scene(fd);
+	i = get_scene(fd);
 	data()->aspect_ratio = (double)data()->width / (double)data()->height;
 	init_camera(&data()->camera, (t_vec3){0, 1, 0});
 	close (fd);
+	if (i == -1 || (data()->camera.orientation.x == 0 \
+	&& data()->camera.orientation.y == 0 && data()->camera.orientation.z == 0))
+		return (-1);
 	return (0);
 }

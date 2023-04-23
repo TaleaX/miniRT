@@ -6,7 +6,7 @@
 /*   By: dantonik <dantonik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 16:17:01 by tdehne            #+#    #+#             */
-/*   Updated: 2023/04/22 16:17:42 by dantonik         ###   ########.fr       */
+/*   Updated: 2023/04/23 03:58:51 by dantonik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,8 @@ int32_t	main(int ac, char **av)
 	uint32_t	rgba;
 
 	init_ratios();
-	parser(ac, av[1]);
+	if (parser(ac, av[1]) == -1)
+		error_handling(2);
 	if (setup(&mlx) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	calc();
@@ -122,6 +123,8 @@ int32_t	main(int ac, char **av)
 		{
 			rgba = get_rgba(data()->px[i][j].c);
 			mlx_put_pixel(data()->g_img, j, data()->height - 1 - i, rgba);
+			// if (i == data()->height / 2 || j == data()->width /2)
+			// 	mlx_put_pixel(data()->g_img, j, data()->height - 1 - i, get_rgba((t_color){255,0,0,1}));
 			j++;
 		}
 		i++;
