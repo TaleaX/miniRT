@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dantonik <dantonik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dns <dns@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 16:15:13 by tdehne            #+#    #+#             */
-/*   Updated: 2023/04/22 16:15:32 by dantonik         ###   ########.fr       */
+/*   Updated: 2023/04/23 15:16:40 by dns              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,7 +165,8 @@ struct s_camera {
 struct s_data
 {
 	mlx_image_t	*g_img;
-	t_pixel		px[2880][5120];
+	// t_pixel		px[2880][5120];
+	t_pixel		px[1800][2800];
 	t_vec2		coord;
 	t_camera	camera;
 	t_obj		objects[1000];

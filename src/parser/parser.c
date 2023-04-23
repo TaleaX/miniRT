@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dantonik <dantonik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dns <dns@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 15:51:08 by dns               #+#    #+#             */
-/*   Updated: 2023/04/23 04:01:47 by dantonik         ###   ########.fr       */
+/*   Updated: 2023/04/23 15:30:41 by dns              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,21 +42,21 @@ int	get_object(char *line, int i)
 	if (*line == '#')
 		return (0);
 	else if (ft_strncmp(line, "R", 1) == 0)
-		get_resolution(&line);
+		i = get_resolution(&line, i);
 	else if (ft_strncmp(line, "sp", 2) == 0)
-		get_sphere(&line);
+		i = get_sphere(&line, i);
 	else if (ft_strncmp(line, "A", 1) == 0)
-		get_ambientlight(&line);
+		i = get_ambientlight(&line, i);
 	else if (ft_strncmp(line, "C", 1) == 0)
 		i = get_camera(&line, i);
 	else if (ft_strncmp(line, "L", 1) == 0)
-		get_light(&line);
+		i = get_light(&line, i);
 	else if (ft_strncmp(line, "pl", 2) == 0)
-		get_plane(&line);
+		i = get_plane(&line, i);
 	else if (ft_strncmp(line, "cy", 2) == 0)
-		get_cylinder(&line);
+		i = get_cylinder(&line, i);
 	else if (ft_strncmp(line, "S", 1) == 0)
-		get_sun(&line);
+		i = get_sun(&line, i);
 	else
 		return (1);
 	if (i == -1)
