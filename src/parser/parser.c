@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dns <dns@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: dantonik <dantonik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 15:51:08 by dns               #+#    #+#             */
-/*   Updated: 2023/04/23 16:52:05 by dns              ###   ########.fr       */
+/*   Updated: 2023/04/23 20:06:11 by dantonik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ int	parser(int ac, char *av)
 		fd = open(av, O_RDONLY);
 	}
 	else
-		fd = open("scenes/cool_room.rt", O_RDONLY);
+		return (printf("No file provided!\n"), -1);
 	if (fd < 0)
 		error_handling(1);
 	data()->n_objs = 0;
