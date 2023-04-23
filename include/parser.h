@@ -72,6 +72,6 @@ void	print_cylinder(t_obj cylinder);
 void	print_scene(int i, int j);
 
 int		parse_skip_three_err(char **line, t_vec3 *point);
-int	parse_skip_one_err(char **line, double *f);
+int		parse_skip_one_err(char **line, double *f);
 
 #endif

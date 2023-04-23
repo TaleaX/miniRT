@@ -86,4 +86,8 @@ void		hook(void *param);
 int			finish_program(mlx_t *mlx);
 void		init_ratios(void);
 
+//main
+void	put(void);
+void	calc(void);
+int	setup(mlx_t **mlx);
 #endif

@@ -12,7 +12,7 @@
 
 #include "miniRT.h"
 
-void	samples(int x, int y)
+t_color	samples(int x, int y)
 {
 	int		s;
 	t_ray	ray;
@@ -22,34 +22,47 @@ void	samples(int x, int y)
 
 	scale = 1.0 / SAMPLES;
 	s = 0;
+	c[1] = (t_color){0, 0, 0, 1};
 	while (s < SAMPLES)
 	{
 		xy[0] = (x + random_double()) / (double)(data()->width -1);
 		xy[1] = (y + random_double()) / (double)(data()->height - 1);
 		ray = get_ray(xy[0], xy[1]);
 		c[0] = color_room(ray, (t_vec2){x, y}, 50);
-		c[1] = color_add(data()->px[y][x].c, c[0]);
-		data()->px[y][x].c = c[1];
+		// c[1] = color_add(data()->px[y][x].c, c[0]);
+		c[1] = color_add(c[1], c[0]);
+		// data()->px[y][x].c = c[1];
 		++s;
 	}
-	data()->px[y][x].c.r *= scale;
-	data()->px[y][x].c.g *= scale;
-	data()->px[y][x].c.b *= scale;
-	++x;
+	color_scalar(c[1], scale, 1);
+	return (c[1]);
 }
 
-void	one_sample(int x, int y)
+// void	one_sample(int x, int y)
+// {
+// 	t_ray	ray;
+// 	t_color	c[2];
+// 	double	xy[2];
+
+// 	xy[0] = x / (double)(data()->width -1);
+// 	xy[1] = y / (double)(data()->height - 1);
+// 	ray = get_ray(xy[0], xy[1]);
+// 	c[0] = color_room(ray, (t_vec2){x, y}, 50);
+// 	c[1] = color_add(data()->px[y][x].c, c[0]);
+// 	data()->px[y][x].c = c[1];
+// }
+
+t_color	one_sample(int x, int y)
 {
 	t_ray	ray;
-	t_color	c[2];
+	t_color	c;
 	double	xy[2];
 
 	xy[0] = x / (double)(data()->width -1);
 	xy[1] = y / (double)(data()->height - 1);
 	ray = get_ray(xy[0], xy[1]);
-	c[0] = color_room(ray, (t_vec2){x, y}, 50);
-	c[1] = color_add(data()->px[y][x].c, c[0]);
-	data()->px[y][x].c = c[1];
+	c = color_room(ray, (t_vec2){x, y}, 50);
+	return (c);
 }
 
 void	calc(void)
@@ -102,33 +115,43 @@ int	setup(mlx_t **mlx)
 	return (EXIT_SUCCESS);
 }
 
+void	put(void)
+{
+	int			y;
+	int			x;
+	uint32_t	rgba;
+
+	y = 0;
+	while (y < data()->height)
+	{
+		x = 0;
+		while (x < data()->width)
+		{
+			if (SAMPLES == 1)
+				rgba = get_rgba(one_sample(x, y));
+			else
+				rgba = get_rgba(samples(x, y));
+			// rgba = get_rgba(data()->px[i][j].c);
+			mlx_put_pixel(data()->g_img, x, data()->height - 1 - y, rgba);
+			x++;
+		}
+		y++;
+	}
+}
+
 int32_t	main(int ac, char **av)
 {
 	mlx_t		*mlx;
-	int			i;
-	int			j;
-	uint32_t	rgba;
 
 	init_ratios();
 	if (parser(ac, av[1]) == -1)
 		error_handling(2);
+	if (SAMPLES < 1)
+		error_handling(4);
 	if (setup(&mlx) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
-	calc();
-	i = 0;
-	while (i < data()->height)
-	{
-		j = 0;
-		while (j < data()->width)
-		{
-			rgba = get_rgba(data()->px[i][j].c);
-			mlx_put_pixel(data()->g_img, j, data()->height - 1 - i, rgba);
-			// if (i == data()->height / 2 || j == data()->width /2)
-			// 	mlx_put_pixel(data()->g_img, j, data()->height - 1 - i, get_rgba((t_color){255,0,0,1}));
-			j++;
-		}
-		i++;
-	}
+	// calc();
+	put();
 	mlx_loop_hook(mlx, &hook, mlx);
 	mlx_loop(mlx);
 	return (finish_program(mlx));
