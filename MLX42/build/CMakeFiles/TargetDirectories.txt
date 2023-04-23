@@ -1,0 +1,3 @@
+/Users/tdehne/Desktop/projects/miniRT2/MLX42/build/CMakeFiles/mlx42.dir
+/Users/tdehne/Desktop/projects/miniRT2/MLX42/build/CMakeFiles/edit_cache.dir
+/Users/tdehne/Desktop/projects/miniRT2/MLX42/build/CMakeFiles/rebuild_cache.dir
