@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_skip2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dns <dns@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: dantonik <dantonik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 03:40:19 by dantonik          #+#    #+#             */
-/*   Updated: 2023/04/23 15:28:22 by dns              ###   ########.fr       */
+/*   Updated: 2023/04/23 20:59:36 by dantonik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,12 @@ int	parse_skip_color_err(char **line, t_color *color)
 	}
 	else
 		return (1);
+	if (data()->parse_float[0] < 0 || data()->parse_float[0] > 255)
+		return (printf("Color must be between 0 and 255!\n"), 1);
+	if (data()->parse_float[1] < 0 || data()->parse_float[1] > 255)
+		return (printf("Color must be between 0 and 255!\n"), 1);
+	if (data()->parse_float[2] < 0 || data()->parse_float[2] > 255)
+		return (printf("Color must be between 0 and 255!\n"), 1);
 	while ((**line >= '0' && **line <= '9') || \
 	**line == '.' || **line == ',' || **line == '-')
 		(*line)++;
