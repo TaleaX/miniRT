@@ -36,4 +36,9 @@ t_color	color_add_vec(t_color color, t_vec3 vec);
 t_color	color_scalar(t_color color, double scalar, double alpha);
 t_vec3	vec3_scalar_subtraction(t_vec3 vec, double scalar);
 
+//rotate
+t_vec3	vec3_rotate_x(t_vec3 vec, double deg);
+t_vec3	vec3_rotate_y(t_vec3 vec, double deg);
+t_vec3	vec3_rotate_z(t_vec3 vec, double deg);
+
 #endif
