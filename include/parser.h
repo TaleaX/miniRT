@@ -6,7 +6,7 @@
 /*   By: dantonik <dantonik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 15:53:15 by dns               #+#    #+#             */
-/*   Updated: 2023/04/22 16:12:22 by dantonik         ###   ########.fr       */
+/*   Updated: 2023/04/23 03:50:49 by dantonik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ typedef struct s_float
 }	t_float;
 
 int		parser(int ac, char *av);
-int		get_object(char *line);
+int		get_object(char *line, int i);
 int		get_scene(const int fd);
 
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
@@ -39,7 +39,7 @@ int		parse_floats(char **line);
 // PARSE GET
 int		get_light(char **line);
 int		get_ambientlight(char **line);
-int		get_camera(char **line);
+int		get_camera(char **line, int i);
 int		get_sun(char **line);
 int		get_resolution(char **line);
 
@@ -70,5 +70,8 @@ void	print_sphere(t_obj sphere);
 void	print_plane(t_obj plane);
 void	print_cylinder(t_obj cylinder);
 void	print_scene(int i, int j);
+
+int		parse_skip_three_err(char **line, t_vec3 *point);
+int	parse_skip_one_err(char **line, double *f);
 
 #endif

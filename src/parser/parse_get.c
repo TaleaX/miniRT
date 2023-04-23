@@ -6,7 +6,7 @@
 /*   By: dantonik <dantonik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 15:19:27 by dns               #+#    #+#             */
-/*   Updated: 2023/04/22 16:14:00 by dantonik         ###   ########.fr       */
+/*   Updated: 2023/04/23 03:59:21 by dantonik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,13 @@ int	get_ambientlight(char **line)
 	return (0);
 }
 
-int	get_camera(char **line)
+int	get_camera(char **line, int i)
 {
 	(*line)++;
 	parse_skip_three(line, &data()->camera.origin);
-	parse_skip_three(line, &data()->camera.orientation);
+	i = parse_skip_three_err(line, &data()->camera.orientation);
+	if (i == -1)
+		return (-1);
 	parse_skip_one(line, &data()->camera.hfov);
 	return (0);
 }
