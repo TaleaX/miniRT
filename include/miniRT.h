@@ -86,8 +86,16 @@ void		hook(void *param);
 int			finish_program(mlx_t *mlx);
 void		init_ratios(void);
 
+//keyhooks utils
+void	move_cylinder(t_move move);
+void	rotate_cylinder(t_rot_axis axis);
+void	rotate_plane(t_rot_axis axis);
+
+//keyhook
+void	hook(void *param);
+
 //main
 void	put(void);
-void	calc(void);
-int	setup(mlx_t **mlx);
+int		setup(mlx_t **mlx);
+
 #endif

@@ -15,7 +15,8 @@
 int	get_light(char **line, int i)
 {
 	(*line)++;
-	i += parse_skip_three_err(line, &data()->lights[data()->n_lights].ray.origin);
+	i += parse_skip_three_err(line, \
+		&data()->lights[data()->n_lights].ray.origin);
 	i += parse_skip_one_err(line, &data()->lights[data()->n_lights].intensity);
 	i += parse_skip_color_err(line, &data()->lights[data()->n_lights].color);
 	if (i > 0)
@@ -53,7 +54,8 @@ int	get_camera(char **line, int i)
 int	get_sun(char **line, int i)
 {
 	(*line)++;
-	i += parse_skip_three_err(line, &data()->lights[data()->n_lights].ray.direction);
+	i += parse_skip_three_err(line, \
+		&data()->lights[data()->n_lights].ray.direction);
 	i += parse_skip_one_err(line, &data()->lights[data()->n_lights].intensity);
 	i += parse_skip_color_err(line, &data()->lights[data()->n_lights].color);
 	if (i > 0)

@@ -109,8 +109,8 @@ int	parser(int ac, char *av)
 	data()->aspect_ratio = (double)data()->width / (double)data()->height;
 	init_camera(&data()->camera, (t_vec3){0, 1, 0});
 	close (fd);
-	if (i == -1 || data()->b_light == false || \
-	(data()->camera.orientation.x == 0 \
+	if (i == -1 || data()->b_light == false \
+	|| (data()->camera.orientation.x == 0 \
 	&& data()->camera.orientation.y == 0 && data()->camera.orientation.z == 0))
 		return (-1);
 	return (0);

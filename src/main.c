@@ -29,28 +29,12 @@ t_color	samples(int x, int y)
 		xy[1] = (y + random_double()) / (double)(data()->height - 1);
 		ray = get_ray(xy[0], xy[1]);
 		c[0] = color_room(ray, (t_vec2){x, y}, 50);
-		// c[1] = color_add(data()->px[y][x].c, c[0]);
 		c[1] = color_add(c[1], c[0]);
-		// data()->px[y][x].c = c[1];
 		++s;
 	}
-	color_scalar(c[1], scale, 1);
+	c[1] = color_scalar(c[1], scale, 1);
 	return (c[1]);
 }
-
-// void	one_sample(int x, int y)
-// {
-// 	t_ray	ray;
-// 	t_color	c[2];
-// 	double	xy[2];
-
-// 	xy[0] = x / (double)(data()->width -1);
-// 	xy[1] = y / (double)(data()->height - 1);
-// 	ray = get_ray(xy[0], xy[1]);
-// 	c[0] = color_room(ray, (t_vec2){x, y}, 50);
-// 	c[1] = color_add(data()->px[y][x].c, c[0]);
-// 	data()->px[y][x].c = c[1];
-// }
 
 t_color	one_sample(int x, int y)
 {
@@ -65,32 +49,8 @@ t_color	one_sample(int x, int y)
 	return (c);
 }
 
-void	calc(void)
-{
-	int		x;
-	int		y;
-
-	y = 0;
-	while (y < data()->height - 1)
-	{
-		x = 0;
-		while (x < data()->width)
-		{
-			if (SAMPLES <= 1)
-				one_sample(x, y);
-			else
-				samples(x, y);
-			++x;
-		}
-		++y;
-	}
-}
-
 int	setup(mlx_t **mlx)
 {
-	int			i;
-	int			j;
-	t_color		color;
 	mlx_image_t	*g_img;
 
 	*mlx = mlx_init(data()->width, data()->height, "MLX42", true);
@@ -101,18 +61,6 @@ int	setup(mlx_t **mlx)
 	data()->b_light = false;
 	if (!data()->g_img || (mlx_image_to_window(*mlx, data()->g_img, 0, 0) < 0))
 		ft_error();
-	i = 0;
-	while (i < data()->height)
-	{
-		j = 0;
-		while (j < data()->width)
-		{
-			color = (t_color){0, 0, 0, 1};
-			data()->px[i][j].color = color;
-			j++;
-		}
-		i++;
-	}
 	return (EXIT_SUCCESS);
 }
 
@@ -132,7 +80,6 @@ void	put(void)
 				rgba = get_rgba(one_sample(x, y));
 			else
 				rgba = get_rgba(samples(x, y));
-			// rgba = get_rgba(data()->px[i][j].c);
 			mlx_put_pixel(data()->g_img, x, data()->height - 1 - y, rgba);
 			x++;
 		}
@@ -151,7 +98,6 @@ int32_t	main(int ac, char **av)
 		error_handling(4);
 	if (setup(&mlx) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
-	// calc();
 	put();
 	mlx_loop_hook(mlx, &hook, mlx);
 	mlx_loop(mlx);
