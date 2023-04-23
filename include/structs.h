@@ -6,7 +6,7 @@
 /*   By: dns <dns@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 16:15:13 by tdehne            #+#    #+#             */
-/*   Updated: 2023/04/23 15:16:40 by dns              ###   ########.fr       */
+/*   Updated: 2023/04/23 16:51:53 by dns              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,8 +187,7 @@ struct s_data
 	double		aspect_ratio;
 	double		vh;
 	double		vw;
-	int			start_clock;
-	int			end_clock;
+	bool		b_light;
 };
 
 struct	s_hit_rec

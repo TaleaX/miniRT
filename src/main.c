@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dantonik <dantonik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dns <dns@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 16:17:01 by tdehne            #+#    #+#             */
-/*   Updated: 2023/04/23 03:58:51 by dantonik         ###   ########.fr       */
+/*   Updated: 2023/04/23 16:52:36 by dns              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ int	setup(mlx_t **mlx)
 		return (EXIT_FAILURE);
 	g_img = mlx_new_image(*mlx, data()->width, data()->height);
 	data()->g_img = g_img;
+	data()->b_light = false;
 	if (!data()->g_img || (mlx_image_to_window(*mlx, data()->g_img, 0, 0) < 0))
 		ft_error();
 	i = 0;

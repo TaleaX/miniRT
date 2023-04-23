@@ -6,7 +6,7 @@
 /*   By: dns <dns@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 15:51:08 by dns               #+#    #+#             */
-/*   Updated: 2023/04/23 15:30:41 by dns              ###   ########.fr       */
+/*   Updated: 2023/04/23 16:52:05 by dns              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ int	parser(int ac, char *av)
 	data()->aspect_ratio = (double)data()->width / (double)data()->height;
 	init_camera(&data()->camera, (t_vec3){0, 1, 0});
 	close (fd);
-	if (i == -1 || (data()->camera.orientation.x == 0 \
+	if (i == -1 || data()->b_light == false || (data()->camera.orientation.x == 0 \
 	&& data()->camera.orientation.y == 0 && data()->camera.orientation.z == 0))
 		return (-1);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: dns <dns@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 15:19:27 by dns               #+#    #+#             */
-/*   Updated: 2023/04/23 15:36:44 by dns              ###   ########.fr       */
+/*   Updated: 2023/04/23 16:53:34 by dns              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int	get_light(char **line, int i)
 	i += parse_skip_color_err(line, &data()->lights[data()->n_lights].color);
 	if (i > 0)
 		return (-1);
+	data()->b_light = true;
 	data()->lights[data()->n_lights].type = POINT;
 	data()->n_lights++;
 	return (0);
@@ -32,6 +33,7 @@ int	get_ambientlight(char **line, int i)
 	i += parse_skip_color_err(line, &data()->lights[data()->n_lights].color);
 	if (i > 0)
 		return (-1);
+	data()->b_light = true;
 	data()->lights[data()->n_lights].type = AMBIENT;
 	data()->n_lights++;
 	return (0);
@@ -56,6 +58,7 @@ int	get_sun(char **line, int i)
 	i += parse_skip_color_err(line, &data()->lights[data()->n_lights].color);
 	if (i > 0)
 		return (-1);
+	data()->b_light = true;
 	data()->lights[data()->n_lights].type = SUN;
 	data()->n_lights++;
 	return (0);
