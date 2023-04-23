@@ -20,6 +20,8 @@ int	error_handling(int error)
 		printf("Error code 2!\n");
 	if (error == 3)
 		printf("Error code 3\n");
+	if (error == 4)
+		printf("Error code 4\nSamples Incorrect!");
 	printf("Terminating program...\n");
 	exit(EXIT_FAILURE);
 }

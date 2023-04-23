@@ -21,8 +21,9 @@
 typedef enum e_light_type		t_light_type;
 typedef enum e_material_type	t_material_type;
 typedef enum e_obj_type			t_obj_type;
+typedef enum e_rot_axis			t_rot_axis;
+typedef enum e_move				t_move;
 
-typedef struct s_hit_rec		t_hit_rec;
 
 //room structs
 // typedef struct s_window			t_window;
@@ -42,6 +43,21 @@ typedef struct s_v2				t_vec2;
 typedef struct s_v3				t_vec3;
 typedef struct s_color			t_color;
 // typedef		   t_vec3			t_v3;
+
+enum e_rot_axis {
+	X,
+	Y,
+	Z
+};
+
+enum e_move {
+	UP,
+	DOWN,
+	LEFT,
+	RIGHT,
+	FORWARDS,
+	BACKWARDS
+};
 
 enum e_obj_type {
 	SPHERE,
