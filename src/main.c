@@ -32,7 +32,7 @@ t_color	samples(int x, int y)
 		c[1] = color_add(c[1], c[0]);
 		++s;
 	}
-	color_scalar(c[1], scale, 1);
+	c[1] = color_scalar(c[1], scale, 1);
 	return (c[1]);
 }
 
@@ -51,9 +51,6 @@ t_color	one_sample(int x, int y)
 
 int	setup(mlx_t **mlx)
 {
-	int			i;
-	int			j;
-	t_color		color;
 	mlx_image_t	*g_img;
 
 	*mlx = mlx_init(data()->width, data()->height, "MLX42", true);
@@ -64,18 +61,6 @@ int	setup(mlx_t **mlx)
 	data()->b_light = false;
 	if (!data()->g_img || (mlx_image_to_window(*mlx, data()->g_img, 0, 0) < 0))
 		ft_error();
-	i = 0;
-	while (i < data()->height)
-	{
-		j = 0;
-		while (j < data()->width)
-		{
-			color = (t_color){0, 0, 0, 1};
-			data()->px[i][j].color = color;
-			j++;
-		}
-		i++;
-	}
 	return (EXIT_SUCCESS);
 }
 
