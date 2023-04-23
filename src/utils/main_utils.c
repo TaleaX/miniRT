@@ -21,6 +21,7 @@ void	ft_error(void)
 void	rotate_plane(t_rot_axis axis)
 {
 	size_t	i;
+	t_vec3	rotated;
 
 	i = 0;
 	while (i < data()->n_objs)
@@ -28,11 +29,12 @@ void	rotate_plane(t_rot_axis axis)
 		if (data()->objects[i].obj_type == PLANE)
 		{
 			if (axis == X)
-				data()->objects[i].normal = vec3_rotate_x(data()->objects[i].normal, 90);
+				rotated = vec3_rotate_x(data()->objects[i].normal, 90);
 			else if (axis == Y)
-				data()->objects[i].normal = vec3_rotate_y(data()->objects[i].normal, 90);
-			else if (axis == Z)
-				data()->objects[i].normal = vec3_rotate_z(data()->objects[i].normal, 90);
+				rotated = vec3_rotate_y(data()->objects[i].normal, 90);
+			else
+				rotated = vec3_rotate_z(data()->objects[i].normal, 90);
+			data()->objects[i].normal = rotated;
 		}
 		++i;
 	}
@@ -41,6 +43,7 @@ void	rotate_plane(t_rot_axis axis)
 void	rotate_cylinder(t_rot_axis axis)
 {
 	size_t	i;
+	t_vec3	rotated;
 
 	i = 0;
 	while (i < data()->n_objs)
@@ -48,12 +51,12 @@ void	rotate_cylinder(t_rot_axis axis)
 		if (data()->objects[i].obj_type == CYLINDER)
 		{
 			if (axis == X)
-				data()->objects[i].axis = vec3_rotate_x(data()->objects[i].axis, 90);
+				rotated = vec3_rotate_x(data()->objects[i].axis, 90);
 			else if (axis == Y)
-				data()->objects[i].axis = vec3_rotate_y(data()->objects[i].axis, 90);
-			else if (axis == Z)
-				data()->objects[i].axis = vec3_rotate_z(data()->objects[i].axis, 90);
-
+				rotated = vec3_rotate_y(data()->objects[i].axis, 90);
+			else
+				rotated = vec3_rotate_z(data()->objects[i].axis, 90);
+			data()->objects[i].axis = rotated;
 		}
 		++i;
 	}
@@ -61,10 +64,13 @@ void	rotate_cylinder(t_rot_axis axis)
 
 void	rotate(mlx_t	*mlx, t_rot_axis axis)
 {
+	mlx_image_t	*g_img;
+
 	if (mlx_is_key_down(mlx, MLX_KEY_P))
 	{
 		mlx_delete_image(mlx, data()->g_img);
-		data()->g_img = mlx_new_image(mlx, data()->width, data()->height);
+		g_img = mlx_new_image(mlx, data()->width, data()->height);
+		data()->g_img = g_img;
 		mlx_image_to_window(mlx, data()->g_img, 0, 0);
 		rotate_plane(axis);
 		put();
@@ -72,13 +78,13 @@ void	rotate(mlx_t	*mlx, t_rot_axis axis)
 	if (mlx_is_key_down(mlx, MLX_KEY_C))
 	{
 		mlx_delete_image(mlx, data()->g_img);
-		data()->g_img = mlx_new_image(mlx, data()->width, data()->height);
+		g_img = mlx_new_image(mlx, data()->width, data()->height);
+		data()->g_img = g_img;
 		mlx_image_to_window(mlx, data()->g_img, 0, 0);
 		rotate_cylinder(axis);
 		put();
 	}
 }
-
 
 void	move_cylinder(t_move move)
 {
@@ -108,8 +114,11 @@ void	move_cylinder(t_move move)
 
 void	move(mlx_t	*mlx, t_move move)
 {
+	mlx_image_t	*g_img;
+
 	mlx_delete_image(mlx, data()->g_img);
-	data()->g_img = mlx_new_image(mlx, data()->width, data()->height);
+	g_img = mlx_new_image(mlx, data()->width, data()->height);
+	data()->g_img = g_img;
 	mlx_image_to_window(mlx, data()->g_img, 0, 0);
 	move_cylinder(move);
 	put();
