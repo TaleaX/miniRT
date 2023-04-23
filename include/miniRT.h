@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dantonik <dantonik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tdehne <tdehne@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 16:15:07 by tdehne            #+#    #+#             */
-/*   Updated: 2023/04/22 16:16:49 by dantonik         ###   ########.fr       */
+/*   Updated: 2023/04/23 20:23:37 by tdehne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,15 +87,17 @@ int			finish_program(mlx_t *mlx);
 void		init_ratios(void);
 
 //keyhooks utils
-void	move_cylinder(t_move move);
-void	rotate_cylinder(t_rot_axis axis);
-void	rotate_plane(t_rot_axis axis);
+void		move_cylinder(t_move move);
+void		rotate_cylinder(t_rot_axis axis);
+void		rotate_plane(t_rot_axis axis);
+void		move_sphere(t_move move);
+void		move_plane(t_move move);
 
 //keyhook
-void	hook(void *param);
+void		hook(void *param);
 
 //main
-void	put(void);
-int		setup(mlx_t **mlx);
+void		put(void);
+int			setup(mlx_t **mlx);
 
 #endif
