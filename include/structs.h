@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dns <dns@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: tdehne <tdehne@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 16:15:13 by tdehne            #+#    #+#             */
-/*   Updated: 2023/04/23 16:51:53 by dns              ###   ########.fr       */
+/*   Updated: 2023/04/23 20:40:18 by tdehne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ typedef enum e_material_type	t_material_type;
 typedef enum e_obj_type			t_obj_type;
 typedef enum e_rot_axis			t_rot_axis;
 typedef enum e_move				t_move;
-
 
 //room structs
 // typedef struct s_window			t_window;
@@ -165,8 +164,7 @@ struct s_camera {
 struct s_data
 {
 	mlx_image_t	*g_img;
-	// t_pixel		px[2880][5120];
-	t_pixel		px[1800][2800];
+	t_pixel		px[2880][5120];
 	t_vec2		coord;
 	t_camera	camera;
 	t_obj		objects[1000];
