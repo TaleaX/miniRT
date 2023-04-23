@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_get_obj.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dns <dns@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: dantonik <dantonik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 13:10:00 by dns               #+#    #+#             */
-/*   Updated: 2023/04/23 15:35:51 by dns              ###   ########.fr       */
+/*   Updated: 2023/04/23 20:51:35 by dantonik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	get_material(char **line, t_obj *object)
 {
-	*line += skip_space(*line);
+	(*line) += skip_space(*line);
 	if (check_floats(*line) < 0)
 	{
 		object->material = 0;

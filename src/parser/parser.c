@@ -6,7 +6,7 @@
 /*   By: dantonik <dantonik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 15:51:08 by dns               #+#    #+#             */
-/*   Updated: 2023/04/23 20:06:11 by dantonik         ###   ########.fr       */
+/*   Updated: 2023/04/23 20:42:24 by dantonik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,17 @@ int	get_scene(const int fd)
 	return (i);
 }
 
+int	parser_check(int i, t_vec3 co)
+{
+	if (i == -1)
+		return (-1);
+	if (data()->b_light == false)
+		return (printf("Please provide a light source!\n"), -1);
+	if (co.x == 0 && co.y == 0 && co.z == 0)
+		return (printf("Camera direction can't be 0,0,0!\n"), -1);
+	return (0);
+}
+
 int	parser(int ac, char *av)
 {
 	int	fd;
@@ -109,9 +120,5 @@ int	parser(int ac, char *av)
 	data()->aspect_ratio = (double)data()->width / (double)data()->height;
 	init_camera(&data()->camera, (t_vec3){0, 1, 0});
 	close (fd);
-	if (i == -1 || data()->b_light == false \
-	|| (data()->camera.orientation.x == 0 \
-	&& data()->camera.orientation.y == 0 && data()->camera.orientation.z == 0))
-		return (-1);
-	return (0);
+	return (parser_check(i, data()->camera.orientation));
 }
