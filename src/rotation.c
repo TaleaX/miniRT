@@ -24,7 +24,7 @@ t_vec3	vec3_rotate_x(t_vec3 vec, double deg)
 	return (rotated);
 }
 
-t_vec3	vec3_rotate_z(t_vec3 vec, double deg)
+t_vec3	vec3_rotate_y(t_vec3 vec, double deg)
 {
 	double	rad;
 	t_vec3	rotated;
@@ -36,7 +36,7 @@ t_vec3	vec3_rotate_z(t_vec3 vec, double deg)
 	return (rotated);
 }
 
-t_vec3	vec3_rotate_y(t_vec3 vec, double deg)
+t_vec3	vec3_rotate_z(t_vec3 vec, double deg)
 {
 	double	rad;
 	t_vec3	rotated;
